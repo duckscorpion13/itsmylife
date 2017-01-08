@@ -36,15 +36,15 @@ class ViewController: UIViewController ,UIScrollViewDelegate{
     
     
     override func viewDidAppear(_ animated: Bool) {
-        // 將imageView大小調整為跟scrollView一樣
-        self.imgView?.frame = self.sclView.bounds
-        // 取得圖片縮小後的長寬
-        let size=getImageSizeAfterAspectFit(self.imgView!)
-        // 將imageView的大小調整為圖片大小
-        self.imgView?.frame = CGRect(x: 0, y: 0, width: size.width, height: size.height)
-        // 將scrollView的容器大小調整為imageView大小
-        self.sclView.contentSize = (self.imgView?.frame.size)!;
-        
+//        // 將imageView大小調整為跟scrollView一樣
+//        self.imgView?.frame = self.sclView.bounds
+//        // 取得圖片縮小後的長寬
+//        let size=getImageSizeAfterAspectFit(self.imgView!)
+//        // 將imageView的大小調整為圖片大小
+//        self.imgView?.frame = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+//        // 將scrollView的容器大小調整為imageView大小
+//        self.sclView.contentSize = (self.imgView?.frame.size)!;
+        self.sclView.contentSize = (self.imgView?.image!.size)!;
         detect((self.imgView?.image!)!)
     }
     

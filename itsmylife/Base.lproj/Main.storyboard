@@ -21,7 +21,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" fixedFrame="YES" maximumZoomScale="3" translatesAutoresizingMaskIntoConstraints="NO" id="bBk-d5-5th">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" maximumZoomScale="3" translatesAutoresizingMaskIntoConstraints="NO" id="bBk-d5-5th">
                                 <rect key="frame" x="10" y="10" width="394" height="716"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </scrollView>
