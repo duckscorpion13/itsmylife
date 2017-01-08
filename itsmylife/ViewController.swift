@@ -9,33 +9,75 @@
 import UIKit
 import CoreImage
 
-class ViewController: UIViewController {
+class ViewController: UIViewController ,UIScrollViewDelegate{
   
-    @IBOutlet weak var imgView: UIImageView!
+ 
+    @IBOutlet weak var sclView: UIScrollView!
+    
+    var imgView: UIImageView?
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         do{
             let urlImg=URL(string:"http://i.imgur.com/Femi2yA.jpg")
             let dataImg=try Data(contentsOf: urlImg!)
-//            self.imgView.contentMode = .redraw
-            self.imgView.image=UIImage(data: dataImg)
-            detect()
+           
+            if let img=UIImage(data: dataImg){
+                self.imgView=UIImageView(image:img)
+                self.imgView?.contentMode = .scaleAspectFill
+                self.sclView.addSubview(self.imgView!)
+                
+            }
         }catch{
             print("\(error)")
         }
-//        self.imgView.image=UIImage(named: "face-5.jpg")
-//        detect()
-    }
 
+    }
+    
+    
+    override func viewDidAppear(_ animated: Bool) {
+        // 將imageView大小調整為跟scrollView一樣
+        self.imgView?.frame = self.sclView.bounds
+        // 取得圖片縮小後的長寬
+        let size=getImageSizeAfterAspectFit(self.imgView!)
+        // 將imageView的大小調整為圖片大小
+        self.imgView?.frame = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+        // 將scrollView的容器大小調整為imageView大小
+        self.sclView.contentSize = (self.imgView?.frame.size)!;
+        
+        detect((self.imgView?.image!)!)
+    }
+    
+    
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        return self.imgView
+    }
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-    func detect() {
+    
+    func getImageSizeAfterAspectFit(_ imgView:UIImageView) -> CGSize {
+        guard imgView.image != nil else {
+            return CGSize(width: 0, height: 0)
+        }
         
-        guard let personciImage = CIImage(image: self.imgView.image!) else {
+        let widthRatio = imgView.bounds.size.width / imgView.image!.size.width
+        let heightRatio = imgView.bounds.size.height / imgView.image!.size.height
+        
+        let scale = (widthRatio >= heightRatio) ? heightRatio : widthRatio
+        let imageWidth = scale * imgView.image!.size.width
+        let imageHeight = scale * imgView.image!.size.height
+        
+        return CGSize(width: imageWidth, height: imageHeight)
+    }
+    
+    func detect(_ img: UIImage) {
+        
+        guard let personciImage = CIImage(image: img) else {
             return
         }
         
@@ -56,11 +98,11 @@ class ViewController: UIViewController {
             var faceViewBounds = face.bounds.applying(transform)
             
             // Calculate the actual position and size of the rectangle in the image view
-            let viewSize = self.imgView.bounds.size
-            let scale = min(viewSize.width / ciImageSize.width,
-                            viewSize.height / ciImageSize.height)
-            let offsetX = (viewSize.width - ciImageSize.width * scale) / 2
-            let offsetY = (viewSize.height - ciImageSize.height * scale) / 2
+            let viewSize = self.imgView?.bounds.size
+            let scale = min((viewSize?.width)! / ciImageSize.width,
+                            (viewSize?.height)! / ciImageSize.height)
+            let offsetX = ((viewSize?.width)! - ciImageSize.width * scale) / 2
+            let offsetY = ((viewSize?.height)! - ciImageSize.height * scale) / 2
             
             faceViewBounds = faceViewBounds.applying(CGAffineTransform(scaleX: scale, y: scale))
             faceViewBounds.origin.x += offsetX
@@ -71,7 +113,7 @@ class ViewController: UIViewController {
             faceBox.layer.borderWidth = 3
             faceBox.layer.borderColor = UIColor.red.cgColor
             faceBox.backgroundColor = UIColor.clear
-            self.imgView.addSubview(faceBox)
+            self.imgView?.addSubview(faceBox)
             
             if face.hasLeftEyePosition {
                 print("Left eye bounds are \(face.leftEyePosition)")

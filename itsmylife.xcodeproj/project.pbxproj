@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F97706CB1E21FBD500A52F27 /* 003.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F97706CA1E21FBD500A52F27 /* 003.jpg */; };
 		F9AAD98B1E2118CD00A54488 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9AAD98A1E2118CD00A54488 /* AppDelegate.swift */; };
 		F9AAD98D1E2118CD00A54488 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9AAD98C1E2118CD00A54488 /* ViewController.swift */; };
 		F9AAD9901E2118CD00A54488 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F9AAD98E1E2118CD00A54488 /* Main.storyboard */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F97706CA1E21FBD500A52F27 /* 003.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 003.jpg; sourceTree = "<group>"; };
 		F9AAD9871E2118CD00A54488 /* itsmylife.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = itsmylife.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9AAD98A1E2118CD00A54488 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F9AAD98C1E2118CD00A54488 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -39,6 +41,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F97706CD1E21FE4900A52F27 /* picture */ = {
+			isa = PBXGroup;
+			children = (
+				F97706CA1E21FBD500A52F27 /* 003.jpg */,
+				F9D1F57E1E212C1600716129 /* face-5.jpg */,
+				F9D1F5801E212EAE00716129 /* face-1.jpg */,
+			);
+			name = picture;
+			sourceTree = "<group>";
+		};
 		F9AAD97E1E2118CD00A54488 = {
 			isa = PBXGroup;
 			children = (
@@ -64,8 +76,7 @@
 				F9AAD9911E2118CD00A54488 /* Assets.xcassets */,
 				F9AAD9931E2118CD00A54488 /* LaunchScreen.storyboard */,
 				F9AAD9961E2118CE00A54488 /* Info.plist */,
-				F9D1F57E1E212C1600716129 /* face-5.jpg */,
-				F9D1F5801E212EAE00716129 /* face-1.jpg */,
+				F97706CD1E21FE4900A52F27 /* picture */,
 			);
 			path = itsmylife;
 			sourceTree = "<group>";
@@ -133,6 +144,7 @@
 				F9AAD9951E2118CD00A54488 /* LaunchScreen.storyboard in Resources */,
 				F9AAD9921E2118CD00A54488 /* Assets.xcassets in Resources */,
 				F9D1F57F1E212C1600716129 /* face-5.jpg in Resources */,
+				F97706CB1E21FBD500A52F27 /* 003.jpg in Resources */,
 				F9D1F5811E212EAE00716129 /* face-1.jpg in Resources */,
 				F9AAD9901E2118CD00A54488 /* Main.storyboard in Resources */,
 			);
