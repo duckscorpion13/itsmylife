@@ -9,25 +9,29 @@
 /* Begin PBXBuildFile section */
 		F97706CB1E21FBD500A52F27 /* 003.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F97706CA1E21FBD500A52F27 /* 003.jpg */; };
 		F9AAD98B1E2118CD00A54488 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9AAD98A1E2118CD00A54488 /* AppDelegate.swift */; };
-		F9AAD98D1E2118CD00A54488 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9AAD98C1E2118CD00A54488 /* ViewController.swift */; };
+		F9AAD98D1E2118CD00A54488 /* ScrollVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9AAD98C1E2118CD00A54488 /* ScrollVC.swift */; };
 		F9AAD9901E2118CD00A54488 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F9AAD98E1E2118CD00A54488 /* Main.storyboard */; };
 		F9AAD9921E2118CD00A54488 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F9AAD9911E2118CD00A54488 /* Assets.xcassets */; };
 		F9AAD9951E2118CD00A54488 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F9AAD9931E2118CD00A54488 /* LaunchScreen.storyboard */; };
 		F9D1F57F1E212C1600716129 /* face-5.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F9D1F57E1E212C1600716129 /* face-5.jpg */; };
 		F9D1F5811E212EAE00716129 /* face-1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F9D1F5801E212EAE00716129 /* face-1.jpg */; };
+		F9EEDA9F1E2FAD7C00CD853D /* CollectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9EEDA9E1E2FAD7C00CD853D /* CollectionVC.swift */; };
+		F9EEDAA11E2FAFB600CD853D /* MyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9EEDAA01E2FAFB600CD853D /* MyCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		F97706CA1E21FBD500A52F27 /* 003.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 003.jpg; sourceTree = "<group>"; };
 		F9AAD9871E2118CD00A54488 /* itsmylife.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = itsmylife.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9AAD98A1E2118CD00A54488 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		F9AAD98C1E2118CD00A54488 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		F9AAD98C1E2118CD00A54488 /* ScrollVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollVC.swift; sourceTree = "<group>"; };
 		F9AAD98F1E2118CD00A54488 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F9AAD9911E2118CD00A54488 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F9AAD9941E2118CD00A54488 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F9AAD9961E2118CE00A54488 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F9D1F57E1E212C1600716129 /* face-5.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "face-5.jpg"; sourceTree = "<group>"; };
 		F9D1F5801E212EAE00716129 /* face-1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "face-1.jpg"; sourceTree = "<group>"; };
+		F9EEDA9E1E2FAD7C00CD853D /* CollectionVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionVC.swift; sourceTree = "<group>"; };
+		F9EEDAA01E2FAFB600CD853D /* MyCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,8 +75,10 @@
 			isa = PBXGroup;
 			children = (
 				F9AAD98A1E2118CD00A54488 /* AppDelegate.swift */,
-				F9AAD98C1E2118CD00A54488 /* ViewController.swift */,
+				F9AAD98C1E2118CD00A54488 /* ScrollVC.swift */,
 				F9AAD98E1E2118CD00A54488 /* Main.storyboard */,
+				F9EEDA9E1E2FAD7C00CD853D /* CollectionVC.swift */,
+				F9EEDAA01E2FAFB600CD853D /* MyCell.swift */,
 				F9AAD9911E2118CD00A54488 /* Assets.xcassets */,
 				F9AAD9931E2118CD00A54488 /* LaunchScreen.storyboard */,
 				F9AAD9961E2118CE00A54488 /* Info.plist */,
@@ -157,7 +163,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F9AAD98D1E2118CD00A54488 /* ViewController.swift in Sources */,
+				F9EEDA9F1E2FAD7C00CD853D /* CollectionVC.swift in Sources */,
+				F9EEDAA11E2FAFB600CD853D /* MyCell.swift in Sources */,
+				F9AAD98D1E2118CD00A54488 /* ScrollVC.swift in Sources */,
 				F9AAD98B1E2118CD00A54488 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -224,7 +232,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -268,7 +276,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";

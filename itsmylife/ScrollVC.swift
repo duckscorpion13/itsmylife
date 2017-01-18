@@ -9,9 +9,10 @@
 import UIKit
 import CoreImage
 
-class ViewController: UIViewController ,UIScrollViewDelegate{
+class ScrollVC: UIViewController ,UIScrollViewDelegate{
   
  
+  
     @IBOutlet weak var sclView: UIScrollView!
     
     var imgView: UIImageView?
