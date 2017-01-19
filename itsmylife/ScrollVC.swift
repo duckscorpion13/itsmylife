@@ -11,7 +11,7 @@ import CoreImage
 
 class ScrollVC: UIViewController ,UIScrollViewDelegate{
   
- 
+    var m_img:UIImage?
   
     @IBOutlet weak var sclView: UIScrollView!
     
@@ -19,21 +19,30 @@ class ScrollVC: UIViewController ,UIScrollViewDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        do{
-            let urlImg=URL(string:"http://i.imgur.com/Femi2yA.jpg")
-            let dataImg=try Data(contentsOf: urlImg!)
-           
-            if let img=UIImage(data: dataImg){
-                self.imgView=UIImageView(image:img)
+        if m_img==nil{
+            do{
+                let urlImg=URL(string:"http://i.imgur.com/Femi2yA.jpg")
+                let dataImg=try Data(contentsOf: urlImg!)
+                
+                if let img=UIImage(data: dataImg){
+                    self.imgView=UIImageView(image:img)
+                    self.imgView?.contentMode = .scaleAspectFill
+                    self.sclView.addSubview(self.imgView!)
+                    
+                }
+            }catch{
+                print("\(error)")
+            }
+        }
+        else{
+            
+                self.imgView=UIImageView(image:m_img)
                 self.imgView?.contentMode = .scaleAspectFill
                 self.sclView.addSubview(self.imgView!)
-                
-            }
-        }catch{
-            print("\(error)")
         }
 
     }
+   
     
     
     override func viewDidAppear(_ animated: Bool) {
