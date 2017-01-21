@@ -85,6 +85,8 @@ class ScrollVC: UIViewController ,UIScrollViewDelegate{
         return CGSize(width: imageWidth, height: imageHeight)
     }
     
+  
+    
     func detect(_ img: UIImage) {
         
         guard let personciImage = CIImage(image: img) else {
