@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F93772261E3630BB00973764 /* CameraVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93772251E3630BB00973764 /* CameraVC.swift */; };
 		F97706CB1E21FBD500A52F27 /* 003.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F97706CA1E21FBD500A52F27 /* 003.jpg */; };
 		F9AAD98B1E2118CD00A54488 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9AAD98A1E2118CD00A54488 /* AppDelegate.swift */; };
 		F9AAD98D1E2118CD00A54488 /* ScrollVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9AAD98C1E2118CD00A54488 /* ScrollVC.swift */; };
@@ -18,10 +19,10 @@
 		F9EEDA9F1E2FAD7C00CD853D /* CollectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9EEDA9E1E2FAD7C00CD853D /* CollectionVC.swift */; };
 		F9EEDAA11E2FAFB600CD853D /* MyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9EEDAA01E2FAFB600CD853D /* MyCell.swift */; };
 		F9F6C12B1E35BC0400A58780 /* ImgPickVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9F6C12A1E35BC0400A58780 /* ImgPickVC.swift */; };
-		F9F6C12D1E35D53600A58780 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9F6C12C1E35D53600A58780 /* CameraViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F93772251E3630BB00973764 /* CameraVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraVC.swift; sourceTree = "<group>"; };
 		F97706CA1E21FBD500A52F27 /* 003.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 003.jpg; sourceTree = "<group>"; };
 		F9AAD9871E2118CD00A54488 /* itsmylife.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = itsmylife.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9AAD98A1E2118CD00A54488 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -35,7 +36,6 @@
 		F9EEDA9E1E2FAD7C00CD853D /* CollectionVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionVC.swift; sourceTree = "<group>"; };
 		F9EEDAA01E2FAFB600CD853D /* MyCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyCell.swift; sourceTree = "<group>"; };
 		F9F6C12A1E35BC0400A58780 /* ImgPickVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImgPickVC.swift; sourceTree = "<group>"; };
-		F9F6C12C1E35D53600A58780 /* CameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,7 +83,7 @@
 				F9AAD98E1E2118CD00A54488 /* Main.storyboard */,
 				F9EEDA9E1E2FAD7C00CD853D /* CollectionVC.swift */,
 				F9F6C12A1E35BC0400A58780 /* ImgPickVC.swift */,
-				F9F6C12C1E35D53600A58780 /* CameraViewController.swift */,
+				F93772251E3630BB00973764 /* CameraVC.swift */,
 				F9EEDAA01E2FAFB600CD853D /* MyCell.swift */,
 				F9AAD9911E2118CD00A54488 /* Assets.xcassets */,
 				F9AAD9931E2118CD00A54488 /* LaunchScreen.storyboard */,
@@ -173,8 +173,8 @@
 				F9EEDAA11E2FAFB600CD853D /* MyCell.swift in Sources */,
 				F9F6C12B1E35BC0400A58780 /* ImgPickVC.swift in Sources */,
 				F9AAD98D1E2118CD00A54488 /* ScrollVC.swift in Sources */,
+				F93772261E3630BB00973764 /* CameraVC.swift in Sources */,
 				F9AAD98B1E2118CD00A54488 /* AppDelegate.swift in Sources */,
-				F9F6C12D1E35D53600A58780 /* CameraViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
