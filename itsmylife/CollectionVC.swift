@@ -38,8 +38,19 @@ class CollectionVC: UIViewController, UICollectionViewDataSource, UICollectionVi
         
         if let vc=storyboard?.instantiateViewController(withIdentifier: "SVC"){
             if let svc = vc as? ScrollVC{
-                svc.m_img=list[indexPath.row]
-                show(svc, sender: self)
+                let fetchResult = PHAsset.fetchAssets(with: .image, options: nil)
+                let imageAsset = fetchResult.object(at: indexPath.row)
+                PHImageManager.default().requestImage(
+                    for: imageAsset,
+                    targetSize: PHImageManagerMaximumSize,
+                    contentMode: .default,
+                    options: nil,
+                    resultHandler: { (image, nil) in
+                        // 參數 image 即為所取得的圖片
+                        svc.m_img=image
+                        self.show(svc, sender: self)
+
+                })
             }
         }
         
@@ -60,6 +71,8 @@ class CollectionVC: UIViewController, UICollectionViewDataSource, UICollectionVi
             let imageAsset = fetchResult.object(at: n)
             let size = CGSize(width: imageAsset.pixelWidth, height: imageAsset.pixelHeight)
             
+       
+
             PHImageManager.default().requestImage(
                 for: imageAsset,
                 targetSize: size,
