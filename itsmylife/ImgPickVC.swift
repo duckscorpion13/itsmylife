@@ -14,6 +14,9 @@ class ImgPickVC: UIViewController,  UIImagePickerControllerDelegate, UINavigatio
 
     @IBOutlet weak var sclView: UIScrollView!
     
+    @IBAction func btnClick(_ sender: Any) {
+        newIPVC()
+    }
     var imgView: UIImageView?
     let imagePickerVC = UIImagePickerController()
     func newIPVC() {
@@ -40,12 +43,7 @@ class ImgPickVC: UIViewController,  UIImagePickerControllerDelegate, UINavigatio
         sclView.delegate=self
         // Do any additional setup after loading the view.
             }
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        if(imgView==nil){
-            newIPVC()
-        }
-    }
+   
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -59,7 +57,7 @@ class ImgPickVC: UIViewController,  UIImagePickerControllerDelegate, UINavigatio
         self.imgView=UIImageView(image:image)
         self.imgView?.contentMode = .scaleAspectFill
         self.sclView.addSubview(self.imgView!)
-        detect(self.imgView!.image!)
+        detect(self.imgView!.image!,imgViewSize: (self.imgView?.bounds.size)!)
         dismiss(animated: true, completion: nil)
     }
 
@@ -88,7 +86,7 @@ class ImgPickVC: UIViewController,  UIImagePickerControllerDelegate, UINavigatio
     }
 
     
-    func detect(_ img: UIImage) {
+    func detect(_ img: UIImage,imgViewSize size:CGSize) {
         
         guard let personciImage = CIImage(image: img) else {
             return
@@ -111,11 +109,11 @@ class ImgPickVC: UIViewController,  UIImagePickerControllerDelegate, UINavigatio
             var faceViewBounds = face.bounds.applying(transform)
             
             // Calculate the actual position and size of the rectangle in the image view
-            let viewSize = self.imgView?.bounds.size
-            let scale = min((viewSize?.width)! / ciImageSize.width,
-                            (viewSize?.height)! / ciImageSize.height)
-            let offsetX = ((viewSize?.width)! - ciImageSize.width * scale) / 2
-            let offsetY = ((viewSize?.height)! - ciImageSize.height * scale) / 2
+            let viewSize = size
+            let scale = min((viewSize.width) / ciImageSize.width,
+                            (viewSize.height) / ciImageSize.height)
+            let offsetX = ((viewSize.width) - ciImageSize.width * scale) / 2
+            let offsetY = ((viewSize.height) - ciImageSize.height * scale) / 2
             
             faceViewBounds = faceViewBounds.applying(CGAffineTransform(scaleX: scale, y: scale))
             faceViewBounds.origin.x += offsetX

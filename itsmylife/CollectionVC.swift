@@ -7,19 +7,18 @@
 //
 
 import UIKit
+import Photos
 
 class CollectionVC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
 
-    var list = [(String,UIImage?)]()
-    
+    var list: [UIImage]!
   
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-    list.append(("AAA",UIImage(named:"003.jpg")))
-    list.append(("BBB",UIImage(named:"face-5.jpg")))
-    list.append(("CCC",UIImage(named:"face-1.jpg")))
+        list = fetchAllPhotos()
+
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -32,16 +31,14 @@ class CollectionVC: UIViewController, UICollectionViewDataSource, UICollectionVi
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! MyCell
-        cell.label.text = list[indexPath.row].0
-        cell.img.image = list[indexPath.row].1
+        cell.img.image = list[indexPath.row]
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath){
         
-        print(list[indexPath.row].0)
         if let vc=storyboard?.instantiateViewController(withIdentifier: "SVC"){
             if let svc = vc as? ScrollVC{
-                svc.m_img=list[indexPath.row].1
+                svc.m_img=list[indexPath.row]
                 show(svc, sender: self)
             }
         }
@@ -54,7 +51,28 @@ class CollectionVC: UIViewController, UICollectionViewDataSource, UICollectionVi
 //            vc.img = imgSel
 //        }
 //    }
-    
+    func fetchAllPhotos() -> [UIImage]  {
+        var images = [UIImage]()
+        
+        // 從裝置中取得所有類型為圖片的asset
+        let fetchResult = PHAsset.fetchAssets(with: .image, options: nil)
+        for n in 0 ..< fetchResult.count {
+            let imageAsset = fetchResult.object(at: n)
+            let size = CGSize(width: imageAsset.pixelWidth, height: imageAsset.pixelHeight)
+            
+            PHImageManager.default().requestImage(
+                for: imageAsset,
+                targetSize: size,
+                contentMode: .default,
+                options: nil,
+                resultHandler: { (image, nil) in
+                    // 參數 image 即為所取得的圖片
+                    images.append(image!)
+            })
+        }
+        
+        return images
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

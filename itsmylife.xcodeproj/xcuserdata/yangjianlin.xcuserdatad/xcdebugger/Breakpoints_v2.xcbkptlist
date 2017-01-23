@@ -105,11 +105,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "itsmylife/CollectionVC.swift"
-            timestampString = "506444872.111554"
+            timestampString = "506852018.825447"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "36"
-            endingLineNumber = "36"
+            startingLineNumber = "34"
+            endingLineNumber = "34"
             landmarkName = "collectionView(_:cellForItemAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -117,15 +117,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "itsmylife/CollectionVC.swift"
-            timestampString = "506528899.069966"
+            timestampString = "506852018.825447"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "54"
-            endingLineNumber = "54"
+            startingLineNumber = "51"
+            endingLineNumber = "51"
             landmarkName = "CollectionVC"
             landmarkType = "3">
          </BreakpointContent>
@@ -137,11 +137,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "itsmylife/CollectionVC.swift"
-            timestampString = "506528110.293622"
+            timestampString = "506852018.825447"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "40"
-            endingLineNumber = "40"
+            startingLineNumber = "38"
+            endingLineNumber = "38"
             landmarkName = "collectionView(_:didSelectItemAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -153,11 +153,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "itsmylife/CollectionVC.swift"
-            timestampString = "506528495.572614"
+            timestampString = "506852018.825447"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "42"
-            endingLineNumber = "42"
+            startingLineNumber = "39"
+            endingLineNumber = "39"
             landmarkName = "collectionView(_:didSelectItemAt:)"
             landmarkType = "7">
             <Locations>
@@ -233,11 +233,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "itsmylife/ImgPickVC.swift"
-            timestampString = "506839326.822852"
+            timestampString = "506852018.825447"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "35"
-            endingLineNumber = "35"
+            startingLineNumber = "39"
+            endingLineNumber = "39"
             landmarkName = "newIPVC()"
             landmarkType = "7">
          </BreakpointContent>
@@ -249,28 +249,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "itsmylife/ImgPickVC.swift"
-            timestampString = "506839326.822852"
+            timestampString = "506852018.825447"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "39"
-            endingLineNumber = "39"
+            startingLineNumber = "43"
+            endingLineNumber = "43"
             landmarkName = "viewDidLoad()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "itsmylife/ImgPickVC.swift"
-            timestampString = "506845264.882731"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "67"
-            endingLineNumber = "67"
-            landmarkName = "imagePickerControllerDidCancel(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -281,13 +265,107 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "itsmylife/ImgPickVC.swift"
-            timestampString = "506845264.882731"
+            timestampString = "506852018.825447"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "63"
-            endingLineNumber = "63"
-            landmarkName = "imagePickerController(_:didFinishPickingMediaWithInfo:)"
+            startingLineNumber = "70"
+            endingLineNumber = "70"
+            landmarkName = "getImageSizeAfterAspectFit(_:)"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "itsmylife/ImgPickVC.swift"
+            timestampString = "506852018.825447"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "65"
+            endingLineNumber = "65"
+            landmarkName = "imagePickerControllerDidCancel(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "itsmylife/CollectionVC.swift"
+            timestampString = "506851897.997053"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "12"
+            endingLineNumber = "12"
+            landmarkName = "CollectionVC"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "itsmylife.CollectionVC.list.getter : Swift.Array&lt;(Swift.String, Swift.Optional&lt;__ObjC.UIImage&gt;)&gt;"
+                  moduleName = "itsmylife"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/yangjianlin/Google%20Drive/swift/mySwift/itsmylife/itsmylife/CollectionVC.swift"
+                  timestampString = "506851898.440574"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "13"
+                  endingLineNumber = "13"
+                  offsetFromSymbolStart = "48">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "itsmylife.CollectionVC.list.setter : Swift.Array&lt;(Swift.String, Swift.Optional&lt;__ObjC.UIImage&gt;)&gt;"
+                  moduleName = "itsmylife"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/yangjianlin/Google%20Drive/swift/mySwift/itsmylife/itsmylife/CollectionVC.swift"
+                  timestampString = "506851898.442273"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "13"
+                  endingLineNumber = "13"
+                  offsetFromSymbolStart = "76">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "itsmylife.CollectionVC.init (nibName : Swift.Optional&lt;Swift.String&gt;, bundle : Swift.Optional&lt;__ObjC.Bundle&gt;) -&gt; itsmylife.CollectionVC"
+                  moduleName = "itsmylife"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/yangjianlin/Google%20Drive/swift/mySwift/itsmylife/itsmylife/CollectionVC.swift"
+                  timestampString = "506851898.443837"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "13"
+                  endingLineNumber = "13"
+                  offsetFromSymbolStart = "60">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "itsmylife.CollectionVC.init (coder : __ObjC.NSCoder) -&gt; Swift.Optional&lt;itsmylife.CollectionVC&gt;"
+                  moduleName = "itsmylife"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/yangjianlin/Google%20Drive/swift/mySwift/itsmylife/itsmylife/CollectionVC.swift"
+                  timestampString = "506851898.445867"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "13"
+                  endingLineNumber = "13"
+                  offsetFromSymbolStart = "20">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
