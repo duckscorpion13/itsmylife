@@ -17,6 +17,8 @@
 		F9D1F5811E212EAE00716129 /* face-1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F9D1F5801E212EAE00716129 /* face-1.jpg */; };
 		F9EEDA9F1E2FAD7C00CD853D /* CollectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9EEDA9E1E2FAD7C00CD853D /* CollectionVC.swift */; };
 		F9EEDAA11E2FAFB600CD853D /* MyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9EEDAA01E2FAFB600CD853D /* MyCell.swift */; };
+		F9F6C12B1E35BC0400A58780 /* ImgPickVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9F6C12A1E35BC0400A58780 /* ImgPickVC.swift */; };
+		F9F6C12D1E35D53600A58780 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9F6C12C1E35D53600A58780 /* CameraViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +34,8 @@
 		F9D1F5801E212EAE00716129 /* face-1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "face-1.jpg"; sourceTree = "<group>"; };
 		F9EEDA9E1E2FAD7C00CD853D /* CollectionVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionVC.swift; sourceTree = "<group>"; };
 		F9EEDAA01E2FAFB600CD853D /* MyCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyCell.swift; sourceTree = "<group>"; };
+		F9F6C12A1E35BC0400A58780 /* ImgPickVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImgPickVC.swift; sourceTree = "<group>"; };
+		F9F6C12C1E35D53600A58780 /* CameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +82,8 @@
 				F9AAD98C1E2118CD00A54488 /* ScrollVC.swift */,
 				F9AAD98E1E2118CD00A54488 /* Main.storyboard */,
 				F9EEDA9E1E2FAD7C00CD853D /* CollectionVC.swift */,
+				F9F6C12A1E35BC0400A58780 /* ImgPickVC.swift */,
+				F9F6C12C1E35D53600A58780 /* CameraViewController.swift */,
 				F9EEDAA01E2FAFB600CD853D /* MyCell.swift */,
 				F9AAD9911E2118CD00A54488 /* Assets.xcassets */,
 				F9AAD9931E2118CD00A54488 /* LaunchScreen.storyboard */,
@@ -165,8 +171,10 @@
 			files = (
 				F9EEDA9F1E2FAD7C00CD853D /* CollectionVC.swift in Sources */,
 				F9EEDAA11E2FAFB600CD853D /* MyCell.swift in Sources */,
+				F9F6C12B1E35BC0400A58780 /* ImgPickVC.swift in Sources */,
 				F9AAD98D1E2118CD00A54488 /* ScrollVC.swift in Sources */,
 				F9AAD98B1E2118CD00A54488 /* AppDelegate.swift in Sources */,
+				F9F6C12D1E35D53600A58780 /* CameraViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
