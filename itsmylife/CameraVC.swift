@@ -1,3 +1,4 @@
+
 //
 //  ViewController.swift
 //  CaptureImage
@@ -10,7 +11,7 @@ import UIKit
 import AVFoundation
 import ImageIO
 
-class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate {
+class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, UIScrollViewDelegate {
 
     // 負責協調從截取裝置到輸出間的資料流動
     let session = AVCaptureSession()
@@ -22,11 +23,17 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate {
     // 後置鏡頭
     var backCameraDevice: AVCaptureDeviceInput?
 
-
+    @IBOutlet weak var sclView: UIScrollView!
     @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var myView: UIView!
+    
+    var myView: UIView?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.sclView.delegate=self
+        self.myView=UIView(frame:CGRect(x: self.sclView.center.x, y: self.sclView.center.y, width: 100, height: 100))
+        self.myView?.contentMode = .scaleAspectFill
+        self.sclView.addSubview(self.myView!)
         // Do any additional setup after loading the view, typically from a nib.
         
         // 設定擷取的畫面品質為相片品質（最高品質）
@@ -53,7 +60,7 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate {
                 // 運用layer的方式將鏡頭目前“看到”的影像即時顯示到view元件上
                 captureVideoPreviewLayer.session = session
                 captureVideoPreviewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
-                myView.layer.addSublayer(captureVideoPreviewLayer)
+                myView?.layer.addSublayer(captureVideoPreviewLayer)
                 
             }
         } else {
@@ -75,7 +82,7 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        captureVideoPreviewLayer.frame = myView.bounds
+        captureVideoPreviewLayer.frame = (myView?.bounds)!
     }
 
     @IBAction func startClick(_ sender: Any) {
@@ -124,6 +131,47 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate {
         // 圖片存檔
         UIImageWriteToSavedPhotosAlbum(imageView.image!, nil, nil, nil)
     }
+   
+    @IBAction func handlePinchGesture(_ sender: UIPinchGestureRecognizer) {
+        switch sender.state {
+        case .changed:
+            // scale > 1 是放大
+            // scale < 1 是縮小
+            
+            var newWidth=(self.myView?.bounds.width)! * sender.scale / 3
+            if(newWidth<60){
+                newWidth=60
+            }
+            if(newWidth>self.view.bounds.width){
+                newWidth=self.view.bounds.width
+            }
+            var newHeight=(self.myView?.bounds.height)! * sender.scale / 3
+            if(newHeight<60){
+                newHeight=60
+            }
+            if(newHeight>self.view.bounds.width){
+                newHeight=self.view.bounds.width
+            }
+//            self.myView.bounds = CGRect(x: 0, y: 0,
+//                                        width: newWidth, height: newHeight)
+            
+//            let originCenter = self.myView.center
+//            UIView.animate(
+//                withDuration: 0.5,
+//                animations: {
+//                    self.myView.bounds = CGRect(
+//                        x: 0, y: 0,
+//                        width: newWidth, height: newHeight)
+//                    
+//            })
+//            captureVideoPreviewLayer.frame = myView.bounds
+            print("\(sender.scale)")
+            
+        default:
+            break
+        }
+    }
+    
     
     @IBAction func switchValueChanged(_ sender: UISwitch) {
         // 修改前先呼叫 beginConfiguration
@@ -146,7 +194,9 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate {
     }
     
      
-
+//    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+//        return self.imgView
+//    }
   
 
     func cameraSetting() {
@@ -188,5 +238,7 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate {
         // 修改完 unlock
         camera.unlockForConfiguration()
     }
-
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        return self.myView
+    }
 }
