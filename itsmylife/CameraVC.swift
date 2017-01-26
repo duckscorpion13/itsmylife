@@ -35,7 +35,9 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, UIScrollViewDel
         self.myView?.contentMode = .scaleAspectFill
         self.sclView.addSubview(self.myView!)
         // Do any additional setup after loading the view, typically from a nib.
-        
+       
+       
+       
         // 設定擷取的畫面品質為相片品質（最高品質）
         // 其他的參數通常使用在錄影，例如VGA品質AVCaptureSessionPreset640x480
         // 如有需要請讀者自行參考 online help
@@ -241,4 +243,24 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, UIScrollViewDel
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return self.myView
     }
+    
+    var lastDrop:UIView?
+    @IBAction func grap(_ sender: UIPanGestureRecognizer) {
+        let gesturePoint = sender.location(in: self.sclView)
+        switch sender.state {
+        case .began:
+            if let hitView = view.hitTest(gesturePoint,with:nil), hitView.superview == self.sclView {
+                lastDrop = hitView
+            }
+            // create the attachment
+            
+        case .changed:
+            // change the attachment's anchor point
+            lastDrop?.center = gesturePoint
+        default:
+            break
+        }
+
+    }
+    
 }

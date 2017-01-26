@@ -200,6 +200,10 @@
                                     </switch>
                                 </subviews>
                                 <color key="backgroundColor" red="0.29818172139999999" green="1" blue="0.3305024345" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="B8G-p4-hwl" appends="YES" id="zNJ-PN-EiO"/>
+                                </connections>
                             </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -211,12 +215,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0Ea-6Y-5VP" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <pinchGestureRecognizer id="Mfo-Zz-V32">
+                <panGestureRecognizer minimumNumberOfTouches="1" id="B8G-p4-hwl">
                     <connections>
-                        <action selector="handlePinchGesture:" destination="O8K-mP-oig" id="muJ-ab-53g"/>
-                        <outlet property="delegate" destination="JwA-uV-jHk" id="z70-hA-tZA"/>
+                        <action selector="grap:" destination="O8K-mP-oig" id="TJu-nV-4vW"/>
                     </connections>
-                </pinchGestureRecognizer>
+                </panGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-1754.4000000000001" y="1402.8485757121441"/>
         </scene>

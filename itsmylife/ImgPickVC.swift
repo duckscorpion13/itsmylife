@@ -42,6 +42,7 @@ class ImgPickVC: UIViewController,  UIImagePickerControllerDelegate, UINavigatio
         super.viewDidLoad()
         sclView.delegate=self
         // Do any additional setup after loading the view.
+        
     }
    
     override func didReceiveMemoryWarning() {
@@ -143,6 +144,7 @@ class ImgPickVC: UIViewController,  UIImagePickerControllerDelegate, UINavigatio
             }
         }
     }
+    
     /*
     // MARK: - Navigation
 
