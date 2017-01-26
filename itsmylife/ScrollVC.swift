@@ -58,6 +58,9 @@ class ScrollVC: UIViewController ,UIScrollViewDelegate{
         detect((self.imgView?.image!)!)
     }
     
+    @IBAction func dismiss(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
     
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return self.imgView

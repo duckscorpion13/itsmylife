@@ -42,7 +42,7 @@ class ImgPickVC: UIViewController,  UIImagePickerControllerDelegate, UINavigatio
         super.viewDidLoad()
         sclView.delegate=self
         // Do any additional setup after loading the view.
-            }
+    }
    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -52,14 +52,22 @@ class ImgPickVC: UIViewController,  UIImagePickerControllerDelegate, UINavigatio
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         
         let image = info[UIImagePickerControllerOriginalImage] as! UIImage
-        self.sclView.contentSize = image.size;
-        
-        self.imgView=UIImageView(image:image)
-        self.imgView?.contentMode = .scaleAspectFill
-        self.sclView.addSubview(self.imgView!)
-        detect(self.imgView!.image!,imgViewSize: (self.imgView?.bounds.size)!)
-        dismiss(animated: true, completion: nil)
+//        imgView?.image=image
+        dismiss(animated: true){
+            if let vc=self.storyboard?.instantiateViewController(withIdentifier: "SVC") as? ScrollVC{
+                vc.m_img=image
+                self.show(vc, sender: self)
+            }
+        }
+//        self.sclView.contentSize = image.size;
+//        
+//        self.imgView=UIImageView(image:image)
+//        self.imgView?.contentMode = .scaleAspectFill
+//        self.sclView.addSubview(self.imgView!)
+//        detect(self.imgView!.image!,imgViewSize: (self.imgView?.bounds.size)!)
+//        dismiss(animated: true, completion: nil)
     }
+   
 
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)

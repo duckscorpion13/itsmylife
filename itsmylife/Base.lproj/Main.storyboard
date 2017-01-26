@@ -106,8 +106,10 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" minimumZoomScale="0.10000000000000001" maximumZoomScale="3" translatesAutoresizingMaskIntoConstraints="NO" id="bBk-d5-5th">
                                 <rect key="frame" x="10" y="10" width="355" height="647"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <gestureRecognizers/>
                                 <connections>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="ftI-B2-H1W"/>
+                                    <outletCollection property="gestureRecognizers" destination="dVA-6w-kkl" appends="YES" id="ftW-tS-Mf4"/>
                                 </connections>
                             </scrollView>
                         </subviews>
@@ -118,6 +120,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <swipeGestureRecognizer direction="right" id="dVA-6w-kkl">
+                    <connections>
+                        <action selector="dismiss:" destination="BYZ-38-t0r" id="up7-bg-Y33"/>
+                    </connections>
+                </swipeGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="554" y="-217"/>
         </scene>
