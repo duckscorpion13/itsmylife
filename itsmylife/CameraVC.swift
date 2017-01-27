@@ -28,6 +28,12 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, UIScrollViewDel
     
     var myView: UIView?
     
+    override func viewWillAppear(_ animated: Bool) {
+        session.startRunning()
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        session.stopRunning()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         self.sclView.delegate=self
@@ -87,13 +93,7 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, UIScrollViewDel
         captureVideoPreviewLayer.frame = (myView?.bounds)!
     }
 
-    @IBAction func startClick(_ sender: Any) {
-        session.startRunning()
-    }
-   
-    @IBAction func stopClick(_ sender: Any) {
-        session.stopRunning()
-    }
+
     
     @IBAction func takeClick(_ sender: Any) {
         if #available(iOS 10.0, *) {
@@ -244,19 +244,15 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, UIScrollViewDel
         return self.myView
     }
     
-    var lastDrop:UIView?
     @IBAction func grap(_ sender: UIPanGestureRecognizer) {
         let gesturePoint = sender.location(in: self.sclView)
         switch sender.state {
-        case .began:
-            if let hitView = view.hitTest(gesturePoint,with:nil), hitView.superview == self.sclView {
-                lastDrop = hitView
-            }
-            // create the attachment
-            
+      
         case .changed:
             // change the attachment's anchor point
-            lastDrop?.center = gesturePoint
+            if let hitView = view.hitTest(gesturePoint,with:nil), hitView.superview == self.sclView {
+                hitView.center = gesturePoint
+            }
         default:
             break
         }
