@@ -67,12 +67,10 @@ class CollectionVC: UIViewController, UICollectionViewDataSource, UICollectionVi
         
         // 從裝置中取得所有類型為圖片的asset
         let fetchResult = PHAsset.fetchAssets(with: .image, options: nil)
-        for n in 0 ..< fetchResult.count {
-            let imageAsset = fetchResult.object(at: n)
-            let size = CGSize(width: imageAsset.pixelWidth, height: imageAsset.pixelHeight)
-            
-       
-
+        for i in 0 ..< fetchResult.count {
+            let imageAsset = fetchResult.object(at: i)
+//            let size = CGSize(width: imageAsset.pixelWidth, height: imageAsset.pixelHeight)
+            let size = CGSize(width: 128, height: 128)
             PHImageManager.default().requestImage(
                 for: imageAsset,
                 targetSize: size,
