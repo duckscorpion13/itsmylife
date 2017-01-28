@@ -13,6 +13,19 @@ class ScrollVC: UIViewController ,UIScrollViewDelegate{
   
     var m_img:UIImage?
   
+    @IBAction func longPress(_ sender: Any) {
+        self.imgView?.removeFromSuperview()
+        // 將imageView大小調整為跟scrollView一樣
+        self.imgView?.frame = self.sclView.bounds
+        // 取得圖片縮小後的長寬
+        let size=getImageSizeAfterAspectFit(self.imgView!)
+        // 將imageView的大小調整為圖片大小
+        self.imgView?.frame = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+        // 將scrollView的容器大小調整為imageView大小
+        self.sclView.contentSize = (self.imgView?.frame.size)!
+        self.sclView.addSubview(self.imgView!)
+
+    }
     @IBOutlet weak var sclView: UIScrollView!
     
     var imgView: UIImageView?
