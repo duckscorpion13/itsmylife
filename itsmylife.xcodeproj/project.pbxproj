@@ -16,9 +16,11 @@
 		F9AAD9951E2118CD00A54488 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F9AAD9931E2118CD00A54488 /* LaunchScreen.storyboard */; };
 		F9D1F57F1E212C1600716129 /* face-5.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F9D1F57E1E212C1600716129 /* face-5.jpg */; };
 		F9D1F5811E212EAE00716129 /* face-1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F9D1F5801E212EAE00716129 /* face-1.jpg */; };
+		F9EE8C551E3CAA5100A3596E /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9EE8C541E3CAA5100A3596E /* MapVC.swift */; };
 		F9EEDA9F1E2FAD7C00CD853D /* CollectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9EEDA9E1E2FAD7C00CD853D /* CollectionVC.swift */; };
 		F9EEDAA11E2FAFB600CD853D /* MyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9EEDAA01E2FAFB600CD853D /* MyCell.swift */; };
 		F9F6C12B1E35BC0400A58780 /* ImgPickVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9F6C12A1E35BC0400A58780 /* ImgPickVC.swift */; };
+		F9F823291E3CACF100388F9E /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9F823281E3CACF100388F9E /* MapKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,9 +35,11 @@
 		F9AAD9961E2118CE00A54488 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F9D1F57E1E212C1600716129 /* face-5.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "face-5.jpg"; sourceTree = "<group>"; };
 		F9D1F5801E212EAE00716129 /* face-1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "face-1.jpg"; sourceTree = "<group>"; };
+		F9EE8C541E3CAA5100A3596E /* MapVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
 		F9EEDA9E1E2FAD7C00CD853D /* CollectionVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionVC.swift; sourceTree = "<group>"; };
 		F9EEDAA01E2FAFB600CD853D /* MyCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyCell.swift; sourceTree = "<group>"; };
 		F9F6C12A1E35BC0400A58780 /* ImgPickVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImgPickVC.swift; sourceTree = "<group>"; };
+		F9F823281E3CACF100388F9E /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,6 +47,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F9F823291E3CACF100388F9E /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -64,6 +69,7 @@
 			children = (
 				F9AAD9891E2118CD00A54488 /* itsmylife */,
 				F9AAD9881E2118CD00A54488 /* Products */,
+				F9F823271E3CACF100388F9E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -81,6 +87,7 @@
 				F9AAD98A1E2118CD00A54488 /* AppDelegate.swift */,
 				F9AAD98C1E2118CD00A54488 /* ScrollVC.swift */,
 				F9AAD98E1E2118CD00A54488 /* Main.storyboard */,
+				F9EE8C541E3CAA5100A3596E /* MapVC.swift */,
 				F9EEDA9E1E2FAD7C00CD853D /* CollectionVC.swift */,
 				F9F6C12A1E35BC0400A58780 /* ImgPickVC.swift */,
 				F93772251E3630BB00973764 /* CameraVC.swift */,
@@ -91,6 +98,14 @@
 				F97706CD1E21FE4900A52F27 /* picture */,
 			);
 			path = itsmylife;
+			sourceTree = "<group>";
+		};
+		F9F823271E3CACF100388F9E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F9F823281E3CACF100388F9E /* MapKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -127,6 +142,11 @@
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = DX2XU755YA;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Maps.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -173,6 +193,7 @@
 				F9EEDAA11E2FAFB600CD853D /* MyCell.swift in Sources */,
 				F9F6C12B1E35BC0400A58780 /* ImgPickVC.swift in Sources */,
 				F9AAD98D1E2118CD00A54488 /* ScrollVC.swift in Sources */,
+				F9EE8C551E3CAA5100A3596E /* MapVC.swift in Sources */,
 				F93772261E3630BB00973764 /* CameraVC.swift in Sources */,
 				F9AAD98B1E2118CD00A54488 /* AppDelegate.swift in Sources */,
 			);
