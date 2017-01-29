@@ -235,6 +235,9 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Map" id="7r4-9q-FAm"/>
+                    <connections>
+                        <outlet property="mapView" destination="LIg-9o-snz" id="nE7-4U-JY0"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fiA-cq-Nsi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
