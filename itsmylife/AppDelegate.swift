@@ -14,7 +14,7 @@ import UserNotifications
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
     let lm = CLLocationManager()
     var window: UIWindow?
-
+    var timer : Timer?
 
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
@@ -33,8 +33,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         center.delegate = self
         
         // 推播通知
-        sendNotification()
-        
+        self.sendNotification()
+    
         return true
     }
     
@@ -67,8 +67,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             options: [.foreground]
         )
         let a3 = UNNotificationAction(
-            identifier: "a3",
-            title: "按鈕3",
+            identifier: "Stop",
+            title: "Stop",
             options: [.destructive, .authenticationRequired]
         )
         let a4 = UNTextInputNotificationAction(
@@ -106,6 +106,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
         print(response.notification.request.content.categoryIdentifier)
         print(response.actionIdentifier)
+        
+        if(response.actionIdentifier=="Stop"){
+            self.timer?.invalidate()
+        }
+        else{
+            if(self.timer==nil){
+                self.timer=Timer.scheduledTimer(withTimeInterval: 1800.0, repeats: true){ (timer) in self.sendNotification()}
+            }
+        }
+        
         if response.actionIdentifier == "a4"{
             if let r = response as? UNTextInputNotificationResponse{
                 print(r.userText)
