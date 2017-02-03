@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="WiU-8v-Rxl">
-    <device id="retina4_7" orientation="portrait">
+    <device id="ipad9_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -19,11 +19,11 @@
                         <viewControllerLayoutGuide type="bottom" id="V4u-6l-6p4"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="OEV-mY-ZHB">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="eVk-25-PzL">
-                                <rect key="frame" x="16" y="33" width="343" height="600"/>
+                                <rect key="frame" x="16" y="33" width="736" height="957"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="i44-tN-YwL">
@@ -100,11 +100,11 @@
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" minimumZoomScale="0.10000000000000001" maximumZoomScale="3" translatesAutoresizingMaskIntoConstraints="NO" id="bBk-d5-5th">
-                                <rect key="frame" x="10" y="10" width="355" height="647"/>
+                                <rect key="frame" x="10" y="10" width="748" height="1004"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <gestureRecognizers/>
                                 <connections>
@@ -147,7 +147,7 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <segue destination="zWw-sd-vUF" kind="relationship" relationship="viewControllers" id="Ds2-hB-pee"/>
+                        <segue destination="ws3-5f-fke" kind="relationship" relationship="viewControllers" id="Ds2-hB-pee"/>
                         <segue destination="O8K-mP-oig" kind="relationship" relationship="viewControllers" id="ghw-Jd-3Nt"/>
                         <segue destination="v1c-9V-kDb" kind="relationship" relationship="viewControllers" id="Qbq-yk-c1Z"/>
                         <segue destination="MEB-7X-3c6" kind="relationship" relationship="viewControllers" id="LoY-bp-OXC"/>
@@ -166,18 +166,18 @@
                         <viewControllerLayoutGuide type="bottom" id="hJa-NK-PRh"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="JwA-uV-jHk">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1EN-Le-6pQ">
-                                <rect key="frame" x="284.5" y="566" width="51" height="31"/>
+                                <rect key="frame" x="677.5" y="923" width="51" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                 <connections>
                                     <action selector="switchValueChanged:" destination="O8K-mP-oig" eventType="valueChanged" id="9pi-Fn-2Vz"/>
                                 </connections>
                             </switch>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" minimumZoomScale="0.10000000000000001" maximumZoomScale="30" translatesAutoresizingMaskIntoConstraints="NO" id="QKS-DB-eub">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="537"/>
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="894"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="0.29818172139999999" green="1" blue="0.3305024345" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <gestureRecognizers/>
@@ -186,7 +186,7 @@
                                 </connections>
                             </scrollView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gG7-bc-Zry">
-                                <rect key="frame" x="129" y="545" width="116" height="65"/>
+                                <rect key="frame" x="129" y="902" width="509" height="65"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <state key="normal" title="take"/>
                                 <connections>
@@ -194,7 +194,7 @@
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sAi-Ei-0yp">
-                                <rect key="frame" x="0.0" y="532" width="110" height="86"/>
+                                <rect key="frame" x="0.0" y="889" width="110" height="86"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             </imageView>
                         </subviews>
@@ -224,11 +224,11 @@
                         <viewControllerLayoutGuide type="bottom" id="bej-3j-2YP"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="4c7-mc-T2J">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LIg-9o-snz">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </mapView>
                         </subviews>
@@ -243,7 +243,7 @@
             </objects>
             <point key="canvasLocation" x="-2574.375" y="2228.75"/>
         </scene>
-        <!--Picture-->
+        <!--Img PickVC-->
         <scene sceneID="51l-ZN-dpX">
             <objects>
                 <viewController id="zWw-sd-vUF" customClass="ImgPickVC" customModule="itsmylife" customModuleProvider="target" sceneMemberID="viewController">
@@ -252,35 +252,47 @@
                         <viewControllerLayoutGuide type="bottom" id="TXv-w2-dA4"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="qxg-ie-rsc">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" minimumZoomScale="0.10000000149011612" maximumZoomScale="3" translatesAutoresizingMaskIntoConstraints="NO" id="62K-c0-zR9">
-                                <rect key="frame" x="0.0" y="76" width="375" height="542"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" minimumZoomScale="0.10000000149011612" maximumZoomScale="3" translatesAutoresizingMaskIntoConstraints="NO" id="62K-c0-zR9">
+                                <rect key="frame" x="0.0" y="64" width="768" height="903"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lCb-dH-F9d">
+                                        <rect key="frame" x="361" y="320" width="46" height="30"/>
+                                        <state key="normal" title="Button"/>
+                                        <connections>
+                                            <action selector="btnClick:" destination="zWw-sd-vUF" eventType="touchUpInside" id="ymL-qn-bOc"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="lCb-dH-F9d" firstAttribute="top" secondItem="62K-c0-zR9" secondAttribute="top" constant="320" id="5LZ-ac-PwM"/>
+                                    <constraint firstAttribute="trailing" secondItem="lCb-dH-F9d" secondAttribute="trailing" constant="165" id="YMb-W7-0ds"/>
+                                    <constraint firstItem="lCb-dH-F9d" firstAttribute="centerX" secondItem="62K-c0-zR9" secondAttribute="centerX" id="ieR-co-PSq"/>
+                                    <constraint firstAttribute="bottom" secondItem="lCb-dH-F9d" secondAttribute="bottom" constant="196" id="l73-Cr-oAt"/>
+                                </constraints>
                                 <connections>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="kco-05-AnX"/>
                                 </connections>
                             </scrollView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lCb-dH-F9d">
-                                <rect key="frame" x="164" y="20" width="46" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <connections>
-                                    <action selector="btnClick:" destination="zWw-sd-vUF" eventType="touchUpInside" id="ymL-qn-bOc"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="62K-c0-zR9" firstAttribute="top" secondItem="Ddd-6s-idA" secondAttribute="bottom" id="ATZ-Ag-ESX"/>
+                            <constraint firstItem="TXv-w2-dA4" firstAttribute="top" secondItem="62K-c0-zR9" secondAttribute="bottom" constant="8" symbolic="YES" id="N8t-W6-KQ3"/>
+                            <constraint firstItem="62K-c0-zR9" firstAttribute="leading" secondItem="qxg-ie-rsc" secondAttribute="leading" id="jwZ-zR-y7G"/>
+                            <constraint firstAttribute="trailing" secondItem="62K-c0-zR9" secondAttribute="trailing" id="xih-VK-gcC"/>
+                        </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Picture" id="f6R-de-fmf"/>
+                    <navigationItem key="navigationItem" id="XDh-EM-wau"/>
                     <connections>
                         <outlet property="sclView" destination="62K-c0-zR9" id="EbF-wB-uGb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wIu-a3-5bk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1753" y="588"/>
+            <point key="canvasLocation" x="-815.5" y="587.5"/>
         </scene>
         <!--Collect-->
         <scene sceneID="4eG-iN-6Mp">
@@ -300,6 +312,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KuO-9J-bcV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1754" y="-215"/>
+        </scene>
+        <!--Picture-->
+        <scene sceneID="4BW-u9-Hee">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ws3-5f-fke" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Picture" id="f6R-de-fmf"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="l1V-Vv-2Pj">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="zWw-sd-vUF" kind="relationship" relationship="rootViewController" id="FWO-o4-kLj"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zFR-4n-f0z" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1754.4000000000001" y="587.85607196401804"/>
         </scene>
     </scenes>
 </document>

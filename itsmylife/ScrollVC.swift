@@ -14,11 +14,12 @@ class ScrollVC: UIViewController ,UIScrollViewDelegate{
     var m_img:UIImage?
   
     @IBAction func longPress(_ sender: Any) {
+        self.faceBox?.removeFromSuperview()
         self.imgView?.removeFromSuperview()
         // 將imageView大小調整為跟scrollView一樣
         self.imgView?.frame = self.sclView.bounds
         // 取得圖片縮小後的長寬
-        let size=getImageSizeAfterAspectFit(self.imgView!)
+        let size=self.sclView.bounds//getImageSizeAfterAspectFit(self.imgView!)
         // 將imageView的大小調整為圖片大小
         self.imgView?.frame = CGRect(x: 0, y: 0, width: size.width, height: size.height)
         // 將scrollView的容器大小調整為imageView大小
@@ -69,6 +70,8 @@ class ScrollVC: UIViewController ,UIScrollViewDelegate{
 //        self.sclView.contentSize = (self.imgView?.frame.size)!;
         self.sclView.contentSize = (self.imgView?.image!.size)!;
         detect((self.imgView?.image!)!)
+        
+        
     }
     
     @IBAction func dismiss(_ sender: Any) {
@@ -102,7 +105,7 @@ class ScrollVC: UIViewController ,UIScrollViewDelegate{
     }
     
   
-    
+    var faceBox:UIView?
     func detect(_ img: UIImage) {
         
         guard let personciImage = CIImage(image: img) else {
@@ -136,12 +139,12 @@ class ScrollVC: UIViewController ,UIScrollViewDelegate{
             faceViewBounds.origin.x += offsetX
             faceViewBounds.origin.y += offsetY
             
-            let faceBox = UIView(frame: faceViewBounds)
+            faceBox = UIView(frame: faceViewBounds)
             
-            faceBox.layer.borderWidth = 3
-            faceBox.layer.borderColor = UIColor.red.cgColor
-            faceBox.backgroundColor = UIColor.clear
-            self.imgView?.addSubview(faceBox)
+            faceBox?.layer.borderWidth = 3
+            faceBox?.layer.borderColor = UIColor.red.cgColor
+            faceBox?.backgroundColor = UIColor.clear
+            self.imgView?.addSubview(faceBox!)
             
             if face.hasLeftEyePosition {
                 print("Left eye bounds are \(face.leftEyePosition)")
