@@ -112,7 +112,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         }
         else{
             if(self.timer==nil){
-                self.timer=Timer.scheduledTimer(withTimeInterval: 1800.0, repeats: true){ (timer) in self.sendNotification()}
+                self.timer=Timer.scheduledTimer(withTimeInterval: 1800.0, repeats: true){ _ in self.sendNotification()}
             }
         }
         

@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "itsmylife/ScrollVC.swift"
-            timestampString = "507824499.841338"
+            timestampString = "507902755.768845"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "17"
-            endingLineNumber = "17"
+            startingLineNumber = "18"
+            endingLineNumber = "18"
             landmarkName = "longPress(_:)"
             landmarkType = "7">
          </BreakpointContent>

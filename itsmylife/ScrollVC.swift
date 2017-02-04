@@ -14,10 +14,13 @@ class ScrollVC: UIViewController ,UIScrollViewDelegate{
     var m_img:UIImage?
   
     @IBAction func longPress(_ sender: Any) {
-        self.faceBox?.removeFromSuperview()
+        for faceBox in self.faceBoxes{
+            faceBox.removeFromSuperview()
+        }
         self.imgView?.removeFromSuperview()
         // 將imageView大小調整為跟scrollView一樣
         self.imgView?.frame = self.sclView.bounds
+        self.imgView?.contentMode = .scaleAspectFit
         // 取得圖片縮小後的長寬
         let size=self.sclView.bounds//getImageSizeAfterAspectFit(self.imgView!)
         // 將imageView的大小調整為圖片大小
@@ -105,7 +108,7 @@ class ScrollVC: UIViewController ,UIScrollViewDelegate{
     }
     
   
-    var faceBox:UIView?
+    var faceBoxes=[UIView]()
     func detect(_ img: UIImage) {
         
         guard let personciImage = CIImage(image: img) else {
@@ -139,12 +142,14 @@ class ScrollVC: UIViewController ,UIScrollViewDelegate{
             faceViewBounds.origin.x += offsetX
             faceViewBounds.origin.y += offsetY
             
-            faceBox = UIView(frame: faceViewBounds)
+            let faceBox = UIView(frame: faceViewBounds)
             
-            faceBox?.layer.borderWidth = 3
-            faceBox?.layer.borderColor = UIColor.red.cgColor
-            faceBox?.backgroundColor = UIColor.clear
-            self.imgView?.addSubview(faceBox!)
+            faceBox.layer.borderWidth = 3
+            faceBox.layer.borderColor = UIColor.red.cgColor
+            faceBox.backgroundColor = UIColor.clear
+            self.imgView?.addSubview(faceBox)
+            
+            faceBoxes.append(faceBox)
             
             if face.hasLeftEyePosition {
                 print("Left eye bounds are \(face.leftEyePosition)")
