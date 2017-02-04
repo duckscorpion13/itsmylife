@@ -23,6 +23,8 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, UIScrollViewDel
     // 後置鏡頭
     var backCameraDevice: AVCaptureDeviceInput?
 
+    @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var webView: UIWebView!
     @IBOutlet weak var sclView: UIScrollView!
     @IBOutlet weak var imageView: UIImageView!
     
@@ -36,6 +38,11 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, UIScrollViewDel
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let url = URL(string:searchBar.text!)
+        let quest = URLRequest(url: url!)
+        self.webView.loadRequest(quest)
+        
         self.sclView.delegate=self
         self.myView=UIView(frame:CGRect(x: self.sclView.center.x, y: self.sclView.center.y, width: 100, height: 100))
         self.myView?.contentMode = .scaleAspectFill
@@ -244,6 +251,9 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, UIScrollViewDel
         return self.myView
     }
     
+    @IBAction func longTap(_ sender: UILongPressGestureRecognizer) {
+        self.myView?.center=self.view.center
+    }
     @IBAction func grap(_ sender: UIPanGestureRecognizer) {
         let gesturePoint = sender.location(in: self.sclView)
         switch sender.state {
@@ -260,3 +270,5 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, UIScrollViewDel
     }
     
 }
+
+
