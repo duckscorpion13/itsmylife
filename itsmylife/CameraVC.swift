@@ -10,6 +10,7 @@
 import UIKit
 import AVFoundation
 import ImageIO
+import AssetsLibrary
 
 class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, UIScrollViewDelegate {
 
@@ -60,40 +61,35 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, UIScrollViewDel
         // .builtInWideAngleCamera 為廣角鏡頭
         // .builtInTelephotoCamera 為長焦段鏡頭
         // .builtInDuoCamera 為雙鏡頭
-        if #available(iOS 10.0, *) {
-            if let device = AVCaptureDevice.defaultDevice(withDeviceType: .builtInWideAngleCamera,
-                                                          mediaType: AVMediaTypeVideo,
-                                                          position: .back) {
-                
-                backCameraDevice = try! AVCaptureDeviceInput(device: device)
-                
-                // 將後置鏡頭加到session的輸入端
-                session.addInput(backCameraDevice)
-                // 將圖片輸出加到session的輸出端
-                session.addOutput(AVCapturePhotoOutput())
-                
-                // 運用layer的方式將鏡頭目前“看到”的影像即時顯示到view元件上
-                captureVideoPreviewLayer.session = session
-                captureVideoPreviewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
-                myView?.layer.addSublayer(captureVideoPreviewLayer)
-                
-            }
-        } else {
-            // Fallback on earlier versions
-        }
+        
+        if let device = AVCaptureDevice.defaultDevice(withDeviceType: .builtInWideAngleCamera,
+                                                      mediaType: AVMediaTypeVideo,
+                                                      position: .back) {
+            
+            backCameraDevice = try! AVCaptureDeviceInput(device: device)
+            
+            // 將後置鏡頭加到session的輸入端
+            session.addInput(backCameraDevice)
+            // 將圖片輸出加到session的輸出端
+            session.addOutput(AVCapturePhotoOutput())
+            
+            // 運用layer的方式將鏡頭目前“看到”的影像即時顯示到view元件上
+            captureVideoPreviewLayer.session = session
+            captureVideoPreviewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
+            myView?.layer.addSublayer(captureVideoPreviewLayer)
+            
+            
         
         // 前置鏡頭，類型為廣角鏡頭
-        if #available(iOS 10.0, *) {
             if let device = AVCaptureDevice.defaultDevice(withDeviceType: .builtInWideAngleCamera,
                                                           mediaType: AVMediaTypeVideo,
                                                           position: .front) {
                 
                 frontCameraDevice = try! AVCaptureDeviceInput(device: device)
             }
-        } else {
-            // Fallback on earlier versions
         }
     }
+        
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -103,28 +99,23 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, UIScrollViewDel
 
     
     @IBAction func takeClick(_ sender: Any) {
-        if #available(iOS 10.0, *) {
-            let settings = AVCapturePhotoSettings()
-            let previewPixelType = settings.availablePreviewPhotoPixelFormatTypes.first!
-            let previewFormat = [
-                kCVPixelBufferPixelFormatTypeKey as String: previewPixelType,
-                kCVPixelBufferWidthKey as String: imageView.frame.size.width,
-                kCVPixelBufferHeightKey as String: imageView.frame.size.height,
-                ] as [String : Any]
-            
-            settings.previewPhotoFormat = previewFormat
-            
-            if let output = session.outputs.first as? AVCapturePhotoOutput {
-                output.capturePhoto(with: settings, delegate: self)
-                
-            } else {
-                // Fallback on earlier versions
-            }
         
+        let settings = AVCapturePhotoSettings()
+        let previewPixelType = settings.availablePreviewPhotoPixelFormatTypes.first!
+        let previewFormat = [
+            kCVPixelBufferPixelFormatTypeKey as String: previewPixelType,
+            kCVPixelBufferWidthKey as String: imageView.frame.size.width,
+            kCVPixelBufferHeightKey as String: imageView.frame.size.height,
+            ] as [String : Any]
+        
+        settings.previewPhotoFormat = previewFormat
+        
+        if let output = session.outputs.first as? AVCapturePhotoOutput {
+            output.capturePhoto(with: settings, delegate: self)
         }
     }
     
-    @available(iOS 10.0, *)
+    
     func capture(_ captureOutput: AVCapturePhotoOutput, didFinishProcessingPhotoSampleBuffer photoSampleBuffer: CMSampleBuffer?, previewPhotoSampleBuffer: CMSampleBuffer?, resolvedSettings: AVCaptureResolvedPhotoSettings, bracketSettings: AVCaptureBracketedStillImageSettings?, error: Error?) {
         
         
@@ -261,7 +252,9 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, UIScrollViewDel
         case .changed:
             // change the attachment's anchor point
             if let hitView = view.hitTest(gesturePoint,with:nil), hitView.superview == self.sclView {
-                hitView.center = gesturePoint
+                if(self.sclView.bounds.contains(gesturePoint)){
+                    hitView.center = gesturePoint
+                }
             }
         default:
             break
