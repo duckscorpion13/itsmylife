@@ -215,6 +215,9 @@
                                             <segment title="Photo"/>
                                             <segment title="Vedio"/>
                                         </segments>
+                                        <connections>
+                                            <action selector="modeChang:" destination="O8K-mP-oig" eventType="valueChanged" id="nCB-De-27Y"/>
+                                        </connections>
                                     </segmentedControl>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gG7-bc-Zry">
                                         <rect key="frame" x="190" y="561" width="119" height="29"/>
@@ -245,7 +248,6 @@
                         <outlet property="imageView" destination="sAi-Ei-0yp" id="OZZ-nx-7Gc"/>
                         <outlet property="sclView" destination="QKS-DB-eub" id="1RV-Sd-1hu"/>
                         <outlet property="searchBar" destination="pG3-f2-MpW" id="6z0-d2-fGJ"/>
-                        <outlet property="segCtl" destination="adH-ns-azZ" id="JDs-8R-qz7"/>
                         <outlet property="webView" destination="fZ1-Z5-F7y" id="kxj-je-dmk"/>
                     </connections>
                 </viewController>
