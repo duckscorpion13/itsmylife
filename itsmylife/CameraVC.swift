@@ -35,6 +35,7 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, UIScrollViewDel
     override func viewWillAppear(_ animated: Bool) {
         session.startRunning()
         self.myView?.center=self.view.center
+        self.myView?.alpha=0.5
     }
     override func viewWillDisappear(_ animated: Bool) {
         session.stopRunning()
@@ -254,9 +255,10 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, UIScrollViewDel
       
         case .changed:
             // change the attachment's anchor point
-            if let hitView = view.hitTest(gesturePoint,with:nil), hitView.superview == self.sclView {
+            if let hitView = view.hitTest(gesturePoint,with:nil), hitView == self.myView {
                 if(self.sclView.bounds.contains(gesturePoint)){
-                    hitView.center = gesturePoint
+                    hitView.center =
+                        CGPoint(x:gesturePoint.x,y:gesturePoint.y-30)
                 }
             }
         default:
