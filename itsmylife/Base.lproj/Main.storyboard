@@ -217,7 +217,6 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" red="0.29818172139999999" green="1" blue="0.3305024345" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <gestureRecognizers/>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="B8G-p4-hwl" appends="YES" id="zNJ-PN-EiO"/>
