@@ -29,13 +29,18 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, UIScrollViewDel
     @IBOutlet weak var sclView: UIScrollView!
     @IBOutlet weak var imageView: UIImageView!
     
+    
     var myView: UIView?
     
     override func viewWillAppear(_ animated: Bool) {
         session.startRunning()
+        self.myView?.center=self.view.center
     }
     override func viewWillDisappear(_ animated: Bool) {
         session.stopRunning()
+    }
+    @IBAction func slideChang(_ sender: UISlider) {
+        self.myView?.alpha=CGFloat(sender.value)
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -242,9 +247,7 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, UIScrollViewDel
         return self.myView
     }
     
-    @IBAction func longTap(_ sender: UILongPressGestureRecognizer) {
-        self.myView?.center=self.view.center
-    }
+    
     @IBAction func grap(_ sender: UIPanGestureRecognizer) {
         let gesturePoint = sender.location(in: self.sclView)
         switch sender.state {
