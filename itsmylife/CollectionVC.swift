@@ -1,4 +1,4 @@
-//
+﻿//
 //  ViewController.swift
 //  CollectionView_I
 //
@@ -8,7 +8,6 @@
 
 import UIKit
 import Photos
-import CoreImage
 
 class CollectionVC: UIViewController{
 
@@ -28,31 +27,16 @@ class CollectionVC: UIViewController{
         list = fetchAllPhotos()
 
     }
-    
-    func getImageSizeAfterAspectFit(_ imgView:UIImageView) -> CGSize {
-        guard imgView.image != nil else {
-            return CGSize(width: 0, height: 0)
-        }
-        
-        let widthRatio = imgView.bounds.size.width / imgView.image!.size.width
-        let heightRatio = imgView.bounds.size.height / imgView.image!.size.height
-        
-        let scale = (widthRatio >= heightRatio) ? heightRatio : widthRatio
-        let imageWidth = scale * imgView.image!.size.width
-        let imageHeight = scale * imgView.image!.size.height
-        
-        return CGSize(width: imageWidth, height: imageHeight)
-    }
 
     func fetchAllPhotos() -> [UIImage]  {
         var images = [UIImage]()
         
         // 從裝置中取得所有類型為圖片的asset
-        let fetchResult = PHAsset.fetchAssets(with: .image, options: nil)
+        let fetchResult = PHAsset.fetchAssets(with: .video, options: nil)
         for i in 0 ..< fetchResult.count {
             let imageAsset = fetchResult.object(at: i)
-//            let size = CGSize(width: imageAsset.pixelWidth, height: imageAsset.pixelHeight)
-            let size = CGSize(width: 128, height: 128)
+            let size = CGSize(width: imageAsset.pixelWidth, height: imageAsset.pixelHeight)
+//            let size = CGSize(width: 128, height: 128)
             PHImageManager.default().requestImage(
                 for: imageAsset,
                 targetSize: size,
@@ -67,55 +51,6 @@ class CollectionVC: UIViewController{
         return images
     }
 
-    func detect(_ img: UIImage,imgViewSize size:CGSize) {
-        
-        guard let personciImage = CIImage(image: img) else {
-            return
-        }
-        
-        let accuracy = [CIDetectorAccuracy: CIDetectorAccuracyHigh]
-        let faceDetector = CIDetector(ofType: CIDetectorTypeFace, context: nil, options: accuracy)
-        let faces = faceDetector?.features(in: personciImage)
-        
-        // Convert Core Image Coordinate to UIView Coordinate
-        let ciImageSize = personciImage.extent.size
-        var transform = CGAffineTransform(scaleX: 1, y: -1)
-        transform = transform.translatedBy(x: 0, y: -ciImageSize.height)
-        
-        for face in faces as! [CIFaceFeature] {
-            
-            print("Found bounds are \(face.bounds)")
-            
-            // Apply the transform to convert the coordinates
-            var faceViewBounds = face.bounds.applying(transform)
-            
-            // Calculate the actual position and size of the rectangle in the image view
-            let viewSize = size
-            let scale = min((viewSize.width) / ciImageSize.width,
-                            (viewSize.height) / ciImageSize.height)
-            let offsetX = ((viewSize.width) - ciImageSize.width * scale) / 2
-            let offsetY = ((viewSize.height) - ciImageSize.height * scale) / 2
-            
-            faceViewBounds = faceViewBounds.applying(CGAffineTransform(scaleX: scale, y: scale))
-            faceViewBounds.origin.x += offsetX
-            faceViewBounds.origin.y += offsetY
-            
-            let faceBox = UIView(frame: faceViewBounds)
-            
-            faceBox.layer.borderWidth = 3
-            faceBox.layer.borderColor = UIColor.red.cgColor
-            faceBox.backgroundColor = UIColor.clear
-            self.imgView?.addSubview(faceBox)
-            
-            if face.hasLeftEyePosition {
-                print("Left eye bounds are \(face.leftEyePosition)")
-            }
-            
-            if face.hasRightEyePosition {
-                print("Right eye bounds are \(face.rightEyePosition)")
-            }
-        }
-    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

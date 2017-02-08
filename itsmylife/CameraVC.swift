@@ -79,6 +79,16 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOu
         self.webView.loadRequest(quest)
         
         
+        let audioDevice = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeAudio)
+        
+        do{
+            let audioInput = try AVCaptureDeviceInput(device: audioDevice)
+            self.m_session.addInput(audioInput)
+        }catch {
+            print(error)
+        }
+        
+        
         // .builtInWideAngleCamera 為廣角鏡頭
         // .builtInTelephotoCamera 為長焦段鏡頭
         // .builtInDuoCamera 為雙鏡頭
@@ -102,9 +112,16 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOu
         // 設定擷取的畫面品質為相片品質（最高品質）
         // 其他的參數通常使用在錄影，例如VGA品質AVCaptureSessionPreset640x480
         // 如有需要請讀者自行參考 online help
-        self.m_session.sessionPreset = AVCaptureSessionPreset640x480//AVCaptureSessionPresetPhoto
+        self.m_session.sessionPreset = AVCaptureSessionPresetPhoto
         self.m_session.addInput(self.m_backCameraDevice!)
+        
         self.m_session.addOutput(AVCapturePhotoOutput())
+        
+        // 設定 movie （包含 video 與 audio）為輸出對象
+        let output = AVCaptureMovieFileOutput()
+        // 錄製10秒鐘後自動停止，如果沒有設定maxRecordedDuration這個屬性的話，預設值為無限大
+        output.maxRecordedDuration = CMTime(value: 3600, timescale: 1)
+        self.m_session.addOutput(output)
     }
         
     
@@ -171,7 +188,7 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOu
         self.m_session.beginConfiguration()
         
         // 將現有的 input 刪除
-        self.m_session.removeInput(self.m_session.inputs[0] as! AVCaptureInput)
+        self.m_session.removeInput(self.m_session.inputs[1] as! AVCaptureInput)
 
         
         if sender.isOn {
