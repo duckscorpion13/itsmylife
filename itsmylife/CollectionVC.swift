@@ -18,7 +18,7 @@ class CollectionVC: UIViewController{
     @IBAction func albumClick(_ sender: UIButton) {
         self.newIPVC()
     }
-    var list: [UIImage]!
+    var list: [PHAsset]!
   
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,13 +28,14 @@ class CollectionVC: UIViewController{
 
     }
 
-    func fetchAllPhotos() -> [UIImage]  {
-        var images = [UIImage]()
+    func fetchAllPhotos() -> [PHAsset]  {
+        var images = [PHAsset]()
         
         // 從裝置中取得所有類型為圖片的asset
         let fetchResult = PHAsset.fetchAssets(with: .video, options: nil)
         for i in 0 ..< fetchResult.count {
             let imageAsset = fetchResult.object(at: i)
+            
             let size = CGSize(width: imageAsset.pixelWidth, height: imageAsset.pixelHeight)
 //            let size = CGSize(width: 128, height: 128)
             PHImageManager.default().requestImage(
@@ -44,7 +45,7 @@ class CollectionVC: UIViewController{
                 options: nil,
                 resultHandler: { (image, nil) in
                     // 參數 image 即為所取得的圖片
-                    images.append(image!)
+                    images.append(imageAsset)
             })
         }
         
@@ -73,7 +74,18 @@ extension CollectionVC : UICollectionViewDataSource, UICollectionViewDelegate{
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! MyCell
-        cell.img.image = list[indexPath.row]
+        let size = CGSize(width: list[indexPath.row].pixelWidth, height: list[indexPath.row].pixelHeight)
+        PHImageManager.default().requestImage(
+            for: list[indexPath.row],
+            targetSize: size,
+            contentMode: .default,
+            options: nil,
+            resultHandler: { (image, nil) in
+                // 參數 image 即為所取得的圖片
+                cell.img.image = image
+        })
+
+        
         return cell
     }
     
@@ -81,10 +93,8 @@ extension CollectionVC : UICollectionViewDataSource, UICollectionViewDelegate{
         
         if let vc=storyboard?.instantiateViewController(withIdentifier: "SVC"){
             if let svc = vc as? ScrollVC{
-                let fetchResult = PHAsset.fetchAssets(with: .image, options: nil)
-                let imageAsset = fetchResult.object(at: indexPath.row)
                 PHImageManager.default().requestImage(
-                    for: imageAsset,
+                    for: list[indexPath.row],
                     targetSize: PHImageManagerMaximumSize,
                     contentMode: .default,
                     options: nil,
