@@ -24,6 +24,8 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOu
     // 後置鏡頭
     var m_backCameraDevice: AVCaptureDeviceInput?
 
+    @IBOutlet weak var recBtn: UIButton!
+    @IBOutlet weak var segCtl: UISegmentedControl!
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var webView: UIWebView!
     @IBOutlet weak var sclView: UIScrollView!
@@ -39,7 +41,7 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOu
     }
     
     @IBAction func modeChang(_ sender: UISegmentedControl) {
-        self.m_session.beginConfiguration()
+//        self.m_session.beginConfiguration()
 //        self.m_session.removeOutput(self.m_session.outputs[0] as! AVCaptureOutput)
 //        if(0==sender.selectedSegmentIndex){
 //            self.m_session.addOutput(AVCapturePhotoOutput())
@@ -48,25 +50,12 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOu
 //            videoSet(self.m_session)
 //        }
 //        self.m_session.commitConfiguration()
-
-
-    }
-    func videoSet(_ session : AVCaptureSession){
-        
-        do {
-            // 將麥克風設定為session的資料來源
-            let audioDevice = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeAudio)
-            let audioInput = try AVCaptureDeviceInput(device: audioDevice)
-            session.addInput(audioInput)
-            
-            // 設定 movie （包含 video 與 audio）為輸出對象
-            let output = AVCaptureMovieFileOutput()
-            // 錄製10秒鐘後自動停止，如果沒有設定maxRecordedDuration這個屬性的話，預設值為無限大
-            output.maxRecordedDuration = CMTime(value: 3600, timescale: 1)
-            session.addOutput(output)
-        } catch {
-            print(error)
+        if(0==sender.selectedSegmentIndex){
+            self.recBtn.setTitle("TAKE", for: .normal)
+        }else{
+            self.recBtn.setTitle("REC", for: .normal)
         }
+         
     }
     
     override func viewDidLoad() {
@@ -112,7 +101,7 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOu
         // 設定擷取的畫面品質為相片品質（最高品質）
         // 其他的參數通常使用在錄影，例如VGA品質AVCaptureSessionPreset640x480
         // 如有需要請讀者自行參考 online help
-        self.m_session.sessionPreset = AVCaptureSessionPresetPhoto
+        self.m_session.sessionPreset = AVCaptureSessionPreset640x480//AVCaptureSessionPresetPhoto
         self.m_session.addInput(self.m_backCameraDevice!)
         
         self.m_session.addOutput(AVCapturePhotoOutput())
@@ -149,19 +138,40 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOu
 
     
     @IBAction func takeClick(_ sender: Any) {
-        
-        let settings = AVCapturePhotoSettings()
-        let previewPixelType = settings.availablePreviewPhotoPixelFormatTypes.first!
-        let previewFormat = [
-            kCVPixelBufferPixelFormatTypeKey as String: previewPixelType,
-            kCVPixelBufferWidthKey as String: imageView.frame.size.width,
-            kCVPixelBufferHeightKey as String: imageView.frame.size.height,
-            ] as [String : Any]
-        
-        settings.previewPhotoFormat = previewFormat
-        
-        if let output = self.m_session.outputs.first as? AVCapturePhotoOutput {
-            output.capturePhoto(with: settings, delegate: self)
+        if(0==self.segCtl.selectedSegmentIndex){
+            let settings = AVCapturePhotoSettings()
+            let previewPixelType = settings.availablePreviewPhotoPixelFormatTypes.first!
+            let previewFormat = [
+                kCVPixelBufferPixelFormatTypeKey as String: previewPixelType,
+                kCVPixelBufferWidthKey as String: imageView.frame.size.width,
+                kCVPixelBufferHeightKey as String: imageView.frame.size.height,
+                ] as [String : Any]
+            
+            settings.previewPhotoFormat = previewFormat
+            
+            if let output = self.m_session.outputs.first as? AVCapturePhotoOutput {
+                output.capturePhoto(with: settings, delegate: self)
+            }
+        }else{
+            if let avCapOpt = (self.m_session.outputs[1] as? AVCaptureMovieFileOutput){
+                if avCapOpt.isRecording{
+                    avCapOpt.stopRecording()
+                }else{
+                    let fm = FileManager.default
+                    
+                    // 設定錄影的暫存檔路徑，我們把它放到 tmp 目錄下
+                    let url = URL(fileURLWithPath: NSTemporaryDirectory() + "output.mov")
+                    
+                    // 判斷暫存檔是否已經存在，如果存在就刪掉它
+                    if fm.fileExists(atPath: url.path) {
+                        try! fm.removeItem(at: url)
+                    }
+                    
+                    // 開始錄影
+                    avCapOpt.startRecording(toOutputFileURL: url, recordingDelegate: self)
+                     self.recBtn.setTitle("STOP", for: .normal)
+                }
+            }
         }
     }
     
@@ -271,7 +281,11 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOu
             if UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(outputFileURL.path) {
                 UISaveVideoAtPathToSavedPhotosAlbum(outputFileURL.path, nil, nil, nil)
             }
+        }else{
+            print(error)
         }
+        
+        self.recBtn.setTitle("REC", for: .normal)
     }
     
 }

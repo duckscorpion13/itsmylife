@@ -222,7 +222,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gG7-bc-Zry">
                                         <rect key="frame" x="190" y="561" width="119" height="29"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                        <state key="normal" title="REC">
+                                        <state key="normal" title="TAKE">
                                             <color key="titleColor" red="1" green="0.256678511" blue="0.12507303389999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
@@ -246,8 +246,10 @@
                     <tabBarItem key="tabBarItem" title="Camera" id="Zvf-cr-2CB"/>
                     <connections>
                         <outlet property="imageView" destination="sAi-Ei-0yp" id="OZZ-nx-7Gc"/>
+                        <outlet property="recBtn" destination="gG7-bc-Zry" id="ArR-C0-BKt"/>
                         <outlet property="sclView" destination="QKS-DB-eub" id="1RV-Sd-1hu"/>
                         <outlet property="searchBar" destination="pG3-f2-MpW" id="6z0-d2-fGJ"/>
+                        <outlet property="segCtl" destination="adH-ns-azZ" id="9nn-LW-Mfc"/>
                         <outlet property="webView" destination="fZ1-Z5-F7y" id="kxj-je-dmk"/>
                     </connections>
                 </viewController>
