@@ -17,13 +17,13 @@ class CollectionVC: UIViewController{
     @IBAction func albumClick(_ sender: UIButton) {
         self.newIPVC()
     }
-    var list: [PHAsset]!
+    var m_media: MyMedia?
   
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        list = fetchAllPhotos()
+        self.m_media?.fetchAllPhotos()
 
     }
 
@@ -68,23 +68,23 @@ extension CollectionVC : UICollectionViewDataSource, UICollectionViewDelegate{
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return list.count
+        return self.m_media?.Photolist.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! MyCell
-        let size = CGSize(width: list[indexPath.row].pixelWidth, height: list[indexPath.row].pixelHeight)
-        PHImageManager.default().requestImage(
-            for: list[indexPath.row],
-            targetSize: size,
-            contentMode: .default,
-            options: nil,
-            resultHandler: { (image, nil) in
-                // 參數 image 即為所取得的圖片
-                cell.img.image = image
-        })
-
-        
+        if let pic = self.m_media?.Photolist[indexPath.row]{
+            let size = CGSize(width: pic.pixelWidth, height: pic.pixelHeight)
+            PHImageManager.default().requestImage(
+                for: pic,
+                targetSize: size,
+                contentMode: .default,
+                options: nil,
+                resultHandler: { (image, nil) in
+                    // 參數 image 即為所取得的圖片
+                    cell.img.image = image
+                })
+        }
         return cell
     }
     
@@ -93,7 +93,7 @@ extension CollectionVC : UICollectionViewDataSource, UICollectionViewDelegate{
         if let vc=storyboard?.instantiateViewController(withIdentifier: "SVC"){
             if let svc = vc as? ScrollVC{
                 PHImageManager.default().requestImage(
-                    for: list[indexPath.row],
+                    for: (self.m_media?.Photolist[indexPath.row])!,
                     targetSize: PHImageManagerMaximumSize,
                     contentMode: .default,
                     options: nil,
@@ -135,7 +135,7 @@ extension CollectionVC : UIImagePickerControllerDelegate, UINavigationController
         
         let image = info[UIImagePickerControllerOriginalImage] as! UIImage
         //        imgView?.image=image
-        dismiss(animated: true){
+        self.dismiss(animated: true){
             if let vc=self.storyboard?.instantiateViewController(withIdentifier: "SVC") as? ScrollVC{
                 vc.m_img=image
                 self.show(vc, sender: self)
@@ -144,7 +144,7 @@ extension CollectionVC : UIImagePickerControllerDelegate, UINavigationController
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        dismiss(animated: true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
 }
 

@@ -20,8 +20,14 @@ class TabBarVC: UITabBarController, UITabBarControllerDelegate {
         if viewController is MapVC{
             print("MapVC")
         }
-        else if viewController is CollectionVC{
+        else if viewController is UINavigationController{
             print("CollectionVC")
+            if let nvc = viewController as? UINavigationController{
+                if let vc = nvc.topViewController as? CollectionVC{
+                    vc.m_media = myMedia
+                }
+                
+            }
         }
         else if viewController is CameraVC{
             print("CameraVC")
