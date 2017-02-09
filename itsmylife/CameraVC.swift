@@ -1,10 +1,9 @@
-
 //
-//  ViewController.swift
-//  CaptureImage
+//  CameraVC.swift
+//  itsmylife
 //
-//  Created by ChuKoKang on 2016/8/9.
-//  Copyright © 2016年 ChuKoKang. All rights reserved.
+//  Created by 楊健麟 on 2017/1/28.
+//  Copyright © 2017年 楊健麟. All rights reserved.
 //
 
 import UIKit
@@ -102,15 +101,23 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOu
         // 其他的參數通常使用在錄影，例如VGA品質AVCaptureSessionPreset640x480
         // 如有需要請讀者自行參考 online help
         self.m_session.sessionPreset = AVCaptureSessionPreset640x480//AVCaptureSessionPresetPhoto
-        self.m_session.addInput(self.m_backCameraDevice!)
+        if let input=self.m_backCameraDevice{
+            if(self.m_session.canAddInput(input)){
+                self.m_session.addInput(input)
+            }
+        }
         
-        self.m_session.addOutput(AVCapturePhotoOutput())
+        if(self.m_session.canAddOutput(AVCapturePhotoOutput())){
+            self.m_session.addOutput(AVCapturePhotoOutput())
+        }
         
         // 設定 movie （包含 video 與 audio）為輸出對象
         let output = AVCaptureMovieFileOutput()
         // 錄製10秒鐘後自動停止，如果沒有設定maxRecordedDuration這個屬性的話，預設值為無限大
         output.maxRecordedDuration = CMTime(value: 3600, timescale: 1)
-        self.m_session.addOutput(output)
+        if(self.m_session.canAddOutput(output)){
+            self.m_session.addOutput(output)
+        }
     }
         
     

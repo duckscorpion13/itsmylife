@@ -1,5 +1,5 @@
 ﻿//
-//  ViewController.swift
+//  ScrollVC.swift
 //  itsmylife
 //
 //  Created by 楊健麟 on 2017/1/7.

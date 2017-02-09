@@ -150,10 +150,10 @@
             </objects>
             <point key="canvasLocation" x="554" y="-217"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Tab BarVC-->
         <scene sceneID="rxd-fW-l0p">
             <objects>
-                <tabBarController id="WiU-8v-Rxl" sceneMemberID="viewController">
+                <tabBarController id="WiU-8v-Rxl" customClass="TabBarVC" customModule="itsmylife" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" id="ZIK-b3-O3n">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>

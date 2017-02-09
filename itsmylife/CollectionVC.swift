@@ -1,9 +1,9 @@
 ﻿//
-//  ViewController.swift
-//  CollectionView_I
+//  CollectionVC.swift
+//  itsmylife
 //
-//  Created by ChuKoKang on 2016/8/1.
-//  Copyright © 2016年 ChuKoKang. All rights reserved.
+//  Created by 楊健麟 on 2017/1/28.
+//  Copyright © 2017年 楊健麟. All rights reserved.
 //
 
 import UIKit
@@ -13,8 +13,7 @@ class CollectionVC: UIViewController{
 
     @IBOutlet weak var btn: UIButton!
     var imgView: UIImageView?
-    let imagePickerVC = UIImagePickerController()
-    
+
     @IBAction func albumClick(_ sender: UIButton) {
         self.newIPVC()
     }
@@ -112,7 +111,9 @@ extension CollectionVC : UIImagePickerControllerDelegate, UINavigationController
     
 
     func newIPVC() {
-        
+
+        let imagePickerVC = UIImagePickerController()
+
         // 設定相片的來源為行動裝置內的相本
         imagePickerVC.sourceType = .photoLibrary
         imagePickerVC.delegate = self

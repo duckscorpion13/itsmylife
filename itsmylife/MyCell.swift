@@ -1,11 +1,10 @@
 //
 //  MyCell.swift
-//  CollectionView_I
+//  itsmylife
 //
-//  Created by ChuKoKang on 2016/8/1.
-//  Copyright © 2016年 ChuKoKang. All rights reserved.
+//  Created by 楊健麟 on 2017/1/28.
+//  Copyright © 2017年 楊健麟. All rights reserved.
 //
-
 import UIKit
 
 class MyCell: UICollectionViewCell {
