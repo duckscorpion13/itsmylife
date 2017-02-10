@@ -8,6 +8,8 @@
 
 import UIKit
 import Photos
+import AVKit
+
 
 class CollectionVC: UIViewController{
 
@@ -25,30 +27,6 @@ class CollectionVC: UIViewController{
         
         self.m_media?.fetchAllPhotos()
 
-    }
-
-    func fetchAllPhotos() -> [PHAsset]  {
-        var images = [PHAsset]()
-        
-        // 從裝置中取得所有類型為圖片的asset
-        let fetchResult = PHAsset.fetchAssets(with: .video, options: nil)
-        for i in 0 ..< fetchResult.count {
-            let imageAsset = fetchResult.object(at: i)
-            
-            let size = CGSize(width: imageAsset.pixelWidth, height: imageAsset.pixelHeight)
-//            let size = CGSize(width: 128, height: 128)
-            PHImageManager.default().requestImage(
-                for: imageAsset,
-                targetSize: size,
-                contentMode: .default,
-                options: nil,
-                resultHandler: { (image, nil) in
-                    // 參數 image 即為所取得的圖片
-                    images.append(imageAsset)
-            })
-        }
-        
-        return images
     }
 
     
@@ -90,17 +68,28 @@ extension CollectionVC : UICollectionViewDataSource, UICollectionViewDelegate{
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath){
         
-        if let vc=storyboard?.instantiateViewController(withIdentifier: "SVC"){
-            if let svc = vc as? ScrollVC{
-                PHImageManager.default().requestImage(
-                    for: (self.m_media?.Photolist[indexPath.row])!,
-                    targetSize: PHImageManagerMaximumSize,
-                    contentMode: .default,
-                    options: nil,
-                    resultHandler: { (image, nil) in
-                        // 參數 image 即為所取得的圖片
-                        svc.m_img=image
-                        self.show(svc, sender: self)
+        if let asset = self.m_media?.Photolist[indexPath.row]{
+            if(asset.mediaType == .image){
+                if let vc=storyboard?.instantiateViewController(withIdentifier: "SVC"){
+                    if let svc = vc as? ScrollVC{
+                        PHImageManager.default().requestImage(
+                            for: asset,
+                            targetSize: PHImageManagerMaximumSize,
+                            contentMode: .default,
+                            options: nil,
+                            resultHandler: { (image, nil) in
+                                // 參數 image 即為所取得的圖片
+                                svc.m_img=image
+                                self.show(svc, sender: self)
+                            })
+                    }
+                }
+            }
+            else if(asset.mediaType == .video){
+                PHImageManager.default().requestPlayerItem(forVideo : asset, options: nil, resultHandler: {(playerItem, nil) in
+                    let avc = AVPlayerViewController()
+                    avc.player = AVPlayer(playerItem : playerItem)
+                    self.show(avc, sender: self)
                 })
             }
         }
