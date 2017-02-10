@@ -25,7 +25,7 @@ class CollectionVC: UIViewController{
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        self.m_media?.fetchAllPhotos()
+        self.m_media?.fetchAllPhotos(type: .video)
 
     }
 
@@ -46,12 +46,12 @@ extension CollectionVC : UICollectionViewDataSource, UICollectionViewDelegate{
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.m_media?.Photolist.count ?? 0
+        return self.m_media?.PhotoList.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! MyCell
-        if let pic = self.m_media?.Photolist[indexPath.row]{
+        if let pic = self.m_media?.PhotoList[indexPath.row]{
             let size = CGSize(width: pic.pixelWidth, height: pic.pixelHeight)
             PHImageManager.default().requestImage(
                 for: pic,
@@ -68,7 +68,7 @@ extension CollectionVC : UICollectionViewDataSource, UICollectionViewDelegate{
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath){
         
-        if let asset = self.m_media?.Photolist[indexPath.row]{
+        if let asset = self.m_media?.PhotoList[indexPath.row]{
             if(asset.mediaType == .image){
                 if let vc=storyboard?.instantiateViewController(withIdentifier: "SVC"){
                     if let svc = vc as? ScrollVC{

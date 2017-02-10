@@ -12,14 +12,13 @@ import Photos
 
 
 class MyMedia{
-    var Photolist = [PHAsset]()
-    var Videolist = [PHAsset]()
+    var PhotoList = [PHAsset]()
     
-    func fetchAllPhotos(){
-        self.Photolist.removeAll()
+    func fetchAllPhotos(type:PHAssetMediaType){
+        self.PhotoList.removeAll()
         
         // 從裝置中取得所有類型為圖片的asset
-        let fetchResult = PHAsset.fetchAssets(with: .image, options: nil)
+        let fetchResult = PHAsset.fetchAssets(with: type, options: nil)
         for i in 0 ..< fetchResult.count {
             let asset = fetchResult.object(at: i)
             
@@ -32,21 +31,21 @@ class MyMedia{
                 options: nil,
                 resultHandler: { (image, nil) in
                     // 參數 image 即為所取得的圖片
-                    self.Photolist.append(asset)
+                    self.PhotoList.append(asset)
             })
         }
     }
     
-    func fetchAllVideos(){
-        self.Videolist.removeAll()
-        
-        // 從裝置中取得所有類型為圖片的asset
-        let fetchResult = PHAsset.fetchAssets(with: .video, options: nil)
-        for i in 0 ..< fetchResult.count {
-            let asset = fetchResult.object(at: i)
-            PHImageManager.default().requestPlayerItem(forVideo : asset, options: nil, resultHandler: {(playerItem, nil) in
-                self.Videolist.append(asset)
-            })
-        }
-    }
+//    func fetchAllVideos(){
+//        self.Videolist.removeAll()
+//        
+//        // 從裝置中取得所有類型為圖片的asset
+//        let fetchResult = PHAsset.fetchAssets(with: .video, options: nil)
+//        for i in 0 ..< fetchResult.count {
+//            let asset = fetchResult.object(at: i)
+//            PHImageManager.default().requestPlayerItem(forVideo : asset, options: nil, resultHandler: {(playerItem, nil) in
+//                self.Videolist.append(asset)
+//            })
+//        }
+//    }
 }
