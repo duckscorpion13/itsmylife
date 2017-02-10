@@ -89,7 +89,9 @@ extension CollectionVC : UICollectionViewDataSource, UICollectionViewDelegate{
                 PHImageManager.default().requestPlayerItem(forVideo : asset, options: nil, resultHandler: {(playerItem, nil) in
                     let avc = AVPlayerViewController()
                     avc.player = AVPlayer(playerItem : playerItem)
-                    self.show(avc, sender: self)
+                    self.present(avc, animated: true){
+                        avc.player?.play()
+                    }
                 })
             }
         }
