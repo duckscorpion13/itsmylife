@@ -123,9 +123,14 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOu
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        self.myView=UIView(frame:CGRect(x: self.webView.center.x, y: self.webView.center.y, width: 100, height: 100))
-        self.myView?.contentMode = .scaleAspectFill
-        self.webView.addSubview(self.myView!)
+        if(self.myView == nil){
+            self.myView=UIView(frame:CGRect(x: self.webView.center.x, y: self.webView.center.y, width: 100, height: 100))
+            self.myView?.contentMode = .scaleAspectFill
+            self.webView.addSubview(self.myView!)
+        }
+        else{
+            self.myView?.center=self.webView.center
+        }
         
         self.m_captureVideoPreviewLayer.frame = (self.myView?.bounds)!
         
