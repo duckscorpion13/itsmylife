@@ -181,60 +181,55 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" minimumZoomScale="0.10000000000000001" maximumZoomScale="30" translatesAutoresizingMaskIntoConstraints="NO" id="QKS-DB-eub">
-                                <rect key="frame" x="0.0" y="28" width="375" height="590"/>
+                            <webView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fZ1-Z5-F7y">
+                                <rect key="frame" x="0.0" y="42" width="375" height="582"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <subviews>
-                                    <webView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fZ1-Z5-F7y">
-                                        <rect key="frame" x="0.0" y="8" width="375" height="582"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                        <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    </webView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sAi-Ei-0yp">
-                                        <rect key="frame" x="0.0" y="530" width="80" height="60"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    </imageView>
-                                    <switch opaque="NO" alpha="0.5" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1EN-Le-6pQ">
-                                        <rect key="frame" x="318" y="551" width="51" height="31"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                                        <connections>
-                                            <action selector="switchValueChanged:" destination="O8K-mP-oig" eventType="valueChanged" id="9pi-Fn-2Vz"/>
-                                        </connections>
-                                    </switch>
-                                    <slider opaque="NO" alpha="0.5" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.59999999999999998" minValue="0.20000000000000001" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Gtd-gk-P6e">
-                                        <rect key="frame" x="89" y="530" width="198" height="31"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                        <connections>
-                                            <action selector="slideChang:" destination="O8K-mP-oig" eventType="valueChanged" id="Ng5-Bo-92X"/>
-                                        </connections>
-                                    </slider>
-                                    <segmentedControl opaque="NO" alpha="0.5" contentMode="scaleToFill" fixedFrame="YES" selected="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="adH-ns-azZ">
-                                        <rect key="frame" x="91" y="562" width="91" height="29"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <segments>
-                                            <segment title="Photo"/>
-                                            <segment title="Vedio"/>
-                                        </segments>
-                                        <connections>
-                                            <action selector="modeChang:" destination="O8K-mP-oig" eventType="valueChanged" id="nCB-De-27Y"/>
-                                        </connections>
-                                    </segmentedControl>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gG7-bc-Zry">
-                                        <rect key="frame" x="190" y="561" width="119" height="29"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                        <state key="normal" title="TAKE">
-                                            <color key="titleColor" red="1" green="0.256678511" blue="0.12507303389999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="takeClick:" destination="O8K-mP-oig" eventType="touchUpInside" id="psN-Sd-hZx"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <gestureRecognizers/>
                                 <connections>
-                                    <outletCollection property="gestureRecognizers" destination="B8G-p4-hwl" appends="YES" id="zNJ-PN-EiO"/>
+                                    <outletCollection property="gestureRecognizers" destination="B8G-p4-hwl" appends="YES" id="NeI-Up-Iwz"/>
+                                    <outletCollection property="gestureRecognizers" destination="9UQ-ex-FeU" appends="YES" id="zdQ-3S-CGY"/>
                                 </connections>
-                            </scrollView>
+                            </webView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sAi-Ei-0yp">
+                                <rect key="frame" x="0.0" y="554" width="80" height="60"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            </imageView>
+                            <switch opaque="NO" alpha="0.5" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1EN-Le-6pQ">
+                                <rect key="frame" x="318" y="569" width="51" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                                <connections>
+                                    <action selector="switchValueChanged:" destination="O8K-mP-oig" eventType="valueChanged" id="9pi-Fn-2Vz"/>
+                                </connections>
+                            </switch>
+                            <slider opaque="NO" alpha="0.5" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.59999999999999998" minValue="0.20000000000000001" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Gtd-gk-P6e">
+                                <rect key="frame" x="89" y="548" width="198" height="31"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <connections>
+                                    <action selector="slideChang:" destination="O8K-mP-oig" eventType="valueChanged" id="Ng5-Bo-92X"/>
+                                </connections>
+                            </slider>
+                            <segmentedControl opaque="NO" alpha="0.5" contentMode="scaleToFill" fixedFrame="YES" selected="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="adH-ns-azZ">
+                                <rect key="frame" x="88" y="586" width="91" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <segments>
+                                    <segment title="Photo"/>
+                                    <segment title="Vedio"/>
+                                </segments>
+                                <connections>
+                                    <action selector="modeChang:" destination="O8K-mP-oig" eventType="valueChanged" id="nCB-De-27Y"/>
+                                </connections>
+                            </segmentedControl>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gG7-bc-Zry">
+                                <rect key="frame" x="190" y="585" width="119" height="29"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <state key="normal" title="TAKE">
+                                    <color key="titleColor" red="1" green="0.256678511" blue="0.12507303389999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="takeClick:" destination="O8K-mP-oig" eventType="touchUpInside" id="psN-Sd-hZx"/>
+                                </connections>
+                            </button>
                             <searchBar contentMode="redraw" fixedFrame="YES" text="https://www.apple.com.tw" translatesAutoresizingMaskIntoConstraints="NO" id="pG3-f2-MpW">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
@@ -247,7 +242,6 @@
                     <connections>
                         <outlet property="imageView" destination="sAi-Ei-0yp" id="OZZ-nx-7Gc"/>
                         <outlet property="recBtn" destination="gG7-bc-Zry" id="ArR-C0-BKt"/>
-                        <outlet property="sclView" destination="QKS-DB-eub" id="1RV-Sd-1hu"/>
                         <outlet property="searchBar" destination="pG3-f2-MpW" id="6z0-d2-fGJ"/>
                         <outlet property="segCtl" destination="adH-ns-azZ" id="9nn-LW-Mfc"/>
                         <outlet property="webView" destination="fZ1-Z5-F7y" id="kxj-je-dmk"/>
@@ -259,6 +253,11 @@
                         <action selector="grap:" destination="O8K-mP-oig" id="TJu-nV-4vW"/>
                     </connections>
                 </panGestureRecognizer>
+                <pinchGestureRecognizer id="9UQ-ex-FeU">
+                    <connections>
+                        <action selector="pinch:" destination="O8K-mP-oig" id="q6T-mG-pe4"/>
+                    </connections>
+                </pinchGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-1757.5999999999999" y="586.05697151424295"/>
         </scene>

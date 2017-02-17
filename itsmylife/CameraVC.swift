@@ -27,7 +27,6 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOu
     @IBOutlet weak var segCtl: UISegmentedControl!
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var webView: UIWebView!
-    @IBOutlet weak var sclView: UIScrollView!
     @IBOutlet weak var imageView: UIImageView!
     
     var myView: UIView?
@@ -60,7 +59,7 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOu
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.sclView.delegate=self
+//        self.sclView.delegate=self
         
         let url = URL(string:searchBar.text!)
         let quest = URLRequest(url: url!)
@@ -124,9 +123,9 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOu
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        self.myView=UIView(frame:CGRect(x: self.sclView.center.x, y: self.sclView.center.y, width: 100, height: 100))
+        self.myView=UIView(frame:CGRect(x: self.webView.center.x, y: self.webView.center.y, width: 100, height: 100))
         self.myView?.contentMode = .scaleAspectFill
-        self.sclView.addSubview(self.myView!)
+        self.webView.addSubview(self.myView!)
         
         self.m_captureVideoPreviewLayer.frame = (self.myView?.bounds)!
         
@@ -265,13 +264,13 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOu
     
     
     @IBAction func grap(_ sender: UIPanGestureRecognizer) {
-        let gesturePoint = sender.location(in: self.sclView)
+        let gesturePoint = sender.location(in: self.webView)
         switch sender.state {
       
         case .changed:
             // change the attachment's anchor point
             if let hitView = view.hitTest(gesturePoint,with:nil), hitView == self.myView {
-                if(self.sclView.bounds.contains(gesturePoint)){
+                if(self.webView.bounds.contains(gesturePoint)){
                     hitView.center =
                         CGPoint(x:gesturePoint.x,y:gesturePoint.y-20)
                 }
@@ -295,11 +294,19 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOu
         self.recBtn.setTitle("REC", for: .normal)
     }
     
-}
-
-extension CameraVC: UIScrollViewDelegate{
-    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
-        return self.myView
+    @IBAction func pinch(_ sender: UIPinchGestureRecognizer) {
+        if( sender.state == .ended || sender.state == .changed) {
+            
+            let newScale = sender.scale
+            self.myView?.transform = CGAffineTransform(scaleX: newScale, y: newScale)
+            
+        }
     }
 }
+
+//extension CameraVC: UIScrollViewDelegate{
+//    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+//        return self.myView
+//    }
+//}
 
