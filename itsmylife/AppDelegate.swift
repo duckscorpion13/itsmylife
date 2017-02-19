@@ -29,13 +29,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             }
         }
         
-        center.setNotificationCategories(setCategories())
-        center.delegate = self
+        application.registerForRemoteNotifications()
+        
+//        center.setNotificationCategories(setCategories())
+//        center.delegate = self
         
         // 推播通知
         self.sendNotification()
     
         return true
+    }
+    
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        
+        let str = NSData(data:deviceToken)
+        print(str)
+    }
+    
+    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
+        print(error)
     }
     
     func sendNotification() {
