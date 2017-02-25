@@ -11,8 +11,10 @@ import AVFoundation
 import ImageIO
 import AssetsLibrary
 
-class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOutputRecordingDelegate{
+class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOutputRecordingDelegate,UISearchBarDelegate{
 
+    
+    var m_UserDefault:UserDefaults!
     // 負責協調從截取裝置到輸出間的資料流動
     var m_session = AVCaptureSession()
     // 負責即時預覽目前相機設備截取到的畫面
@@ -59,12 +61,20 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOu
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        self.sclView.delegate=self
+        self.m_UserDefault = UserDefaults.standard
         
+        self.searchBar.delegate=self
+        if let strUrl = self.m_UserDefault.object(forKey: "URL") as? String{
+            self.searchBar.text = strUrl
+        }
+        else{
+            self.searchBar.text = "https://www.apple.com.tw"
+        }
         let url = URL(string:searchBar.text!)
         let quest = URLRequest(url: url!)
         self.webView.loadRequest(quest)
         
+        self.webView.scrollView.zoomScale=1.0
         
         let audioDevice = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeAudio)
         
@@ -118,7 +128,20 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOu
             self.m_session.addOutput(output)
         }
     }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar){
+       
+        if let url = URL(string:self.searchBar.text!){
+            let quest = URLRequest(url: url)
+            self.m_UserDefault.set(self.searchBar.text, forKey: "URL")
+            self.m_UserDefault.synchronize()
+            self.webView.loadRequest(quest)
+        }
+        searchBar.resignFirstResponder()
         
+    }
+    
+    
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -127,9 +150,6 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOu
             self.myView=UIView(frame:CGRect(x: self.webView.center.x, y: self.webView.center.y, width: 100, height: 100))
             self.myView?.contentMode = .scaleAspectFill
             self.webView.addSubview(self.myView!)
-        }
-        else{
-            self.myView?.center=self.webView.center
         }
         
         self.m_captureVideoPreviewLayer.frame = (self.myView?.bounds)!
@@ -141,7 +161,7 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOu
         self.m_captureVideoPreviewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
         self.myView?.layer.addSublayer(self.m_captureVideoPreviewLayer)
         
-        self.myView?.center=self.view.center
+        self.myView?.center=self.webView.center
         self.myView?.alpha=0.5
 
     }

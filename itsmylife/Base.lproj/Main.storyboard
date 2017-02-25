@@ -230,7 +230,7 @@
                                     <action selector="takeClick:" destination="O8K-mP-oig" eventType="touchUpInside" id="psN-Sd-hZx"/>
                                 </connections>
                             </button>
-                            <searchBar contentMode="redraw" fixedFrame="YES" text="https://www.apple.com.tw" translatesAutoresizingMaskIntoConstraints="NO" id="pG3-f2-MpW">
+                            <searchBar contentMode="redraw" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pG3-f2-MpW">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <textInputTraits key="textInputTraits"/>
