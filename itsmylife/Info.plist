@@ -26,13 +26,13 @@
 		<true/>
 	</dict>
 	<key>NSMicrophoneUsageDescription</key>
-	<string></string>
+	<string>For Record the moment</string>
 	<key>NSCameraUsageDescription</key>
-	<string></string>
+	<string>For Record the moment</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string></string>
+	<string>For Record where are you</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string></string>
+	<string>For Check your pictures</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
