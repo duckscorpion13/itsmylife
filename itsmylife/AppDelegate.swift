@@ -50,90 +50,90 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         print(error)
     }
     
-    func sendNotification() {
-        let content = UNMutableNotificationContent()
-        content.categoryIdentifier = "c1"
-        content.title = "推播測試"
-        content.body = "Hello"
-        content.badge = 3
-        content.sound = UNNotificationSound.default()
-        
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
-        let request = UNNotificationRequest(identifier: "myid", content: content, trigger: trigger)
-        
-        let center = UNUserNotificationCenter.current()
-        center.add(request)
-    }
+//    func sendNotification() {
+//        let content = UNMutableNotificationContent()
+//        content.categoryIdentifier = "c1"
+//        content.title = "推播測試"
+//        content.body = "Hello"
+//        content.badge = 3
+//        content.sound = UNNotificationSound.default()
+//        
+//        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
+//        let request = UNNotificationRequest(identifier: "myid", content: content, trigger: trigger)
+//        
+//        let center = UNUserNotificationCenter.current()
+//        center.add(request)
+//    }
+//    
+//    func setCategories() -> Set<UNNotificationCategory> {
+//        var set = Set<UNNotificationCategory>()
+//        
+//        let a1 = UNNotificationAction(
+//            identifier: "a1",
+//            title: "按鈕1",
+//            options: []
+//        )
+//        let a2 = UNNotificationAction(
+//            identifier: "a2",
+//            title: "按鈕2",
+//            options: [.foreground]
+//        )
+//        let a3 = UNNotificationAction(
+//            identifier: "Stop",
+//            title: "Stop",
+//            options: [.destructive, .authenticationRequired]
+//        )
+//        let a4 = UNTextInputNotificationAction(
+//            identifier: "a4",
+//            title: "回覆",
+//            options: []
+//        )
+//        
+//        let c1 = UNNotificationCategory(
+//            identifier: "c1",
+//            actions: [a1, a2, a3, a4],
+//            intentIdentifiers: [],
+//            options: []
+//        )
+//        
+//        set.insert(c1)
+//        
+//        return set
+//    }
+//    
+//    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping(UNNotificationPresentationOptions) -> Void) {
+//        
+//        // 透過 notification.request.identifier 得知是哪個推播
+//        
+//        // 若前景也要顯示訊息框，執行以下程式碼即可
+//        completionHandler([.alert])
+//    }
     
-    func setCategories() -> Set<UNNotificationCategory> {
-        var set = Set<UNNotificationCategory>()
-        
-        let a1 = UNNotificationAction(
-            identifier: "a1",
-            title: "按鈕1",
-            options: []
-        )
-        let a2 = UNNotificationAction(
-            identifier: "a2",
-            title: "按鈕2",
-            options: [.foreground]
-        )
-        let a3 = UNNotificationAction(
-            identifier: "Stop",
-            title: "Stop",
-            options: [.destructive, .authenticationRequired]
-        )
-        let a4 = UNTextInputNotificationAction(
-            identifier: "a4",
-            title: "回覆",
-            options: []
-        )
-        
-        let c1 = UNNotificationCategory(
-            identifier: "c1",
-            actions: [a1, a2, a3, a4],
-            intentIdentifiers: [],
-            options: []
-        )
-        
-        set.insert(c1)
-        
-        return set
-    }
-    
-    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping(UNNotificationPresentationOptions) -> Void) {
-        
-        // 透過 notification.request.identifier 得知是哪個推播
-        
-        // 若前景也要顯示訊息框，執行以下程式碼即可
-        completionHandler([.alert])
-    }
-    
-    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-        //        let r = response as! UNTextInputNotificationResponse
-        //
-        //        print(r.notification.request.content.categoryIdentifier) // 例如 "c1"
-        //        print(r.actionIdentifier) // 例如 "a4"
-        //        print(r.userText) // 例如 "hi"
-        
-        print(response.notification.request.content.categoryIdentifier)
-        print(response.actionIdentifier)
-        
-        if(response.actionIdentifier=="Stop"){
-            self.timer?.invalidate()
-        }
-        else{
-            if(self.timer==nil){
-                self.timer=Timer.scheduledTimer(withTimeInterval: 1800.0, repeats: true){ _ in self.sendNotification()}
-            }
-        }
-        
-        if response.actionIdentifier == "a4"{
-            if let r = response as? UNTextInputNotificationResponse{
-                print(r.userText)
-            }
-        }
-    }
+//    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+//        //        let r = response as! UNTextInputNotificationResponse
+//        //
+//        //        print(r.notification.request.content.categoryIdentifier) // 例如 "c1"
+//        //        print(r.actionIdentifier) // 例如 "a4"
+//        //        print(r.userText) // 例如 "hi"
+//        
+//        print(response.notification.request.content.categoryIdentifier)
+//        print(response.actionIdentifier)
+//        
+//        if(response.actionIdentifier=="Stop"){
+//            self.timer?.invalidate()
+//        }
+//        else{
+//            if(self.timer==nil){
+//                self.timer=Timer.scheduledTimer(withTimeInterval: 1800.0, repeats: true){ _ in self.sendNotification()}
+//            }
+//        }
+//        
+//        if response.actionIdentifier == "a4"{
+//            if let r = response as? UNTextInputNotificationResponse{
+//                print(r.userText)
+//            }
+//        }
+//    }
 
 
     func applicationWillResignActive(_ application: UIApplication) {

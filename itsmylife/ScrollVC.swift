@@ -1,4 +1,4 @@
-﻿//
+//
 //  ScrollVC.swift
 //  itsmylife
 //
@@ -143,13 +143,13 @@ class ScrollVC: UIViewController ,UIScrollViewDelegate{
             
             faceBoxes.append(faceBox)
             
-            if face.hasLeftEyePosition {
-                print("Left eye bounds are \(face.leftEyePosition)")
-            }
-            
-            if face.hasRightEyePosition {
-                print("Right eye bounds are \(face.rightEyePosition)")
-            }
+//            if face.hasLeftEyePosition {
+//                print("Left eye bounds are \(face.leftEyePosition)")
+//            }
+//            
+//            if face.hasRightEyePosition {
+//                print("Right eye bounds are \(face.rightEyePosition)")
+//            }
         }
     }
 

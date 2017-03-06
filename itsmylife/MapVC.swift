@@ -17,9 +17,9 @@ class MapVC: UIViewController,MKMapViewDelegate  {
 
         // Do any additional setup after loading the view.
         mapView.delegate=self
-        let ann = MKPointAnnotation()
-        ann.coordinate=CLLocationCoordinate2DMake(24.402551, 121.161865)
-        mapView.addAnnotation(ann)
+//        let ann = MKPointAnnotation()
+//        ann.coordinate=CLLocationCoordinate2DMake(24.402551, 121.161865)
+//        mapView.addAnnotation(ann)
     }
 
     override func didReceiveMemoryWarning() {
