@@ -35,7 +35,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 //        center.delegate = self
         
         // 推播通知
-        self.sendNotification()
+//        self.sendNotification()
     
         return true
     }
