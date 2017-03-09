@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        lm.requestAlwaysAuthorization()
+        lm.requestWhenInUseAuthorization()
         
         
         let center = UNUserNotificationCenter.current()

@@ -27,10 +27,10 @@
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>For Record the accident</string>
-	<key>NSLocationAlwaysUsageDescription</key>
+	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>accident in where</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>For Record the accident</string>
+	<string>For get audio evidence</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>check your pictures</string>
 	<key>UILaunchStoryboardName</key>

@@ -10,11 +10,23 @@ import UIKit
 import AVFoundation
 import ImageIO
 import AssetsLibrary
+import CloudKit
+import MapKit
 
-class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOutputRecordingDelegate,UISearchBarDelegate{
 
+
+class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOutputRecordingDelegate,UISearchBarDelegate,
+    CLLocationManagerDelegate{
+
+    var m_locationMamager:CLLocationManager!
     
-    var m_UserDefault:UserDefaults!
+    var m_location:CLLocation?
+    
+    let m_database = CKContainer.default().publicCloudDatabase
+    
+    let m_store = NSUbiquitousKeyValueStore()
+    
+//    var m_UserDefault:UserDefaults!
     // 負責協調從截取裝置到輸出間的資料流動
     var m_session = AVCaptureSession()
     // 負責即時預覽目前相機設備截取到的畫面
@@ -35,6 +47,9 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOu
     
     override func viewWillDisappear(_ animated: Bool) {
         self.m_session.stopRunning()
+        
+        // GPS
+        self.m_locationMamager.stopUpdatingLocation()
     }
     @IBAction func slideChang(_ sender: UISlider) {
         self.myView?.alpha=CGFloat(sender.value)
@@ -61,10 +76,15 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOu
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.m_UserDefault = UserDefaults.standard
+//        self.m_UserDefault = UserDefaults.standard
+        
         
         self.searchBar.delegate=self
-        if let strUrl = self.m_UserDefault.object(forKey: "URL") as? String{
+//        if let strUrl = self.m_UserDefault.object(forKey: "URL") as? String{
+//            self.searchBar.text = strUrl
+//        }
+        
+        if let strUrl = self.m_store.string(forKey: "URL"){
             self.searchBar.text = strUrl
         }
         else{
@@ -127,14 +147,24 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOu
         if(self.m_session.canAddOutput(output)){
             self.m_session.addOutput(output)
         }
+        
+        // GPS
+        self.m_locationMamager = CLLocationManager()
+        self.m_locationMamager.delegate = self
+        
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar){
        
         if let url = URL(string:self.searchBar.text!){
             let quest = URLRequest(url: url)
-            self.m_UserDefault.set(self.searchBar.text, forKey: "URL")
-            self.m_UserDefault.synchronize()
+//            self.m_UserDefault.set(self.searchBar.text, forKey: "URL")
+//            self.m_UserDefault.synchronize()
+            self.m_store.set(self.searchBar.text, forKey: "URL")
+            if(!self.m_store.synchronize()){
+                print("URL儲存失敗!")
+            }
+            
             self.webView.loadRequest(quest)
         }
         searchBar.resignFirstResponder()
@@ -163,10 +193,16 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOu
         
         self.myView?.center=self.webView.center
         self.myView?.alpha=0.5
+        
+         // GPS
+        self.m_locationMamager.startUpdatingLocation()
 
     }
 
 
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        self.m_location = locations[0]
+    }
     
     @IBAction func takeClick(_ sender: Any) {
         if(0==self.segCtl.selectedSegmentIndex){
@@ -199,8 +235,9 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOu
                     }
                     
                     // 開始錄影
-                    avCapOpt.startRecording(toOutputFileURL: url, recordingDelegate: self)
-                     self.recBtn.setTitle("STOP", for: .normal)
+                    avCapOpt.startRecording(toOutputFileURL: url,recordingDelegate: self)
+                    
+                    self.recBtn.setTitle("STOP", for: .normal)
                 }
             }
         }
@@ -221,6 +258,41 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOu
         
         // 圖片存檔
         UIImageWriteToSavedPhotosAlbum(imageView.image!, nil, nil, nil)
+        
+        let fm = FileManager.default
+        // 設定錄影的暫存檔路徑，我們把它放到 tmp 目錄下
+        let path = NSTemporaryDirectory() + "output.jpg"
+        let url = URL(fileURLWithPath: path)
+        
+        // 判斷暫存檔是否已經存在，如果存在就刪掉它
+        if fm.fileExists(atPath: url.path) {
+            try! fm.removeItem(at: url)
+        }
+        fm.createFile(atPath: path, contents: imageData, attributes: nil)
+        
+        retCKRecord(location:self.m_location,url: url)
+    }
+    
+    fileprivate func retCKRecord(location:CLLocation?,url: URL?){
+        let record = CKRecord(recordType:"MyMedia")
+        record["time"] = Date() as CKRecordValue?
+        
+        if let _location = location{
+            record["location"] = _location
+        }
+        if let _url = url{
+            let asset = CKAsset(fileURL: _url)
+            record["media"] = asset
+        }
+        
+        self.m_database.save(record, completionHandler:{ (record, error) in
+            if error == nil {
+                print("success")
+            }
+            else{
+                print("falure")
+            }
+        })
     }
    
     
@@ -315,7 +387,7 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOu
         }else{
             print(error)
         }
-        
+//        retCKRecord(location:self.m_location,url: outputFileURL)
         self.recBtn.setTitle("REC", for: .normal)
     }
     
@@ -327,6 +399,13 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOu
             
         }
     }
+    
+//    fileprivate func query(){
+//       
+//        let predicate = NSPredicate(value:true)
+//        let sort = NSSortDescriptor(key:"time",ascending:true)
+//        let query = CKQuery(recordType:"MyMedia",predicate:predicate)
+//    }
 }
 
 //extension CameraVC: UIScrollViewDelegate{
