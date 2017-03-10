@@ -10,26 +10,52 @@ import UIKit
 import MapKit
 import CloudKit
 
+class MyAnnotation:NSObject,MKAnnotation{
+    
+    init(rec:CKRecord) {
+        self.m_rec = rec
+    }
+    
+    let m_rec:CKRecord
+    
+    var coordinate: CLLocationCoordinate2D {
+        let loc = self.m_rec["location"] as? CLLocation
+        return CLLocationCoordinate2D(latitude: loc!.coordinate.latitude, longitude: loc!.coordinate.longitude)
+    }
+    
+    var title: String? {
+        if let date = self.m_rec["time"] as? NSDate{
+            return "\(date)"
+        }
+        return ""
+    }
+    
+    var subtitle: String? { return "" }
+    
+    var media:NSData?{
+        if let data = self.m_rec["media"] as? NSData{
+            return data
+        }
+        return nil
+    }
+}
 
 
 class MapVC: UIViewController,MKMapViewDelegate  {
 
-    var m_allMedia = [CKRecord]() { didSet{
-        self.mapView.removeAnnotations(self.m_allAnnos)
-        self.m_allAnnos.removeAll()
+    var m_allMedia = [CKRecord]() {
+        didSet{
+            self.mapView.removeAnnotations(self.m_allAnnos)
+            self.m_allAnnos.removeAll()
             for rec in self.m_allMedia{
-                let ann = MKPointAnnotation()
-                if let loc=rec["location"] as? CLLocation{
-                    ann.coordinate.latitude=loc.coordinate.latitude
-                    ann.coordinate.longitude=loc.coordinate.longitude
-                }
+                let ann = MyAnnotation(rec: rec)
                 self.m_allAnnos.append(ann)
-                self.mapView.addAnnotation(ann)
             }
+            self.mapView.addAnnotations(self.m_allAnnos)
         }
     }
     let m_database = CKContainer.default().publicCloudDatabase
-    var m_allAnnos = [MKAnnotation]()
+    var m_allAnnos = [MyAnnotation]()
     
     @IBOutlet weak var mapView: MKMapView!
     override func viewDidLoad() {
@@ -46,6 +72,8 @@ class MapVC: UIViewController,MKMapViewDelegate  {
         iCloudSubscribe()
     }
     fileprivate func fetchAll() {
+//        let date = NSDate(timeInterval: -60.0 * 120, sinceDate: NSDate())
+//        let predicate = NSPredicate(format: "creationDate > %@", date)
         let predicate = NSPredicate(format: "TRUEPREDICATE")
         let query = CKQuery(recordType: "MyMedia", predicate: predicate)
         //        query.sortDescriptors = [NSSortDescriptor(key: Cloud.Attribute.Question, ascending: true)]
@@ -124,31 +152,29 @@ class MapVC: UIViewController,MKMapViewDelegate  {
         // Dispose of any resources that can be recreated.
     }
     
-    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        if annotation is MKUserLocation {
-            return nil
-        }
-        
-        var annView = mapView.dequeueReusableAnnotationView(withIdentifier: "Pin")
-        if annView == nil {
-            annView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "Pin")
-        }
-        
-        // 允許使用者可以拖放大頭針
-        annView?.isDraggable = true
-        
-        return annView
-    }
-
-    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, didChange newState: MKAnnotationViewDragState, fromOldState oldState: MKAnnotationViewDragState) {
-        if newState == .ending {
-            view.dragState = .none
-        }
-    }
-    
-//    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-//        mapView.removeAnnotation(view.annotation!)
+//    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+//        if annotation is MKUserLocation {
+//            return nil
+//        }
+//        
+//        var annView = mapView.dequeueReusableAnnotationView(withIdentifier: "Pin")
+//        if annView == nil {
+//            annView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "Pin")
+//        }
+//        
+//        // 允許使用者可以拖放大頭針
+//        annView?.isDraggable = true
+//        
+//        return annView
 //    }
+
+//    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, didChange newState: MKAnnotationViewDragState, fromOldState oldState: MKAnnotationViewDragState) {
+//        if newState == .ending {
+//            view.dragState = .none
+//        }
+//    }
+    
+ 
 
     /*
     // MARK: - Navigation

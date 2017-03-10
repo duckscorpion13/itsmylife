@@ -68,6 +68,16 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOu
         if(0==sender.selectedSegmentIndex){
             self.recBtn.setTitle("TAKE", for: .normal)
         }else{
+            let audioDevice = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeAudio)
+            
+            do{
+                let audioInput = try AVCaptureDeviceInput(device: audioDevice)
+                if(self.m_session.canAddInput(audioInput)){
+                    self.m_session.addInput(audioInput)
+                }
+            }catch {
+                print(error)
+            }
             self.recBtn.setTitle("REC", for: .normal)
         }
          
@@ -90,20 +100,13 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOu
         else{
             self.searchBar.text = "https://www.apple.com.tw"
         }
-        let url = URL(string:searchBar.text!)
-        let quest = URLRequest(url: url!)
-        self.webView.loadRequest(quest)
-        
+        if let url = URL(string:searchBar.text!){
+            let quest = URLRequest(url: url)
+            self.webView.loadRequest(quest)
+        }
         self.webView.scrollView.zoomScale=1.0
         
-        let audioDevice = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeAudio)
-        
-        do{
-            let audioInput = try AVCaptureDeviceInput(device: audioDevice)
-            self.m_session.addInput(audioInput)
-        }catch {
-            print(error)
-        }
+      
         
         
         // .builtInWideAngleCamera 為廣角鏡頭
@@ -301,8 +304,11 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOu
         self.m_session.beginConfiguration()
         
         // 將現有的 input 刪除
-        self.m_session.removeInput(self.m_session.inputs[1] as! AVCaptureInput)
-
+        for input in self.m_session.inputs{
+            if ((input as? AVCaptureInput) != nil){
+                self.m_session.removeInput(input as! AVCaptureInput)
+            }
+        }
         
         if sender.isOn {
             // 後置鏡頭
