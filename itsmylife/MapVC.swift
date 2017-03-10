@@ -56,7 +56,7 @@ class MapVC: UIViewController,MKMapViewDelegate  {
     }
     let m_database = CKContainer.default().publicCloudDatabase
     var m_allAnnos = [MyAnnotation]()
-    
+    var m_image:UIImage?
     @IBOutlet weak var mapView: MKMapView!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -181,8 +181,8 @@ class MapVC: UIViewController,MKMapViewDelegate  {
                 
                 // 設定右邊為一個按鈕
                 let button = UIButton(type: .detailDisclosure)
-                button.tag = 100
-//              button.addTarget(self, action: #selector(buttonPress), for: .touchUpInside)
+//                button.tag =
+                button.addTarget(self, action: #selector(self.btnPress), for: .touchUpInside)
             
                 annView?.rightCalloutAccessoryView = button
                 break
@@ -191,6 +191,19 @@ class MapVC: UIViewController,MKMapViewDelegate  {
         annView?.canShowCallout = true
         
         return annView
+    }
+    
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        if let media = (view.annotation as? MyAnnotation)?.media{
+            self.m_image = UIImage(contentsOfFile: media.fileURL.path)
+        }
+    }
+    
+    func btnPress(_ sender:UIButton){
+        if let vc=self.storyboard?.instantiateViewController(withIdentifier: "SVC") as? ScrollVC{
+            vc.m_img=self.m_image
+            self.show(vc, sender: self)
+        }
     }
     
 //    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {

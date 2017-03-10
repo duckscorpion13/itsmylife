@@ -51,7 +51,6 @@
                                                 </label>
                                             </subviews>
                                         </view>
-                                        <color key="backgroundColor" red="0.306756531" green="1" blue="0.28976869550000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="bottom" secondItem="AnD-0v-YCN" secondAttribute="bottom" id="0Yy-Td-MkA"/>
                                             <constraint firstItem="AnD-0v-YCN" firstAttribute="leading" secondItem="K6M-f4-WFB" secondAttribute="leading" id="6gb-FV-YMc"/>
@@ -126,7 +125,6 @@
                                 </connections>
                             </scrollView>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <gestureRecognizers/>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="BQw-bg-gXZ" appends="YES" id="iWh-a6-yOw"/>
