@@ -32,9 +32,9 @@ class MyAnnotation:NSObject,MKAnnotation{
     
     var subtitle: String? { return "" }
     
-    var media:NSData?{
-        if let data = self.m_rec["media"] as? NSData{
-            return data
+    var media:CKAsset?{
+        if let asset = self.m_rec["media"] as? CKAsset{
+            return asset
         }
         return nil
     }
@@ -150,6 +150,47 @@ class MapVC: UIViewController,MKMapViewDelegate  {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        if annotation is MKUserLocation {
+            return nil
+        }
+        
+        var annView = mapView.dequeueReusableAnnotationView(withIdentifier: "Pin")
+        if (annView == nil) {
+            annView = MKPinAnnotationView(annotation: annotation, reuseIdentifier:
+                "Pin")
+        }
+        
+        for anno in self.m_allAnnos{
+            if (annotation.title)! == anno.title {
+                // 設定左邊為一張圖片
+                // 圖片已經使用影像處理軟體調整為適當的長寬
+                if let media = anno.media{
+                    let image = UIImage(contentsOfFile: media.fileURL.path)
+                    let imageView = UIImageView(frame: CGRect(x:0,y:0,width:50,height:50))
+                    imageView.image=image
+                    annView?.leftCalloutAccessoryView = imageView
+                }
+                // 設定title下方放一個標籤
+                let label = UILabel()
+                label.numberOfLines = 2
+                label.text = "緯度:\(annotation.coordinate.latitude)\n經度:\(annotation.coordinate.longitude)"
+                annView?.detailCalloutAccessoryView = label
+                
+                // 設定右邊為一個按鈕
+                let button = UIButton(type: .detailDisclosure)
+                button.tag = 100
+//              button.addTarget(self, action: #selector(buttonPress), for: .touchUpInside)
+            
+                annView?.rightCalloutAccessoryView = button
+                break
+            }
+        }
+        annView?.canShowCallout = true
+        
+        return annView
     }
     
 //    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
