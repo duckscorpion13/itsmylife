@@ -61,6 +61,8 @@ extension CollectionVC : UICollectionViewDataSource, UICollectionViewDelegate{
                 resultHandler: { (image, nil) in
                     // 參數 image 即為所取得的圖片
                     cell.img.image = image
+                    let sec = Int(pic.duration)
+                    cell.label.text = "\(sec/60):\(sec%60)"
                 })
         }
         return cell
