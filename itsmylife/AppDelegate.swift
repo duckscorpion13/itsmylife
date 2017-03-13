@@ -36,7 +36,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
         // 推播通知
 //        self.sendNotification()
-    
+        application.applicationIconBadgeNumber=0
+        
         return true
     }
     
