@@ -160,7 +160,7 @@
                     <connections>
                         <segue destination="O8K-mP-oig" kind="relationship" relationship="viewControllers" id="ghw-Jd-3Nt"/>
                         <segue destination="v1c-9V-kDb" kind="relationship" relationship="viewControllers" id="Qbq-yk-c1Z"/>
-                        <segue destination="MEB-7X-3c6" kind="relationship" relationship="viewControllers" id="LoY-bp-OXC"/>
+                        <segue destination="gyV-zq-Luc" kind="relationship" relationship="viewControllers" id="LoY-bp-OXC"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DA7-In-m67" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -179,7 +179,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <webView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fZ1-Z5-F7y">
+                            <webView contentMode="scaleToFill" fixedFrame="YES" scalesPageToFit="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fZ1-Z5-F7y">
                                 <rect key="frame" x="0.0" y="42" width="375" height="582"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -259,7 +259,7 @@
             </objects>
             <point key="canvasLocation" x="-1757.5999999999999" y="586.05697151424295"/>
         </scene>
-        <!--Map-->
+        <!--MapVC-->
         <scene sceneID="6ij-S6-M5A">
             <objects>
                 <viewController id="MEB-7X-3c6" customClass="MapVC" customModule="itsmylife" customModuleProvider="target" sceneMemberID="viewController">
@@ -278,14 +278,14 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Map" id="7r4-9q-FAm"/>
+                    <navigationItem key="navigationItem" id="g1C-tv-9oa"/>
                     <connections>
                         <outlet property="mapView" destination="LIg-9o-snz" id="nE7-4U-JY0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fiA-cq-Nsi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1754" y="1573"/>
+            <point key="canvasLocation" x="-815.20000000000005" y="1572.8635682158922"/>
         </scene>
         <!--Collect-->
         <scene sceneID="4eG-iN-6Mp">
@@ -305,6 +305,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KuO-9J-bcV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1754" y="-215"/>
+        </scene>
+        <!--Map-->
+        <scene sceneID="FQc-4d-BHT">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="gyV-zq-Luc" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Map" id="7r4-9q-FAm"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="5y4-9M-fd3">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="MEB-7X-3c6" kind="relationship" relationship="rootViewController" id="ey4-MU-tM5"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Gey-PD-47j" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1754.4000000000001" y="1572.8635682158922"/>
         </scene>
     </scenes>
 </document>
