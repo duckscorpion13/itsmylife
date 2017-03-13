@@ -17,12 +17,24 @@ class CollectionVC: UIViewController{
     @IBAction func albumClick(_ sender: UIButton) {
         self.newIPVC()
     }
-    
     var m_media: MyMedia = MyMedia()
-  
+    dynamic var m_dataCount = 0
+
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        self.collectView.reloadData()
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+        addObserver(self, forKeyPath: "m_dataCount", options: .new, context: nil)
+    }
+    
+    
     override func viewDidAppear(_ animated: Bool) {
         self.m_media.fetchAllPhotos(type: .video)
-        self.collectView.reloadData()
+        self.m_dataCount = self.m_media.PhotoList.count
+        
     }
 
     
