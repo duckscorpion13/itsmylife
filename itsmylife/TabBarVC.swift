@@ -7,11 +7,8 @@
 //
 
 import UIKit
-import Photos
-
 class TabBarVC: UITabBarController, UITabBarControllerDelegate {
     
-    let myMedia=MyMedia()
     override func awakeFromNib() {
         delegate = self
     }
@@ -22,13 +19,11 @@ class TabBarVC: UITabBarController, UITabBarControllerDelegate {
         }
         else if viewController is UINavigationController{
             if let nvc = viewController as? UINavigationController{
-                if let vc = nvc.topViewController as? CollectionVC{
+                if let _ = nvc.topViewController as? CollectionVC{
                     print("CollectionVC")
-                    vc.m_media = myMedia
                 }else{
                     print("MapVC")
-                }
-                
+                }                
             }
         }
     }

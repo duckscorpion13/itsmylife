@@ -12,21 +12,17 @@ import AVKit
 
 
 class CollectionVC: UIViewController{
-
+    @IBOutlet weak var collectView: UICollectionView!
     @IBOutlet weak var btn: UIButton!
-    var imgView: UIImageView?
-
     @IBAction func albumClick(_ sender: UIButton) {
         self.newIPVC()
     }
-    var m_media: MyMedia?
+    
+    var m_media: MyMedia = MyMedia()
   
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        
-        self.m_media?.fetchAllPhotos(type: .video)
-
+    override func viewDidAppear(_ animated: Bool) {
+        self.m_media.fetchAllPhotos(type: .video)
+        self.collectView.reloadData()
     }
 
     
@@ -46,56 +42,54 @@ extension CollectionVC : UICollectionViewDataSource, UICollectionViewDelegate{
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.m_media?.PhotoList.count ?? 0
+        return self.m_media.PhotoList.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! MyCell
-        if let pic = self.m_media?.PhotoList[indexPath.row]{
-            let size = CGSize(width: pic.pixelWidth, height: pic.pixelHeight)
-            PHImageManager.default().requestImage(
-                for: pic,
-                targetSize: size,
-                contentMode: .default,
-                options: nil,
-                resultHandler: { (image, nil) in
-                    // 參數 image 即為所取得的圖片
-                    cell.img.image = image
-                    let sec = Int(pic.duration)
-                    cell.label.text = "\(sec/60):\(sec%60)"
-                })
-        }
+        let pic = self.m_media.PhotoList[indexPath.row]
+        let size = CGSize(width: pic.pixelWidth, height: pic.pixelHeight)
+        PHImageManager.default().requestImage(
+            for: pic,
+            targetSize: size,
+            contentMode: .default,
+            options: nil,
+            resultHandler: { (image, nil) in
+                // 參數 image 即為所取得的圖片
+                cell.img.image = image
+                let sec = Int(pic.duration)
+                cell.label.text = "\(sec/60):\(sec%60)"
+        })
+        
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath){
-        
-        if let asset = self.m_media?.PhotoList[indexPath.row]{
-            if(asset.mediaType == .image){
-                if let vc=storyboard?.instantiateViewController(withIdentifier: "SVC"){
-                    if let svc = vc as? ScrollVC{
-                        PHImageManager.default().requestImage(
-                            for: asset,
-                            targetSize: PHImageManagerMaximumSize,
-                            contentMode: .default,
-                            options: nil,
-                            resultHandler: { (image, nil) in
-                                // 參數 image 即為所取得的圖片
-                                svc.m_img=image
-                                self.show(svc, sender: self)
-                            })
-                    }
+        let asset = self.m_media.PhotoList[indexPath.row]
+        if(asset.mediaType == .image){
+            if let vc=storyboard?.instantiateViewController(withIdentifier: "SVC"){
+                if let svc = vc as? ScrollVC{
+                    PHImageManager.default().requestImage(
+                        for: asset,
+                        targetSize: PHImageManagerMaximumSize,
+                        contentMode: .default,
+                        options: nil,
+                        resultHandler: { (image, nil) in
+                            // 參數 image 即為所取得的圖片
+                            svc.m_img=image
+                            self.show(svc, sender: self)
+                    })
                 }
             }
-            else if(asset.mediaType == .video){
-                PHImageManager.default().requestPlayerItem(forVideo : asset, options: nil, resultHandler: {(playerItem, nil) in
-                    let avc = AVPlayerViewController()
-                    avc.player = AVPlayer(playerItem : playerItem)
-                    self.present(avc, animated: true){
-                        avc.player?.play()
-                    }
-                })
-            }
+        }
+        else if(asset.mediaType == .video){
+            PHImageManager.default().requestPlayerItem(forVideo : asset, options: nil, resultHandler: {(playerItem, nil) in
+                let avc = AVPlayerViewController()
+                avc.player = AVPlayer(playerItem : playerItem)
+                self.present(avc, animated: true){
+                    avc.player?.play()
+                }
+            })
         }
     }
 }

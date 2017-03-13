@@ -92,6 +92,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="btn" destination="DV0-Vi-gtH" id="vVN-HX-qCx"/>
+                        <outlet property="collectView" destination="eVk-25-PzL" id="cwe-QH-4LS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Eap-Q2-KdX" userLabel="First Responder" sceneMemberID="firstResponder"/>
