@@ -19,22 +19,18 @@ class CollectionVC: UIViewController{
     }
     var m_media: MyMedia = MyMedia()
     dynamic var m_dataCount = 0
-
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        self.collectView.reloadData()
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
         addObserver(self, forKeyPath: "m_dataCount", options: .new, context: nil)
     }
-    
-    
-    override func viewDidAppear(_ animated: Bool) {
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        self.collectView.reloadData()
+    }
+        
+    override func viewWillAppear(_ animated: Bool) {
         self.m_media.fetchAllPhotos(type: .video)
         self.m_dataCount = self.m_media.PhotoList.count
-        
     }
 
     
@@ -70,7 +66,7 @@ extension CollectionVC : UICollectionViewDataSource, UICollectionViewDelegate{
                 // 參數 image 即為所取得的圖片
                 cell.img.image = image
                 let sec = Int(pic.duration)
-                cell.label.text = "\(sec/60):\(sec%60)"
+                cell.label.text = String(format:"%02d:%02d:%02d",sec/3600,sec/60,sec%60)
         })
         
         return cell
