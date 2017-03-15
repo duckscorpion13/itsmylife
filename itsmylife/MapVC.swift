@@ -63,14 +63,71 @@ class MapVC: UIViewController,MKMapViewDelegate  {
 
         // Do any additional setup after loading the view.
         mapView.delegate=self
-//        let ann = MKPointAnnotation()
-//        ann.coordinate=CLLocationCoordinate2DMake(24.402551, 121.161865)
-//        mapView.addAnnotation(ann)
+        
+        // 使用預設的 container
+        let container = CKContainer.default()
+        
+        // 要求使用者授權登入 iCloud
+        container.requestApplicationPermission(.userDiscoverability)
+        { (status, error) in
+            
+            switch status {
+            case .initialState:
+                print("使用者尚未決定是否要授權")
+                
+            case .granted:
+                print("使用者已經授權")
+                
+                container.fetchUserRecordID(completionHandler: { (recordID, error) in
+                    guard error == nil else {
+                        print(error!)
+                        return
+                    }
+                    
+                    guard recordID != nil else {
+                        return
+                    }
+                    
+                    container.discoverUserIdentity(withUserRecordID: recordID!, completionHandler: { (userIdentity, error) in
+                        // 這個區段的程式已經不在主執行緒
+                        self.getUserInfo(userIdentify: userIdentity, error: error)
+                    })
+                })
+                
+            case .denied:
+                print("使用者拒絕授權")
+                
+            case .couldNotComplete:
+                print(error!)
+            }
+        }
+
     }
     override func viewWillAppear(_ animated: Bool) {
         fetchAll()
         iCloudSubscribe()
     }
+    
+    func getUserInfo(userIdentify: CKUserIdentity?, error: Error?) {
+        guard error == nil else {
+            print(error!)
+            return
+        }
+        
+        guard userIdentify != nil else {
+            return
+        }
+        
+        let lookupInfo = userIdentify?.lookupInfo
+        let nameComponents = userIdentify?.nameComponents
+        
+        print("email: \(lookupInfo?.emailAddress)")
+        print("phone: \(lookupInfo?.phoneNumber)")
+        
+        print("givenName: \(nameComponents?.givenName)")
+        print("familyName: \(nameComponents?.familyName)")
+    }
+    
     fileprivate func fetchAll() {
 //        let date = NSDate(timeInterval: -60.0 * 120, sinceDate: NSDate())
 //        let predicate = NSPredicate(format: "creationDate > %@", date)
@@ -166,7 +223,6 @@ class MapVC: UIViewController,MKMapViewDelegate  {
         for anno in self.m_allAnnos{
             if (annotation.title)! == anno.title {
                 // 設定左邊為一張圖片
-                // 圖片已經使用影像處理軟體調整為適當的長寬
                 if let media = anno.media{
                     let image = UIImage(contentsOfFile: media.fileURL.path)
                     let imageView = UIImageView(frame: CGRect(x:0,y:0,width:50,height:50))
