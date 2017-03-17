@@ -14,9 +14,7 @@ import UserNotifications
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
     let lm = CLLocationManager()
     var window: UIWindow?
-    var timer : Timer?
-
-    
+  
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         lm.requestWhenInUseAuthorization()
@@ -32,13 +30,50 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         application.registerForRemoteNotifications()
         
 //        center.setNotificationCategories(setCategories())
-//        center.delegate = self
+        center.delegate = self
         
         // 推播通知
 //        self.sendNotification()
         application.applicationIconBadgeNumber=0
         
         return true
+    }
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        updateMap()
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        updateMap()
+    }
+    
+    func updateMap(){
+        var vc = self.window?.rootViewController
+        while(vc?.presentedViewController != nil){
+            vc = vc?.presentedViewController
+        }
+        if let vc = vc{
+            if vc is UINavigationController{
+                let topVc = (vc as! UINavigationController).topViewController
+                if let mapVc = topVc as? MapVC{
+                    mapVc.fetchAll()
+                }
+            }
+            else if vc is UITabBarController{
+                let selVc = (vc as! UITabBarController).selectedViewController
+                if selVc is UINavigationController{
+                    let topVc = (selVc as! UINavigationController).topViewController
+                    if let mapVc = topVc as? MapVC{
+                        mapVc.fetchAll()
+                    }
+                }
+            }
+            else{
+                if let mapVc = vc as? MapVC{
+                    mapVc.fetchAll()
+                }
+            }
+        }
+        
     }
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {

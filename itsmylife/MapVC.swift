@@ -128,10 +128,10 @@ class MapVC: UIViewController,MKMapViewDelegate  {
         print("familyName: \(nameComponents?.familyName)")
     }
     
-    fileprivate func fetchAll() {
+    func fetchAll() {
 //        let date = NSDate(timeInterval: -60.0 * 120, sinceDate: NSDate())
 //        let predicate = NSPredicate(format: "creationDate > %@", date)
-        let predicate = NSPredicate(format: "TRUEPREDICATE")
+        let predicate = NSPredicate(value:true)
         let query = CKQuery(recordType: "MyMedia", predicate: predicate)
         //        query.sortDescriptors = [NSSortDescriptor(key: Cloud.Attribute.Question, ascending: true)]
         self.m_database.perform(query, inZoneWith: nil) { (records, error) in
@@ -149,59 +149,63 @@ class MapVC: UIViewController,MKMapViewDelegate  {
     fileprivate var cloudKitObserver: NSObjectProtocol?
     
     fileprivate func iCloudSubscribe() {
-        let predicate = NSPredicate(format: "TRUEPREDICATE")
+        let predicate = NSPredicate(value:true)
         let subscription = CKQuerySubscription(
             recordType: "MyMedia",
             predicate: predicate,
             subscriptionID: self.subscriptionID,
-            options: [.firesOnRecordCreation, .firesOnRecordDeletion]
+            options: [.firesOnRecordCreation, .firesOnRecordDeletion, .firesOnRecordUpdate]
         )
+        let note = CKNotificationInfo()
+        note.alertBody = "update picture"
+        subscription.notificationInfo = note
         // subscription.notificationInfo = ...
         self.m_database.save(subscription, completionHandler: { (savedSubscription, error) in
-            if error?._code == CKError.serverRejectedRequest.rawValue {
-                // ignore
-            } else if error != nil {
-                // report
+            if error == nil {
+                print("subscriip success")
+            }
+            else{
+                print("subscriip falure:\(error)")
             }
         })
-        cloudKitObserver = NotificationCenter.default.addObserver(
-            forName: NSNotification.Name(rawValue: "iCloudRemoteNotificationReceived"),
-            object: nil,
-            queue: OperationQueue.main,
-            using: { notification in
-                if let ckqn = notification.userInfo?["Notification"] as? CKQueryNotification {
-                    self.iCloudHandleSubscriptionNotification(ckqn)
-                }
-            }
-        )
+//        cloudKitObserver = NotificationCenter.default.addObserver(
+//            forName: NSNotification.Name(rawValue: "iCloudRemoteNotificationReceived"),
+//            object: nil,
+//            queue: OperationQueue.main,
+//            using: { notification in
+//                if let ckqn = notification.userInfo?["Notification"] as? CKQueryNotification {
+//                    self.iCloudHandleSubscriptionNotification(ckqn)
+//                }
+//            }
+//        )
     }
     
-    fileprivate func iCloudHandleSubscriptionNotification(_ ckqn: CKQueryNotification)
-    {
-        if ckqn.subscriptionID == self.subscriptionID {
-            if let recordID = ckqn.recordID {
-                switch ckqn.queryNotificationReason {
-                case .recordCreated:
-                    self.m_database.fetch(withRecordID: recordID) { (record, error) in
-                        if record != nil {
-                            DispatchQueue.main.async {
-                                self.m_allMedia = (self.m_allMedia + [record!]).sorted {
-                                    return $0.creationDate! < $1.creationDate!
-                                }
-                            }
-                        }
-                    }
-                    
-                case .recordDeleted:
-                    DispatchQueue.main.async {
-                        self.m_allMedia = self.m_allMedia.filter { $0.recordID != recordID }
-                    }
-                default:
-                    break
-                }
-            }
-        }
-    }
+//    fileprivate func iCloudHandleSubscriptionNotification(_ ckqn: CKQueryNotification)
+//    {
+//        if ckqn.subscriptionID == self.subscriptionID {
+//            if let recordID = ckqn.recordID {
+//                switch ckqn.queryNotificationReason {
+//                case .recordCreated:
+//                    self.m_database.fetch(withRecordID: recordID) { (record, error) in
+//                        if record != nil {
+//                            DispatchQueue.main.async {
+//                                self.m_allMedia = (self.m_allMedia + [record!]).sorted {
+//                                    return $0.creationDate! < $1.creationDate!
+//                                }
+//                            }
+//                        }
+//                    }
+//                    
+//                case .recordDeleted:
+//                    DispatchQueue.main.async {
+//                        self.m_allMedia = self.m_allMedia.filter { $0.recordID != recordID }
+//                    }
+//                default:
+//                    break
+//                }
+//            }
+//        }
+//    }
 
     
     override func didReceiveMemoryWarning() {
