@@ -130,9 +130,9 @@ class MapVC: UIViewController,MKMapViewDelegate  {
     }
     
     func fetchAll() {
-//        let date = NSDate(timeInterval: -60.0 * 120, sinceDate: NSDate())
-//        let predicate = NSPredicate(format: "creationDate > %@", date)
-        let predicate = NSPredicate(value:true)
+        let date = NSDate(timeInterval: -86400, since: Date())
+        let predicate = NSPredicate(format: "time > %@", date)
+//        let predicate = NSPredicate(value:true)
         let query = CKQuery(recordType: "MyMedia", predicate: predicate)
         //        query.sortDescriptors = [NSSortDescriptor(key: Cloud.Attribute.Question, ascending: true)]
         self.m_database.perform(query, inZoneWith: nil) { (records, error) in
@@ -147,7 +147,7 @@ class MapVC: UIViewController,MKMapViewDelegate  {
     // MARK: Subscription
     
     fileprivate let subscriptionID = "All Media Creations and Deletions"
-    fileprivate var cloudKitObserver: NSObjectProtocol?
+//    fileprivate var cloudKitObserver: NSObjectProtocol?
     
     fileprivate func iCloudSubscribe() {
         let predicate = NSPredicate(value:true)
@@ -234,7 +234,7 @@ class MapVC: UIViewController,MKMapViewDelegate  {
                         self.m_imageMap[anno.m_rec.recordID.recordName] = UIImage(contentsOfFile: media.fileURL.path)
                     }
                     
-                    imageView.image=self.m_imageMap[media.fileURL.path]
+                    imageView.image=self.m_imageMap[anno.m_rec.recordID.recordName]
                     annView?.leftCalloutAccessoryView = imageView
                 }
                 // 設定title下方放一個標籤
