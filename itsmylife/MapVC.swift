@@ -57,6 +57,7 @@ class MapVC: UIViewController,MKMapViewDelegate  {
     let m_database = CKContainer.default().publicCloudDatabase
     var m_allAnnos = [MyAnnotation]()
     var m_image:UIImage?
+    var m_imageMap = [String:UIImage]()
     @IBOutlet weak var mapView: MKMapView!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -223,25 +224,31 @@ class MapVC: UIViewController,MKMapViewDelegate  {
             annView = MKPinAnnotationView(annotation: annotation, reuseIdentifier:
                 "Pin")
         }
-        
         for anno in self.m_allAnnos{
             if (annotation.title)! == anno.title {
                 // 設定左邊為一張圖片
                 if let media = anno.media{
-                    let image = UIImage(contentsOfFile: media.fileURL.path)
                     let imageView = UIImageView(frame: CGRect(x:0,y:0,width:50,height:50))
-                    imageView.image=image
+                    
+                    if((self.m_imageMap[anno.m_rec.recordID.recordName]) == nil){
+                        self.m_imageMap[anno.m_rec.recordID.recordName] = UIImage(contentsOfFile: media.fileURL.path)
+                    }
+                    
+                    imageView.image=self.m_imageMap[media.fileURL.path]
                     annView?.leftCalloutAccessoryView = imageView
                 }
                 // 設定title下方放一個標籤
                 let label = UILabel()
                 label.numberOfLines = 2
-                label.text = "緯度:\(annotation.coordinate.latitude)\n經度:\(annotation.coordinate.longitude)"
+                let lati = String(format:"%.5f",annotation.coordinate.latitude)
+                let longi = String(format:"%.5f",annotation.coordinate.longitude)
+
+                label.text = "緯度:\(lati)\n經度:\(longi)"
                 annView?.detailCalloutAccessoryView = label
                 
                 // 設定右邊為一個按鈕
                 let button = UIButton(type: .detailDisclosure)
-//                button.tag =
+               
                 button.addTarget(self, action: #selector(self.btnPress), for: .touchUpInside)
             
                 annView?.rightCalloutAccessoryView = button
@@ -254,8 +261,8 @@ class MapVC: UIViewController,MKMapViewDelegate  {
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        if let media = (view.annotation as? MyAnnotation)?.media{
-            self.m_image = UIImage(contentsOfFile: media.fileURL.path)
+        if let name = (view.annotation as? MyAnnotation)?.m_rec.recordID.recordName{
+            self.m_image = self.m_imageMap[name]
         }
     }
     
