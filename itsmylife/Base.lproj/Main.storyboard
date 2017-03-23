@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="WiU-8v-Rxl">
-    <device id="retina4_7" orientation="portrait">
+    <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -19,11 +19,11 @@
                         <viewControllerLayoutGuide type="bottom" id="V4u-6l-6p4"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="OEV-mY-ZHB">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="eVk-25-PzL">
-                                <rect key="frame" x="16" y="33" width="343" height="600"/>
+                                <rect key="frame" x="16" y="33" width="288" height="501"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="i44-tN-YwL">
@@ -113,11 +113,11 @@
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" minimumZoomScale="0.10000000000000001" maximumZoomScale="3" translatesAutoresizingMaskIntoConstraints="NO" id="bBk-d5-5th">
-                                <rect key="frame" x="10" y="10" width="355" height="647"/>
+                                <rect key="frame" x="10" y="10" width="300" height="548"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <gestureRecognizers/>
                                 <connections>
@@ -177,11 +177,11 @@
                         <viewControllerLayoutGuide type="bottom" id="hJa-NK-PRh"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="JwA-uV-jHk">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <webView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fZ1-Z5-F7y">
-                                <rect key="frame" x="0.0" y="42" width="375" height="582"/>
+                                <rect key="frame" x="0.0" y="42" width="320" height="483"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <gestureRecognizers/>
@@ -191,25 +191,25 @@
                                 </connections>
                             </webView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sAi-Ei-0yp">
-                                <rect key="frame" x="0.0" y="555" width="80" height="60"/>
+                                <rect key="frame" x="0.0" y="456" width="80" height="60"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             </imageView>
                             <switch opaque="NO" alpha="0.5" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1EN-Le-6pQ">
-                                <rect key="frame" x="318" y="569" width="51" height="31"/>
+                                <rect key="frame" x="263" y="470" width="51" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                 <connections>
                                     <action selector="switchValueChanged:" destination="O8K-mP-oig" eventType="valueChanged" id="9pi-Fn-2Vz"/>
                                 </connections>
                             </switch>
                             <slider opaque="NO" alpha="0.5" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.59999999999999998" minValue="0.20000000000000001" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Gtd-gk-P6e">
-                                <rect key="frame" x="89" y="548" width="198" height="31"/>
+                                <rect key="frame" x="89" y="449" width="143" height="31"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <connections>
                                     <action selector="slideChang:" destination="O8K-mP-oig" eventType="valueChanged" id="Ng5-Bo-92X"/>
                                 </connections>
                             </slider>
                             <segmentedControl opaque="NO" alpha="0.5" contentMode="scaleToFill" fixedFrame="YES" selected="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="adH-ns-azZ">
-                                <rect key="frame" x="88" y="586" width="91" height="29"/>
+                                <rect key="frame" x="88" y="487" width="91" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <segments>
                                     <segment title="Photo"/>
@@ -220,7 +220,7 @@
                                 </connections>
                             </segmentedControl>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gG7-bc-Zry">
-                                <rect key="frame" x="190" y="585" width="119" height="29"/>
+                                <rect key="frame" x="190" y="486" width="64" height="29"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <state key="normal" title="TAKE">
                                     <color key="titleColor" red="1" green="0.256678511" blue="0.12507303389999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -230,14 +230,14 @@
                                 </connections>
                             </button>
                             <searchBar contentMode="redraw" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pG3-f2-MpW">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Camera" id="Zvf-cr-2CB"/>
+                    <tabBarItem key="tabBarItem" title="Camera" image="Camera" id="Zvf-cr-2CB"/>
                     <connections>
                         <outlet property="imageView" destination="sAi-Ei-0yp" id="OZZ-nx-7Gc"/>
                         <outlet property="recBtn" destination="gG7-bc-Zry" id="ArR-C0-BKt"/>
@@ -269,11 +269,11 @@
                         <viewControllerLayoutGuide type="bottom" id="bej-3j-2YP"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="4c7-mc-T2J">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LIg-9o-snz">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </mapView>
                         </subviews>
@@ -292,7 +292,7 @@
         <scene sceneID="4eG-iN-6Mp">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="v1c-9V-kDb" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Collect" id="sAy-0y-rSu"/>
+                    <tabBarItem key="tabBarItem" title="Collect" image="notes" id="sAy-0y-rSu"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="sM0-pS-sQH">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -311,7 +311,7 @@
         <scene sceneID="FQc-4d-BHT">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="gyV-zq-Luc" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Map" id="7r4-9q-FAm"/>
+                    <tabBarItem key="tabBarItem" title="Map" image="Map" id="7r4-9q-FAm"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="5y4-9M-fd3">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -327,4 +327,9 @@
             <point key="canvasLocation" x="-1754.4000000000001" y="1572.8635682158922"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Camera" width="32" height="32"/>
+        <image name="Map" width="26" height="26"/>
+        <image name="notes" width="28" height="21"/>
+    </resources>
 </document>
