@@ -59,6 +59,7 @@ class MapVC: UIViewController,MKMapViewDelegate  {
     var m_image:UIImage?
     var m_imageMap = [String:UIImage]()
     @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var userBtn: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -119,14 +120,20 @@ class MapVC: UIViewController,MKMapViewDelegate  {
             return
         }
         
-        let lookupInfo = userIdentify?.lookupInfo
-        let nameComponents = userIdentify?.nameComponents
-        
-        print("email: \(lookupInfo?.emailAddress)")
-        print("phone: \(lookupInfo?.phoneNumber)")
-        
-        print("givenName: \(nameComponents?.givenName)")
-        print("familyName: \(nameComponents?.familyName)")
+        if let lookupInfo = userIdentify?.lookupInfo{
+            print("email: \(lookupInfo.emailAddress)")
+            print("phone: \(lookupInfo.phoneNumber)")
+        }
+        if let nameComponents = userIdentify?.nameComponents{
+            if let giveName = nameComponents.givenName
+                , let familyName = nameComponents.familyName{
+                let strName = giveName + " " + familyName
+                self.userBtn.setTitle(strName, for: .normal)
+            }
+            
+            print("givenName: \(nameComponents.givenName)")
+            print("familyName: \(nameComponents.familyName)")
+        }
     }
     
     func fetchAll() {

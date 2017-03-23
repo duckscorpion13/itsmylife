@@ -82,7 +82,7 @@
                     <navigationItem key="navigationItem" id="yhT-u5-ks0">
                         <nil key="title"/>
                         <button key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="DV0-Vi-gtH">
-                            <rect key="frame" x="157" y="7.5" width="61" height="29"/>
+                            <rect key="frame" x="130" y="8" width="61" height="29"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                             <state key="normal" title="Album"/>
                             <connections>
@@ -279,9 +279,20 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="g1C-tv-9oa"/>
+                    <navigationItem key="navigationItem" id="g1C-tv-9oa">
+                        <barButtonItem key="rightBarButtonItem" id="vVv-EA-kz6">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Gva-9y-8ag">
+                                <rect key="frame" x="224" y="9" width="80" height="26"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="User?">
+                                    <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="mapView" destination="LIg-9o-snz" id="nE7-4U-JY0"/>
+                        <outlet property="userBtn" destination="Gva-9y-8ag" id="XTM-6U-mPH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fiA-cq-Nsi" userLabel="First Responder" sceneMemberID="firstResponder"/>
