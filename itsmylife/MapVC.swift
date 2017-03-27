@@ -125,14 +125,12 @@ class MapVC: UIViewController,MKMapViewDelegate  {
             print("phone: \(lookupInfo.phoneNumber)")
         }
         if let nameComponents = userIdentify?.nameComponents{
-            if let giveName = nameComponents.givenName
-                , let familyName = nameComponents.familyName{
-                let strName = giveName + " " + familyName
-                self.userBtn.setTitle(strName, for: .normal)
-            }
-            
-            print("givenName: \(nameComponents.givenName)")
-            print("familyName: \(nameComponents.familyName)")
+            let giveName = nameComponents.givenName ?? ""
+            let familyName = nameComponents.familyName ?? ""
+            self.userBtn.setTitle(giveName + " " + familyName, for: .normal)
+    
+            print("givenName: \(giveName)")
+            print("familyName: \(familyName)")
         }
     }
     
@@ -165,7 +163,7 @@ class MapVC: UIViewController,MKMapViewDelegate  {
             options: [.firesOnRecordCreation, .firesOnRecordDeletion, .firesOnRecordUpdate]
         )
         let note = CKNotificationInfo()
-        note.alertBody = "update picture"
+        note.alertBody = "update data"
         subscription.notificationInfo = note
         // subscription.notificationInfo = ...
         self.m_database.save(subscription, completionHandler: { (savedSubscription, error) in
