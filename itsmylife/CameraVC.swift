@@ -26,7 +26,7 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOu
     
     let m_store = NSUbiquitousKeyValueStore()
     
-//    var m_UserDefault:UserDefaults!
+    let m_UserDefault = UserDefaults.standard
     // 負責協調從截取裝置到輸出間的資料流動
     var m_session = AVCaptureSession()
     // 負責即時預覽目前相機設備截取到的畫面
@@ -56,15 +56,6 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOu
     }
     
     @IBAction func modeChang(_ sender: UISegmentedControl) {
-//        self.m_session.beginConfiguration()
-//        self.m_session.removeOutput(self.m_session.outputs[0] as! AVCaptureOutput)
-//        if(0==sender.selectedSegmentIndex){
-//            self.m_session.addOutput(AVCapturePhotoOutput())
-//        }
-//        else{
-//            videoSet(self.m_session)
-//        }
-//        self.m_session.commitConfiguration()
         if(0==sender.selectedSegmentIndex){
             self.recBtn.setTitle("TAKE", for: .normal)
         }else{
@@ -80,26 +71,25 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOu
             }
             self.recBtn.setTitle("REC", for: .normal)
         }
-         
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        self.m_UserDefault = UserDefaults.standard
-        
-        
         self.searchBar.delegate=self
-//        if let strUrl = self.m_UserDefault.object(forKey: "URL") as? String{
-//            self.searchBar.text = strUrl
-//        }
-        
-        if let strUrl = self.m_store.string(forKey: "URL"){
+        if let strUrl = self.m_UserDefault.object(forKey: "URL") as? String{
             self.searchBar.text = strUrl
-        }
-        else{
+        } else{
             self.searchBar.text = "https://www.apple.com.tw"
         }
+        
+//        if let strUrl = self.m_store.string(forKey: "URL"){
+//            self.searchBar.text = strUrl
+//        }
+//        else{
+//            self.searchBar.text = "https://www.apple.com.tw"
+//        }
+        
         if let url = URL(string:searchBar.text!){
             let quest = URLRequest(url: url)
             self.webView.loadRequest(quest)
@@ -161,14 +151,18 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOu
        
         if let url = URL(string:self.searchBar.text!){
             let quest = URLRequest(url: url)
-//            self.m_UserDefault.set(self.searchBar.text, forKey: "URL")
-//            self.m_UserDefault.synchronize()
-            self.m_store.set(self.searchBar.text, forKey: "URL")
-            if(!self.m_store.synchronize()){
+            self.webView.loadRequest(quest)
+            
+            self.m_UserDefault.set(self.searchBar.text, forKey: "URL")
+            if(!self.m_UserDefault.synchronize()){
                 print("URL儲存失敗!")
             }
             
-            self.webView.loadRequest(quest)
+//            self.m_store.set(self.searchBar.text, forKey: "URL")
+//            if(!self.m_store.synchronize()){
+//                print("URL儲存失敗!")
+//            }
+            
         }
         searchBar.resignFirstResponder()
         
@@ -197,7 +191,7 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOu
         self.myView?.center=self.webView.center
         self.myView?.alpha=0.5
         
-         // GPS
+        // GPS
         self.m_locationMamager.startUpdatingLocation()
 
     }
@@ -393,7 +387,6 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOu
         }else{
             print(error)
         }
-//        retCKRecord(location:self.m_location,url: outputFileURL)
         self.recBtn.setTitle("REC", for: .normal)
     }
     
@@ -405,18 +398,6 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOu
             
         }
     }
-    
-//    fileprivate func query(){
-//       
-//        let predicate = NSPredicate(value:true)
-//        let sort = NSSortDescriptor(key:"time",ascending:true)
-//        let query = CKQuery(recordType:"MyMedia",predicate:predicate)
-//    }
 }
 
-//extension CameraVC: UIScrollViewDelegate{
-//    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
-//        return self.myView
-//    }
-//}
 

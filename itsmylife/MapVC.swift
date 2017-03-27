@@ -139,7 +139,7 @@ class MapVC: UIViewController,MKMapViewDelegate  {
         let predicate = NSPredicate(format: "time > %@", date)
 //        let predicate = NSPredicate(value:true)
         let query = CKQuery(recordType: "MyMedia", predicate: predicate)
-        //        query.sortDescriptors = [NSSortDescriptor(key: Cloud.Attribute.Question, ascending: true)]
+//        query.sortDescriptors = [NSSortDescriptor(key: Cloud.Attribute.Question, ascending: true)]
         self.m_database.perform(query, inZoneWith: nil) { (records, error) in
             if records != nil {
                 DispatchQueue.main.async {
@@ -152,8 +152,7 @@ class MapVC: UIViewController,MKMapViewDelegate  {
     // MARK: Subscription
     
     fileprivate let subscriptionID = "All Media Creations and Deletions"
-//    fileprivate var cloudKitObserver: NSObjectProtocol?
-    
+  
     fileprivate func iCloudSubscribe() {
         let predicate = NSPredicate(value:true)
         let subscription = CKQuerySubscription(
@@ -174,44 +173,7 @@ class MapVC: UIViewController,MKMapViewDelegate  {
                 print("subscriip falure:\(error)")
             }
         })
-//        cloudKitObserver = NotificationCenter.default.addObserver(
-//            forName: NSNotification.Name(rawValue: "iCloudRemoteNotificationReceived"),
-//            object: nil,
-//            queue: OperationQueue.main,
-//            using: { notification in
-//                if let ckqn = notification.userInfo?["Notification"] as? CKQueryNotification {
-//                    self.iCloudHandleSubscriptionNotification(ckqn)
-//                }
-//            }
-//        )
     }
-    
-//    fileprivate func iCloudHandleSubscriptionNotification(_ ckqn: CKQueryNotification)
-//    {
-//        if ckqn.subscriptionID == self.subscriptionID {
-//            if let recordID = ckqn.recordID {
-//                switch ckqn.queryNotificationReason {
-//                case .recordCreated:
-//                    self.m_database.fetch(withRecordID: recordID) { (record, error) in
-//                        if record != nil {
-//                            DispatchQueue.main.async {
-//                                self.m_allMedia = (self.m_allMedia + [record!]).sorted {
-//                                    return $0.creationDate! < $1.creationDate!
-//                                }
-//                            }
-//                        }
-//                    }
-//                    
-//                case .recordDeleted:
-//                    DispatchQueue.main.async {
-//                        self.m_allMedia = self.m_allMedia.filter { $0.recordID != recordID }
-//                    }
-//                default:
-//                    break
-//                }
-//            }
-//        }
-//    }
 
     
     override func didReceiveMemoryWarning() {
@@ -299,17 +261,6 @@ class MapVC: UIViewController,MKMapViewDelegate  {
 //            view.dragState = .none
 //        }
 //    }
-    
- 
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
