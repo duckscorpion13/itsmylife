@@ -46,8 +46,10 @@ class ScrollVC: UIViewController ,UIScrollViewDelegate{
    
     
     override func viewDidAppear(_ animated: Bool) {
-        self.sclView.contentSize = (self.imgView?.image!.size)!;
-        detect((self.imgView?.image!)!)
+        if let image = self.imgView?.image{
+            self.sclView.contentSize = image.size;
+            detect(image)
+        }
     }
     
     @IBAction func dismiss(_ sender: Any) {
