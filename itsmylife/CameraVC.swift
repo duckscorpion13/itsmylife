@@ -366,12 +366,17 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOu
       
         case .changed:
             // change the attachment's anchor point
-            if let hitView = view.hitTest(gesturePoint,with:nil), hitView == self.myView {
-                if(self.webView.bounds.contains(gesturePoint)){
-                    hitView.center =
-                        CGPoint(x:gesturePoint.x,y:gesturePoint.y-20)
-                }
+//            if let hitView = view.hitTest(gesturePoint,with:nil), hitView == self.myView {
+//                if(self.webView.bounds.contains(gesturePoint)){
+//                    hitView.center =
+//                        CGPoint(x:gesturePoint.x,y:gesturePoint.y-20)
+//                }
+//            }
+            if(self.webView.bounds.contains(gesturePoint)){
+                self.myView?.center =
+                    CGPoint(x:gesturePoint.x,y:gesturePoint.y-20)
             }
+
         default:
             break
         }
