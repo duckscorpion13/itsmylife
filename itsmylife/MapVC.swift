@@ -9,6 +9,10 @@
 import UIKit
 import MapKit
 import CloudKit
+import AVKit
+import AVFoundation
+
+
 
 class MyAnnotation:NSObject,MKAnnotation{
     
@@ -260,10 +264,18 @@ class MapVC: UIViewController,MKMapViewDelegate  {
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         if let anno = view.annotation as? MyAnnotation{
             let name =  anno.m_rec.recordID.recordName
-            if let path = self.m_urlMap[name]?.path{
-                if let image = UIImage(contentsOfFile: path){
+            if let url = self.m_urlMap[name]{
+                if let image = UIImage(contentsOfFile: url.path){
                     anno.imgView?.image = image
                     self.m_image = image
+                }else{
+                    self.m_image = nil
+//                    let avc = AVPlayerViewController()
+//                    avc.player = AVPlayer(url : url)
+//
+//                    self.present(avc, animated: true){
+//                        avc.player?.play()
+//                    }
                 }
             }
         }
@@ -272,8 +284,10 @@ class MapVC: UIViewController,MKMapViewDelegate  {
     
     func btnPress(_ sender:UIButton){
         if let vc=self.storyboard?.instantiateViewController(withIdentifier: "SVC") as? ScrollVC{
-            vc.m_img=self.m_image
-            self.show(vc, sender: self)
+            if let image = self.m_image{
+                vc.m_img = image
+                self.show(vc, sender: self)
+            }
         }
     }
     

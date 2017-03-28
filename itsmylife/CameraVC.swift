@@ -402,6 +402,7 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOu
         if error == nil {
             if UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(outputFileURL.path) {
                 UISaveVideoAtPathToSavedPhotosAlbum(outputFileURL.path, nil, nil, nil)
+                retCKRecord(location:self.m_location,url: outputFileURL)
             }
         }else{
             print(error)
