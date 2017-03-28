@@ -38,6 +38,8 @@ class MyAnnotation:NSObject,MKAnnotation{
         }
         return nil
     }
+    
+    var imgView: UIImageView?
 }
 
 
@@ -57,7 +59,7 @@ class MapVC: UIViewController,MKMapViewDelegate  {
     let m_database = CKContainer.default().publicCloudDatabase
     var m_allAnnos = [MyAnnotation]()
     var m_image:UIImage?
-    var m_imageMap = [String:UIImage]()
+    var m_urlMap = [String:URL]()
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var userBtn: UIButton!
     override func viewDidLoad() {
@@ -192,18 +194,46 @@ class MapVC: UIViewController,MKMapViewDelegate  {
                 "Pin")
         }
         for anno in self.m_allAnnos{
+            let name = anno.m_rec.recordID.recordName
             if (annotation.title)! == anno.title {
                 // 設定左邊為一張圖片
                 if let media = anno.media{
                     let imageView = UIImageView(frame: CGRect(x:0,y:0,width:50,height:50))
-                    
-                    if((self.m_imageMap[anno.m_rec.recordID.recordName]) == nil){
-                        self.m_imageMap[anno.m_rec.recordID.recordName] = UIImage(contentsOfFile: media.fileURL.path)
+                    anno.imgView = imageView
+                    if((self.m_urlMap[name]) == nil){
+                        
+                        // 使用預設的設定建立 session
+                        let config = URLSessionConfiguration.default
+                        let session = URLSession(configuration: config)
+                        // NSURLSessionDataTask 為讀取資料，讀取完成的資料會放在 data 中
+                        let dataTask = session.dataTask(with: media.fileURL) { (data, response, error) in
+                            // 注意此 block 區段已在另外一個執行緒
+                            if error == nil {
+                                if let data = data {
+                                    let fm = FileManager.default
+                                    // 設定錄影的暫存檔路徑，我們把它放到 tmp 目錄下
+                                    let path = NSTemporaryDirectory() + name
+                                    let url = URL(fileURLWithPath: path)
+                                    
+                                    // 判斷暫存檔是否已經存在，如果存在就刪掉它
+                                    if fm.fileExists(atPath: path) {
+                                        try! fm.removeItem(at: url)
+                                    }
+                                    fm.createFile(atPath: path, contents: data, attributes: nil)
+                                    self.m_urlMap[name] = url
+                                }
+                            } else {
+                                print("資料讀取失敗")
+                            }
+                        }
+                        // 開始讀取資料
+                        dataTask.resume()
                     }
-                    
-                    imageView.image=self.m_imageMap[anno.m_rec.recordID.recordName]
+//                    imageView.image=self.m_imageMap[anno.m_rec.recordID.recordName]
                     annView?.leftCalloutAccessoryView = imageView
                 }
+                
+                
                 // 設定title下方放一個標籤
                 let label = UILabel()
                 label.numberOfLines = 2
@@ -226,11 +256,18 @@ class MapVC: UIViewController,MKMapViewDelegate  {
         
         return annView
     }
-    
+
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        if let name = (view.annotation as? MyAnnotation)?.m_rec.recordID.recordName{
-            self.m_image = self.m_imageMap[name]
+        if let anno = view.annotation as? MyAnnotation{
+            let name =  anno.m_rec.recordID.recordName
+            if let path = self.m_urlMap[name]?.path{
+                if let image = UIImage(contentsOfFile: path){
+                    anno.imgView?.image = image
+                    self.m_image = image
+                }
+            }
         }
+        
     }
     
     func btnPress(_ sender:UIButton){
