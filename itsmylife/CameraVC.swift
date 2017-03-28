@@ -268,12 +268,15 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOu
         }
         fm.createFile(atPath: path, contents: imageData, attributes: nil)
         
-        retCKRecord(location:self.m_location,url: url)
+        retCKRecord(location:self.m_location,url: url,type: 0)
     }
     
-    fileprivate func retCKRecord(location:CLLocation?,url: URL?){
+    fileprivate func retCKRecord(location:CLLocation?,url: URL?,type: Int){
         let record = CKRecord(recordType:"MyMedia")
         record["time"] = Date() as CKRecordValue?
+        record["type"] = type as CKRecordValue
+        
+        
         
         if let _location = location{
             record["location"] = _location
@@ -282,6 +285,9 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOu
             let asset = CKAsset(fileURL: _url)
             record["media"] = asset
         }
+//        if let _size = size{
+//            record["size"] = _size as CKRecordValue
+//        }
         
         self.m_database.save(record, completionHandler:{ (record, error) in
             if error == nil {
@@ -402,7 +408,7 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOu
         if error == nil {
             if UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(outputFileURL.path) {
                 UISaveVideoAtPathToSavedPhotosAlbum(outputFileURL.path, nil, nil, nil)
-                retCKRecord(location:self.m_location,url: outputFileURL)
+                retCKRecord(location:self.m_location,url: outputFileURL,type: 1)
             }
         }else{
             print(error)

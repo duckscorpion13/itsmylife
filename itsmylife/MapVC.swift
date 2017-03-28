@@ -43,6 +43,13 @@ class MyAnnotation:NSObject,MKAnnotation{
         return nil
     }
     
+    var type: Int{
+        if let value = self.m_rec["type"] as? Int{
+            return value
+        }
+        return 0
+    }
+    
     var imgView: UIImageView?
 }
 
@@ -62,7 +69,7 @@ class MapVC: UIViewController,MKMapViewDelegate  {
     }
     let m_database = CKContainer.default().publicCloudDatabase
     var m_allAnnos = [MyAnnotation]()
-    var m_image:UIImage?
+    var m_url:URL?
     var m_urlMap = [String:URL]()
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var userBtn: UIButton!
@@ -216,7 +223,7 @@ class MapVC: UIViewController,MKMapViewDelegate  {
                                 if let data = data {
                                     let fm = FileManager.default
                                     // 設定錄影的暫存檔路徑，我們把它放到 tmp 目錄下
-                                    let path = NSTemporaryDirectory() + name
+                                    let path = NSTemporaryDirectory() + name + ".mov"
                                     let url = URL(fileURLWithPath: path)
                                     
                                     // 判斷暫存檔是否已經存在，如果存在就刪掉它
@@ -248,11 +255,12 @@ class MapVC: UIViewController,MKMapViewDelegate  {
                 annView?.detailCalloutAccessoryView = label
                 
                 // 設定右邊為一個按鈕
-                let button = UIButton(type: .detailDisclosure)
-               
-                button.addTarget(self, action: #selector(self.btnPress), for: .touchUpInside)
+                let btn = UIButton(type: .detailDisclosure)
+                
+                btn.tag = anno.type
+                btn.addTarget(self, action: #selector(self.btnPress), for: .touchUpInside)
             
-                annView?.rightCalloutAccessoryView = button
+                annView?.rightCalloutAccessoryView = btn
                 break
             }
         }
@@ -265,17 +273,9 @@ class MapVC: UIViewController,MKMapViewDelegate  {
         if let anno = view.annotation as? MyAnnotation{
             let name =  anno.m_rec.recordID.recordName
             if let url = self.m_urlMap[name]{
+                self.m_url = url
                 if let image = UIImage(contentsOfFile: url.path){
                     anno.imgView?.image = image
-                    self.m_image = image
-                }else{
-                    self.m_image = nil
-//                    let avc = AVPlayerViewController()
-//                    avc.player = AVPlayer(url : url)
-//
-//                    self.present(avc, animated: true){
-//                        avc.player?.play()
-//                    }
                 }
             }
         }
@@ -284,9 +284,21 @@ class MapVC: UIViewController,MKMapViewDelegate  {
     
     func btnPress(_ sender:UIButton){
         if let vc=self.storyboard?.instantiateViewController(withIdentifier: "SVC") as? ScrollVC{
-            if let image = self.m_image{
-                vc.m_img = image
-                self.show(vc, sender: self)
+            if(0==sender.tag){
+                if let url = self.m_url{
+                    if let image = UIImage(contentsOfFile: url.path){
+                        vc.m_img = image
+                        self.show(vc, sender: self)
+                    }
+                }
+            }else{
+                if let url = self.m_url{
+                    let avc = AVPlayerViewController()
+                    avc.player = AVPlayer(url : url)
+                    self.present(avc, animated: true){
+                        avc.player?.play()
+                    }
+                }
             }
         }
     }
