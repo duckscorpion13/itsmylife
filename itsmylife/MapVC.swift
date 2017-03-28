@@ -121,8 +121,8 @@ class MapVC: UIViewController,MKMapViewDelegate  {
         }
         
         if let lookupInfo = userIdentify?.lookupInfo{
-            print("email: \(lookupInfo.emailAddress)")
-            print("phone: \(lookupInfo.phoneNumber)")
+            print("email: \(String(describing: lookupInfo.emailAddress))")
+            print("phone: \(String(describing: lookupInfo.phoneNumber))")
         }
         if let nameComponents = userIdentify?.nameComponents{
             let giveName = nameComponents.givenName ?? ""
@@ -170,7 +170,7 @@ class MapVC: UIViewController,MKMapViewDelegate  {
                 print("subscriip success")
             }
             else{
-                print("subscriip falure:\(error)")
+                print("subscriip falure:\(String(describing: error))")
             }
         })
     }

@@ -43,6 +43,7 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOu
     @IBOutlet weak var webView: UIWebView!
     @IBOutlet weak var imageView: UIImageView!
     
+    var m_bOn = true
     var myView: UIView?
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -292,19 +293,20 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOu
         })
     }
    
-    
-    @IBAction func switchValueChanged(_ sender: UISwitch) {
+    @IBAction func switchClick(_ sender: UIButton) {
+        
+        self.m_bOn = !self.m_bOn
         // 修改前先呼叫 beginConfiguration
         self.m_session.beginConfiguration()
         
         // 將現有的 input 刪除
         for input in self.m_session.inputs{
-            if ((input as? AVCaptureInput) != nil){
+            if (input is AVCaptureInput){
                 self.m_session.removeInput(input as! AVCaptureInput)
             }
         }
         
-        if sender.isOn {
+        if self.m_bOn {
             // 後置鏡頭
             self.m_session.addInput(self.m_backCameraDevice)
         } else {
@@ -312,9 +314,21 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOu
             self.m_session.addInput(self.m_frontCameraDevice)
         }
         
+        let audioDevice = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeAudio)
+        do{
+            let audioInput = try AVCaptureDeviceInput(device: audioDevice)
+            if(self.m_session.canAddInput(audioInput)){
+                self.m_session.addInput(audioInput)
+            }
+        }catch {
+            print(error)
+        }
+        
+        
         // 確認以上的所有修改
         self.m_session.commitConfiguration()
     }
+    
     
     
 
