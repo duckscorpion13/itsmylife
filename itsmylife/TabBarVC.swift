@@ -7,6 +7,17 @@
 //
 
 import UIKit
+
+extension UIViewController{
+    var contentVC: UIViewController{
+        if let nvc = self as? UINavigationController{
+            return nvc.visibleViewController!
+        } else{
+            return self
+        }
+    }
+}
+
 class TabBarVC: UITabBarController, UITabBarControllerDelegate {
     
     override func awakeFromNib() {
@@ -14,17 +25,12 @@ class TabBarVC: UITabBarController, UITabBarControllerDelegate {
     }
     
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
-        if viewController is CameraVC{
+        if viewController.contentVC is CameraVC{
             print("CameraVC")
-        }
-        else if viewController is UINavigationController{
-            if let nvc = viewController as? UINavigationController{
-                if let _ = nvc.topViewController as? CollectionVC{
-                    print("CollectionVC")
-                }else{
-                    print("MapVC")
-                }                
-            }
+        }else if viewController.contentVC is CollectionVC{
+            print("CollectionVC")
+        }else{
+            print("MapVC")
         }
     }
     

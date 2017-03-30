@@ -66,7 +66,7 @@ extension CollectionVC : UICollectionViewDataSource, UICollectionViewDelegate{
                 // 參數 image 即為所取得的圖片
                 cell.img.image = image
                 let sec = Int(pic.duration)
-                cell.label.text = String(format:"%02d:%02d:%02d",sec/3600,sec/60,sec%60)
+                cell.label.text = String(format:"%d:%02d:%02d",sec/3600,sec/60,sec%60)
         })
         
         return cell

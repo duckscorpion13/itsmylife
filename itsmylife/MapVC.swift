@@ -23,8 +23,10 @@ class MyAnnotation:NSObject,MKAnnotation{
     let m_rec:CKRecord
     
     var coordinate: CLLocationCoordinate2D {
-        let loc = self.m_rec["location"] as? CLLocation
-        return CLLocationCoordinate2D(latitude: loc!.coordinate.latitude, longitude: loc!.coordinate.longitude)
+        if let loc = self.m_rec["location"] as? CLLocation{
+            return CLLocationCoordinate2D(latitude: loc.coordinate.latitude, longitude: loc.coordinate.longitude)
+        }
+        return CLLocationCoordinate2D()
     }
     
     var title: String? {
@@ -192,12 +194,6 @@ class MapVC: UIViewController,MKMapViewDelegate  {
             }
         })
     }
-
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         if annotation is MKUserLocation {
@@ -276,28 +272,23 @@ class MapVC: UIViewController,MKMapViewDelegate  {
     }
 
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        if let anno = view.annotation as? MyAnnotation{
-            let name =  anno.m_rec.recordID.recordName
-            if let url = self.m_urlMap[name]{
-                self.m_url = url
-                if let image = UIImage(contentsOfFile: url.path){
-                    anno.imgView?.image = image
-                }
+        if let anno = view.annotation as? MyAnnotation, let url = self.m_urlMap[anno.m_rec.recordID.recordName]{
+            self.m_url = url
+            if let image = UIImage(contentsOfFile: url.path){
+                anno.imgView?.image = image
             }
         }
-        
     }
+    
     
     func btnPress(_ sender:UIButton){
         if let vc=self.storyboard?.instantiateViewController(withIdentifier: "SVC") as? ScrollVC{
             if(0==sender.tag){
-                if let url = self.m_url{
-                    if let image = UIImage(contentsOfFile: url.path){
-                        vc.m_img = image
-                        self.show(vc, sender: self)
-                    }
+                if let url = self.m_url,let image = UIImage(contentsOfFile: url.path){
+                    vc.m_img = image
+                    self.show(vc, sender: self)
                 }
-            }else{
+            } else{
                 if let url = self.m_url{
                     let avc = AVPlayerViewController()
                     avc.player = AVPlayer(url : url)

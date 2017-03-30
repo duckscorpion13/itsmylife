@@ -27,6 +27,17 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOu
     let m_store = NSUbiquitousKeyValueStore()
     
     let m_UserDefault = UserDefaults.standard
+    
+    var m_alpha: Double = 0.6{
+        didSet{
+            let alpha = CGFloat(self.m_alpha)
+            self.m_cameraView?.alpha = alpha
+            self.imageView.alpha = alpha
+            self.chang.alpha = alpha
+            self.segCtl.alpha = alpha
+            self.recBtn.alpha = alpha
+        }
+    }
     // 負責協調從截取裝置到輸出間的資料流動
     var m_session = AVCaptureSession()
     // 負責即時預覽目前相機設備截取到的畫面
@@ -37,14 +48,16 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOu
     // 後置鏡頭
     var m_backCameraDevice: AVCaptureDeviceInput?
 
+    @IBOutlet weak var chang: UIButton!
+    @IBOutlet weak var slider: UISlider!
     @IBOutlet weak var recBtn: UIButton!
     @IBOutlet weak var segCtl: UISegmentedControl!
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var webView: UIWebView!
     @IBOutlet weak var imageView: UIImageView!
     
-    var m_bOn = true
-    var myView: UIView?
+    var m_backCamOn = true
+    var m_cameraView: UIView?
     
     override func viewWillDisappear(_ animated: Bool) {
         self.m_session.stopRunning()
@@ -53,13 +66,13 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOu
         self.m_locationMamager.stopUpdatingLocation()
     }
     @IBAction func slideChang(_ sender: UISlider) {
-        self.myView?.alpha=CGFloat(sender.value)
+        self.m_alpha = Double(sender.value)
     }
     
     @IBAction func modeChang(_ sender: UISegmentedControl) {
         if(0==sender.selectedSegmentIndex){
             self.recBtn.setTitle("TAKE", for: .normal)
-        }else{
+        } else{
             let audioDevice = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeAudio)
             
             do{
@@ -67,7 +80,7 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOu
                 if(self.m_session.canAddInput(audioInput)){
                     self.m_session.addInput(audioInput)
                 }
-            }catch {
+            } catch{
                 print(error)
             }
             self.recBtn.setTitle("REC", for: .normal)
@@ -78,18 +91,12 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOu
         super.viewDidLoad()
         
         self.searchBar.delegate=self
+//        if let strUrl = self.m_store.string(forKey: "URL"){
         if let strUrl = self.m_UserDefault.object(forKey: "URL") as? String{
             self.searchBar.text = strUrl
         } else{
             self.searchBar.text = "https://www.apple.com.tw"
         }
-        
-//        if let strUrl = self.m_store.string(forKey: "URL"){
-//            self.searchBar.text = strUrl
-//        }
-//        else{
-//            self.searchBar.text = "https://www.apple.com.tw"
-//        }
         
         if let url = URL(string:searchBar.text!){
             let quest = URLRequest(url: url)
@@ -98,8 +105,6 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOu
         self.webView.scrollView.zoomScale=1.0
         
       
-        
-        
         // .builtInWideAngleCamera 為廣角鏡頭
         // .builtInTelephotoCamera 為長焦段鏡頭
         // .builtInDuoCamera 為雙鏡頭
@@ -154,19 +159,14 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOu
             let quest = URLRequest(url: url)
             self.webView.loadRequest(quest)
             
+//            self.m_store.set(self.searchBar.text, forKey: "URL")
+//            if(!self.m_store.synchronize()){
             self.m_UserDefault.set(self.searchBar.text, forKey: "URL")
             if(!self.m_UserDefault.synchronize()){
                 print("URL儲存失敗!")
             }
-            
-//            self.m_store.set(self.searchBar.text, forKey: "URL")
-//            if(!self.m_store.synchronize()){
-//                print("URL儲存失敗!")
-//            }
-            
         }
         searchBar.resignFirstResponder()
-        
     }
     
     
@@ -174,26 +174,28 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOu
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        if(self.myView == nil){
-            self.myView=UIView(frame:CGRect(x: self.webView.center.x, y: self.webView.center.y, width: 100, height: 100))
-            self.myView?.contentMode = .scaleAspectFill
-            self.webView.addSubview(self.myView!)
+        if(self.m_cameraView == nil){
+            self.m_cameraView=UIView(frame:CGRect(x: self.webView.center.x, y: self.webView.center.y, width: 100, height: 100))
+            self.m_cameraView?.contentMode = .scaleAspectFill
+            self.webView.addSubview(self.m_cameraView!)
         }
         
-        self.m_captureVideoPreviewLayer.frame = (self.myView?.bounds)!
+        self.m_captureVideoPreviewLayer.frame = (self.m_cameraView?.bounds)!
         
         self.m_session.startRunning()
         
         //運用layer的方式將鏡頭目前“看到”的影像即時顯示到view元件上
         self.m_captureVideoPreviewLayer.session = self.m_session
         self.m_captureVideoPreviewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
-        self.myView?.layer.addSublayer(self.m_captureVideoPreviewLayer)
+        self.m_cameraView?.layer.addSublayer(self.m_captureVideoPreviewLayer)
         
-        self.myView?.center=self.webView.center
-        self.myView?.alpha=0.5
-        
+        self.m_cameraView?.center = self.webView.center
+        self.slider.setValue(0.6, animated: false)
+        self.m_alpha = 0.6
         // GPS
         self.m_locationMamager.startUpdatingLocation()
+        
+        imageView.image = nil
 
     }
 
@@ -221,7 +223,7 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOu
             if let avCapOpt = (self.m_session.outputs[1] as? AVCaptureMovieFileOutput){
                 if avCapOpt.isRecording{
                     avCapOpt.stopRecording()
-                }else{
+                } else{
                     let fm = FileManager.default
                     
                     // 設定錄影的暫存檔路徑，我們把它放到 tmp 目錄下
@@ -333,7 +335,7 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOu
    
     @IBAction func switchClick(_ sender: UIButton) {
         
-        self.m_bOn = !self.m_bOn
+        self.m_backCamOn = !self.m_backCamOn
         // 修改前先呼叫 beginConfiguration
         self.m_session.beginConfiguration()
         
@@ -344,7 +346,7 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOu
             }
         }
         
-        if self.m_bOn {
+        if self.m_backCamOn {
             // 後置鏡頭
             self.m_session.addInput(self.m_backCameraDevice)
         } else {
@@ -425,7 +427,7 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOu
 //                }
 //            }
             if(self.webView.bounds.contains(gesturePoint)){
-                self.myView?.center =
+                self.m_cameraView?.center =
                     CGPoint(x:gesturePoint.x,y:gesturePoint.y-20)
             }
 
@@ -452,7 +454,7 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOu
         if( sender.state == .ended || sender.state == .changed) {
             
             let newScale = sender.scale
-            self.myView?.transform = CGAffineTransform(scaleX: newScale, y: newScale)
+            self.m_cameraView?.transform = CGAffineTransform(scaleX: newScale, y: newScale)
             
         }
     }
