@@ -9,7 +9,7 @@
 import UIKit
 import CoreImage
 
-class ScrollVC: UIViewController ,UIScrollViewDelegate{
+class ScrollVC: UIViewController, UIScrollViewDelegate{
   
     var m_img:UIImage?
   

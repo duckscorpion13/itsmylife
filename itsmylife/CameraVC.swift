@@ -129,7 +129,7 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOu
         // 其他的參數通常使用在錄影，例如VGA品質AVCaptureSessionPreset640x480
         // 如有需要請讀者自行參考 online help
         self.m_session.sessionPreset = AVCaptureSessionPreset640x480//AVCaptureSessionPresetPhoto
-        if let input=self.m_backCameraDevice{
+        if let input = self.m_backCameraDevice{
             if(self.m_session.canAddInput(input)){
                 self.m_session.addInput(input)
             }
