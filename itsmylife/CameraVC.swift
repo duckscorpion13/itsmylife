@@ -258,7 +258,7 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOu
         UIImageWriteToSavedPhotosAlbum(imageView.image!, nil, nil, nil)
         
         let fm = FileManager.default
-        // 設定錄影的暫存檔路徑，我們把它放到 tmp 目錄下
+        // 設定暫存檔路徑，我們把它放到 tmp 目錄下
         let path = NSTemporaryDirectory() + "output.jpg"
         let url = URL(fileURLWithPath: path)
         
@@ -268,19 +268,51 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOu
         }
         fm.createFile(atPath: path, contents: imageData, attributes: nil)
         
-        retCKRecord(location:self.m_location,url: url,type: 0)
+        alertAction(url: url,type: 0)
+        
     }
     
-    fileprivate func retCKRecord(location:CLLocation?,url: URL?,type: Int){
+    
+    fileprivate func alertAction(url: URL?,type: Int){
+        let alert = UIAlertController(title: "Share Message", message:
+            "Give feedback", preferredStyle: .alert)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        { (action) in
+            self.dismiss(animated: true, completion: nil)
+        }
+        
+        let loginAction = UIAlertAction(title: "Upload", style: .default)
+        { (action) in
+            let comment = alert.textFields?[0].text ?? ""
+            self.retCKRecord(location:self.m_location,url: url,remark: comment,type: type)
+        }
+        
+        // 產生一個文字輸入框
+        alert.addTextField { (textField) in
+            // 在要輸入帳號的text field中顯示淡淡的字串
+            textField.placeholder = "Comment"
+        }
+        
+        
+        alert.addAction(cancelAction)
+        alert.addAction(loginAction)
+        show(alert, sender: self)
+    }
+    
+    fileprivate func retCKRecord(location:CLLocation?,url: URL?,remark:String,type: Int){
+        
         let record = CKRecord(recordType:"MyMedia")
         record["time"] = Date() as CKRecordValue?
         record["type"] = type as CKRecordValue
+        record["remark"] = remark as CKRecordValue
         
         
-        
-        if let _location = location{
-            record["location"] = _location
+        guard location != nil else{
+            return
         }
+        record["location"] = location
+
         if let _url = url{
             let asset = CKAsset(fileURL: _url)
             record["media"] = asset
@@ -408,7 +440,7 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOu
         if error == nil {
             if UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(outputFileURL.path) {
                 UISaveVideoAtPathToSavedPhotosAlbum(outputFileURL.path, nil, nil, nil)
-                retCKRecord(location:self.m_location,url: outputFileURL,type: 1)
+                alertAction(url: outputFileURL,type: 1)
             }
         }else{
             print(error)

@@ -34,7 +34,12 @@ class MyAnnotation:NSObject,MKAnnotation{
         return ""
     }
     
-    var subtitle: String? { return "" }
+    var subtitle: String? {
+        if let remark = self.m_rec["remark"] as? String{
+            return remark
+        }
+        return ""
+    }
     
     var media:CKAsset?{
         if let asset = self.m_rec["media"] as? CKAsset{
@@ -248,10 +253,11 @@ class MapVC: UIViewController,MKMapViewDelegate  {
                 // 設定title下方放一個標籤
                 let label = UILabel()
                 label.numberOfLines = 2
-                let lati = String(format:"%.5f",annotation.coordinate.latitude)
-                let longi = String(format:"%.5f",annotation.coordinate.longitude)
-
-                label.text = "緯度:\(lati)\n經度:\(longi)"
+//                let lati = String(format:"%.5f",annotation.coordinate.latitude)
+//                let longi = String(format:"%.5f",annotation.coordinate.longitude)
+//
+//                label.text = "緯度:\(lati)\n經度:\(longi)"
+                label.text = annotation.subtitle!
                 annView?.detailCalloutAccessoryView = label
                 
                 // 設定右邊為一個按鈕
