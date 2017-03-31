@@ -18,41 +18,43 @@ class MyAnnotation:NSObject,MKAnnotation
 {
     
     init(rec:CKRecord) {
-        self.m_rec = rec
+        self.record = rec
     }
     
-    let m_rec:CKRecord
+    let record:CKRecord
     
     var coordinate: CLLocationCoordinate2D {
-        if let loc = self.m_rec["location"] as? CLLocation{
+        if let loc = self.record["location"] as? CLLocation{
             return CLLocationCoordinate2D(latitude: loc.coordinate.latitude, longitude: loc.coordinate.longitude)
         }
         return CLLocationCoordinate2D()
     }
     
     var title: String? {
-        if let date = self.m_rec["time"] as? NSDate{
-            return "\(date)"
+        if let date = self.record["time"] as? NSDate{
+            let formatter = DateFormatter()
+            formatter.dateFormat = "MM/dd HH:mm"
+            return "\(formatter.string(from: date as Date))"
         }
         return ""
     }
     
     var subtitle: String? {
-        if let remark = self.m_rec["remark"] as? String{
+        if let remark = self.record["remark"] as? String{
             return remark
         }
         return ""
     }
     
     var media:CKAsset?{
-        if let asset = self.m_rec["media"] as? CKAsset{
+        if let asset = self.record["media"] as? CKAsset{
             return asset
         }
         return nil
     }
     
     var type: Int{
-        if let value = self.m_rec["type"] as? Int{
+        if let value = self.record["type"] as? Int{
             return value
         }
         return 0
@@ -65,11 +67,11 @@ class MyAnnotation:NSObject,MKAnnotation
 class MapVC: UIViewController,MKMapViewDelegate
 {
 
-    var m_allMedia = [CKRecord]() {
+    var m_allRec = [CKRecord]() {
         didSet{
             self.mapView.removeAnnotations(self.m_allAnnos)
             self.m_allAnnos.removeAll()
-            for rec in self.m_allMedia{
+            for rec in self.m_allRec{
                 let ann = MyAnnotation(rec: rec)
                 self.m_allAnnos.append(ann)
             }
@@ -118,8 +120,7 @@ class MapVC: UIViewController,MKMapViewDelegate
                     container.discoverUserIdentity(withUserRecordID: recordID!, completionHandler: { (userIdentity, error) in
                         // 這個區段的程式已經不在主執行緒
                         self.getUserInfo(userIdentify: userIdentity, error: error)
-                        self.fetchAll()
-                        self.iCloudSubscribe()
+                            self.iCloudSubscribe()
                     })
                 })
                 
@@ -133,7 +134,8 @@ class MapVC: UIViewController,MKMapViewDelegate
 
     }
     override func viewWillAppear(_ animated: Bool) {
-        
+        self.fetchAll()
+        self.iCloudSubscribe()
     }
     
     func getUserInfo(userIdentify: CKUserIdentity?, error: Error?) {
@@ -169,7 +171,7 @@ class MapVC: UIViewController,MKMapViewDelegate
         self.m_database.perform(query, inZoneWith: nil) { (records, error) in
             if records != nil {
                 DispatchQueue.main.async {
-                    self.m_allMedia = records!
+                    self.m_allRec = records!
                 }
             }
         }
@@ -242,50 +244,22 @@ class MapVC: UIViewController,MKMapViewDelegate
                 "Pin")
         }
         for anno in self.m_allAnnos{
-            let name = anno.m_rec.recordID.recordName
+            let name = anno.record.recordID.recordName
             if (annotation.title)! == anno.title {
                 // 設定左邊為一張圖片
                 if let media = anno.media{
                     let imageView = UIImageView(frame: CGRect(x:0,y:0,width:50,height:50))
                     anno.imgView = imageView
                     if((self.m_urlMap[name]) == nil){
-                        
-                        // 使用預設的設定建立 session
-                        let config = URLSessionConfiguration.default
-                        let session = URLSession(configuration: config)
-                        
-                        // NSURLSessionDataTask 為讀取資料，讀取完成的資料會放在 data 中
-                        let dataTask = session.dataTask(with: media.fileURL) { (data, response, error) in
-                            // 注意此 block 區段已在另外一個執行緒
-                            if error == nil {
-                                if let data = data {
-                                    let fm = FileManager.default
-                                    // 設定錄影的暫存檔路徑，我們把它放到 tmp 目錄下
-                                    let path = NSTemporaryDirectory() + name + ".mov"
-                                    let url = URL(fileURLWithPath: path)
-                                    
-                                    // 判斷暫存檔是否已經存在，如果存在就刪掉它
-                                    if fm.fileExists(atPath: path) {
-                                        try! fm.removeItem(at: url)
-                                    }
-                                    fm.createFile(atPath: path, contents: data, attributes: nil)
-                                    self.m_urlMap[name] = url
-                                }                                
-                            } else {
-                                print("資料讀取失敗")
-                            }
-                        }
-                        // 開始讀取資料
-                        dataTask.resume()
+                        downloadTask(url: media.fileURL,name: name)
                     }
-//                    imageView.image=self.m_imageMap[anno.m_rec.recordID.recordName]
                     annView?.leftCalloutAccessoryView = imageView
                 }
                 
                 
                 // 設定title下方放一個標籤
                 let label = UILabel()
-                label.numberOfLines = 2
+                label.numberOfLines = 3
 //                let lati = String(format:"%.5f",annotation.coordinate.latitude)
 //                let longi = String(format:"%.5f",annotation.coordinate.longitude)
 //
@@ -309,7 +283,7 @@ class MapVC: UIViewController,MKMapViewDelegate
     }
 
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        if let anno = view.annotation as? MyAnnotation, let url = self.m_urlMap[anno.m_rec.recordID.recordName]{
+        if let anno = view.annotation as? MyAnnotation, let url = self.m_urlMap[anno.record.recordID.recordName]{
             self.m_url = url
             if let image = UIImage(contentsOfFile: url.path){
                 anno.imgView?.image = image
