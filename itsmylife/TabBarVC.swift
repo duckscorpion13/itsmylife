@@ -8,7 +8,8 @@
 
 import UIKit
 
-extension UIViewController{
+extension UIViewController
+{
     var contentVC: UIViewController{
         if let nvc = self as? UINavigationController{
             return nvc.visibleViewController!
@@ -18,7 +19,8 @@ extension UIViewController{
     }
 }
 
-class TabBarVC: UITabBarController, UITabBarControllerDelegate {
+class TabBarVC: UITabBarController, UITabBarControllerDelegate
+{
     
     override func awakeFromNib() {
         delegate = self

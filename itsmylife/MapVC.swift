@@ -14,7 +14,8 @@ import AVFoundation
 
 
 
-class MyAnnotation:NSObject,MKAnnotation{
+class MyAnnotation:NSObject,MKAnnotation
+{
     
     init(rec:CKRecord) {
         self.m_rec = rec
@@ -61,7 +62,8 @@ class MyAnnotation:NSObject,MKAnnotation{
 }
 
 
-class MapVC: UIViewController,MKMapViewDelegate  {
+class MapVC: UIViewController,MKMapViewDelegate
+{
 
     var m_allMedia = [CKRecord]() {
         didSet{
@@ -80,6 +82,9 @@ class MapVC: UIViewController,MKMapViewDelegate  {
     var m_urlMap = [String:URL]()
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var userBtn: UIButton!
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -113,6 +118,8 @@ class MapVC: UIViewController,MKMapViewDelegate  {
                     container.discoverUserIdentity(withUserRecordID: recordID!, completionHandler: { (userIdentity, error) in
                         // 這個區段的程式已經不在主執行緒
                         self.getUserInfo(userIdentify: userIdentity, error: error)
+                        self.fetchAll()
+                        self.iCloudSubscribe()
                     })
                 })
                 
@@ -126,8 +133,7 @@ class MapVC: UIViewController,MKMapViewDelegate  {
 
     }
     override func viewWillAppear(_ animated: Bool) {
-        fetchAll()
-        iCloudSubscribe()
+        
     }
     
     func getUserInfo(userIdentify: CKUserIdentity?, error: Error?) {
@@ -217,6 +223,7 @@ class MapVC: UIViewController,MKMapViewDelegate  {
                         // 使用預設的設定建立 session
                         let config = URLSessionConfiguration.default
                         let session = URLSession(configuration: config)
+                        
                         // NSURLSessionDataTask 為讀取資料，讀取完成的資料會放在 data 中
                         let dataTask = session.dataTask(with: media.fileURL) { (data, response, error) in
                             // 注意此 block 區段已在另外一個執行緒
@@ -233,7 +240,7 @@ class MapVC: UIViewController,MKMapViewDelegate  {
                                     }
                                     fm.createFile(atPath: path, contents: data, attributes: nil)
                                     self.m_urlMap[name] = url
-                                }
+                                }                                
                             } else {
                                 print("資料讀取失敗")
                             }

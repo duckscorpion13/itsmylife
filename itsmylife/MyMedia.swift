@@ -11,7 +11,8 @@ import Photos
 
 
 
-class MyMedia{
+class MyMedia
+{
     var PhotoList = [PHAsset]()
     
     func fetchAllPhotos(type:PHAssetMediaType){

@@ -11,7 +11,8 @@ import Photos
 import AVKit
 
 
-class CollectionVC : UIViewController{
+class CollectionVC : UIViewController
+{
     @IBOutlet weak var collectView: UICollectionView!
     @IBOutlet weak var btn: UIButton!
     @IBAction func albumClick(_ sender: UIButton) {

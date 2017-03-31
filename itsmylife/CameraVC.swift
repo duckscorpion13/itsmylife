@@ -16,7 +16,8 @@ import MapKit
 
 
 class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOutputRecordingDelegate,UISearchBarDelegate,
-    CLLocationManagerDelegate{
+    CLLocationManagerDelegate
+{
 
     var m_locationMamager:CLLocationManager!
     
