@@ -201,6 +201,36 @@ class MapVC: UIViewController,MKMapViewDelegate
         })
     }
     
+    fileprivate func downloadTask(url: URL,name: String){
+        // 使用預設的設定建立 session
+        let config = URLSessionConfiguration.default
+        let session = URLSession(configuration: config)
+        
+        // NSURLSessionDataTask 為讀取資料，讀取完成的資料會放在 data 中
+        let dataTask = session.dataTask(with: url) { (data, response, error) in
+            // 注意此 block 區段已在另外一個執行緒
+            if error == nil {
+                if let data = data {
+                    let fm = FileManager.default
+                    // 設定錄影的暫存檔路徑，我們把它放到 tmp 目錄下
+                    let path = NSTemporaryDirectory() + name + ".mov"
+                    let local = URL(fileURLWithPath: path)
+                    
+                    // 判斷暫存檔是否已經存在，如果存在就刪掉它
+                    if fm.fileExists(atPath: path) {
+                        try! fm.removeItem(at: local)
+                    }
+                    fm.createFile(atPath: path, contents: data, attributes: nil)
+                    self.m_urlMap[name] = local
+                }
+            } else {
+                print("資料讀取失敗")
+            }
+        }
+        // 開始讀取資料
+        dataTask.resume()
+    }
+    
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         if annotation is MKUserLocation {
             return nil
