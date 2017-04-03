@@ -148,10 +148,10 @@ class MapVC: UIViewController,MKMapViewDelegate
             return
         }
         
-        if let lookupInfo = userIdentify?.lookupInfo{
-            print("email: \(String(describing: lookupInfo.emailAddress))")
-            print("phone: \(String(describing: lookupInfo.phoneNumber))")
-        }
+//        if let lookupInfo = userIdentify?.lookupInfo{
+//            print("email: \(String(describing: lookupInfo.emailAddress))")
+//            print("phone: \(String(describing: lookupInfo.phoneNumber))")
+//        }
         if let nameComponents = userIdentify?.nameComponents{
             let giveName = nameComponents.givenName ?? ""
             let familyName = nameComponents.familyName ?? ""
