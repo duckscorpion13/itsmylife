@@ -142,27 +142,22 @@ extension TableVC : UIImagePickerControllerDelegate, UINavigationControllerDeleg
         imagePickerVC.delegate = self
         
         // 設定顯示模式為popover
-        imagePickerVC.modalPresentationStyle = .popover
-        let popover = imagePickerVC.popoverPresentationController
-        // 設定popover視窗與哪一個view元件有關連
-        popover?.sourceView = self.view
-        
-        // 以下兩行處理popover的箭頭位置
-        popover?.sourceRect = self.view.bounds
-        popover?.permittedArrowDirections = .any
+        imagePickerVC.modalPresentationStyle = .fullScreen
+//        let popover = imagePickerVC.popoverPresentationController
+//        // 設定popover視窗與哪一個view元件有關連
+//        popover?.sourceView = self.view
+//        
+//        // 以下兩行處理popover的箭頭位置
+//        popover?.sourceRect = self.view.bounds
+//        popover?.permittedArrowDirections = .any
         
         show(imagePickerVC, sender: self)
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        
-        let image = info[UIImagePickerControllerOriginalImage] as! UIImage
-        //        imgView?.image=image
-        self.dismiss(animated: true){
-            if let vc=self.storyboard?.instantiateViewController(withIdentifier: "SVC") as? ScrollVC{
-                vc.m_img=image
-                self.show(vc, sender: self)
-            }
+        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage, let vc=self.storyboard?.instantiateViewController(withIdentifier: "SVC") as? ScrollVC{
+            vc.m_img=image
+            picker.show(vc, sender: self)
         }
     }
     
