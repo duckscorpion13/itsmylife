@@ -80,7 +80,8 @@ class MapVC: UIViewController,MKMapViewDelegate
     }
     let m_database = CKContainer.default().publicCloudDatabase
     var m_allAnnos = [MyAnnotation]()
-    var m_url:URL?
+//    var m_url:URL?
+    var m_selRecName: String?
     var m_urlMap = [String:URL]()
     var m_bPermission = false
     var m_nAskCounts = 0
@@ -158,7 +159,7 @@ class MapVC: UIViewController,MKMapViewDelegate
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.fetchAll()
+//        self.fetchAll()
         self.iCloudSubscribe()
     }
     
@@ -191,9 +192,9 @@ class MapVC: UIViewController,MKMapViewDelegate
     func fetchAll() {
         self.askLogin()
         
-        let date = NSDate(timeInterval: -86400, since: Date())
-        let predicate = NSPredicate(format: "time > %@", date)
-//        let predicate = NSPredicate(value:true)
+//        let date = NSDate(timeInterval: -86400, since: Date())
+//        let predicate = NSPredicate(format: "time > %@", date)
+        let predicate = NSPredicate(value:true)
         let query = CKQuery(recordType: "MyMedia", predicate: predicate)
 //        query.sortDescriptors = [NSSortDescriptor(key: Cloud.Attribute.Question, ascending: true)]
         self.m_database.perform(query, inZoneWith: nil) { (records, error) in
@@ -312,7 +313,7 @@ class MapVC: UIViewController,MKMapViewDelegate
 
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         if let anno = view.annotation as? MyAnnotation, let url = self.m_urlMap[anno.record.recordID.recordName]{
-            self.m_url = url
+            self.m_selRecName = anno.record.recordID.recordName
             if let image = UIImage(contentsOfFile: url.path){
                 anno.imgView?.image = image
             }
@@ -321,20 +322,29 @@ class MapVC: UIViewController,MKMapViewDelegate
     
     
     func btnPress(_ sender:UIButton){
-        if let vc=self.storyboard?.instantiateViewController(withIdentifier: "SVC") as? ScrollVC{
-            if(0==sender.tag){
-                if let url = self.m_url,let image = UIImage(contentsOfFile: url.path){
-                    vc.m_img = image
-                    self.show(vc, sender: self)
-                }
-            } else{
-                if let url = self.m_url{
+        if let name = self.m_selRecName, let url = self.m_urlMap[name]{
+            do{
+                let data = try Data(contentsOf: url)
+                switch sender.tag {
+                case 0:
+                    if let image = UIImage(data: data),let vc=self.storyboard?.instantiateViewController(withIdentifier: "SVC") as? ScrollVC {
+                        vc.m_img = image
+                        self.show(vc, sender: self)
+                    }
+                    
+                case 1:
                     let avc = AVPlayerViewController()
                     avc.player = AVPlayer(url : url)
                     self.present(avc, animated: true){
                         avc.player?.play()
                     }
+                    
+                default:
+                    break
                 }
+            } catch {
+                self.m_urlMap[name] = nil
+                print(error)
             }
         }
     }
