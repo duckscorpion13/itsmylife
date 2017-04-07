@@ -389,7 +389,17 @@
                             <constraint firstAttribute="trailing" secondItem="8kw-Bm-wfC" secondAttribute="trailing" id="tMa-Ld-4eZ"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="3A0-A2-EI1"/>
+                    <navigationItem key="navigationItem" id="3A0-A2-EI1">
+                        <nil key="title"/>
+                        <button key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="ohU-Mi-Vwa">
+                            <rect key="frame" x="112.5" y="7" width="150" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" title="Album"/>
+                            <connections>
+                                <action selector="newAlbum:" destination="flS-Uw-IFQ" eventType="touchUpInside" id="6Sj-qj-vRY"/>
+                            </connections>
+                        </button>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="8kw-Bm-wfC" id="KN5-mp-jXs"/>
                     </connections>

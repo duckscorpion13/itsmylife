@@ -24,7 +24,9 @@ class TableVC: UIViewController{
         do {
             let files = try fm.contentsOfDirectory(atPath: NSTemporaryDirectory())
             for file in files{
-                list.append(file)
+                if(!file.contains("output")){
+                    list.append(file)
+                }
             }
         } catch {
             print(error)
@@ -34,6 +36,9 @@ class TableVC: UIViewController{
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    @IBAction func newAlbum(_ sender: UIButton) {
+         newIPVC() 
     }
     
     
