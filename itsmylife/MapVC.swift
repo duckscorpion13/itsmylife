@@ -82,6 +82,9 @@ class MapVC: UIViewController,MKMapViewDelegate
     var m_allAnnos = [MyAnnotation]()
     var m_url:URL?
     var m_urlMap = [String:URL]()
+    var m_bPermission = false
+    var m_nAskCounts = 0
+    
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var userBtn: UIButton!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
@@ -92,22 +95,33 @@ class MapVC: UIViewController,MKMapViewDelegate
 
         // Do any additional setup after loading the view.
         mapView.delegate=self
+        self.askLogin()
+    }
+    
+    fileprivate func askLogin(){
+        if(self.m_bPermission || self.m_nAskCounts>0){
+            return
+        }
+        self.m_nAskCounts += 1
         
         // 使用預設的 container
         let container = CKContainer.default()
-        
         // 要求使用者授權登入 iCloud
         container.requestApplicationPermission(.userDiscoverability)
         { (status, error) in
             
+            self.m_nAskCounts -= 1
+
             switch status {
             case .initialState:
                 print("使用者尚未決定是否要授權")
                 
             case .granted:
                 print("使用者已經授權")
+                self.m_bPermission = true
                 
                 container.fetchUserRecordID(completionHandler: { (recordID, error) in
+                    
                     guard error == nil else {
                         print(error!)
                         return
@@ -120,7 +134,6 @@ class MapVC: UIViewController,MKMapViewDelegate
                     container.discoverUserIdentity(withUserRecordID: recordID!, completionHandler: { (userIdentity, error) in
                         // 這個區段的程式已經不在主執行緒
                         self.getUserInfo(userIdentify: userIdentity, error: error)
-                            self.iCloudSubscribe()
                     })
                 })
                 
@@ -131,8 +144,19 @@ class MapVC: UIViewController,MKMapViewDelegate
                 print(error!)
             }
         }
-
     }
+    
+    @IBAction func login(_ sender: UIButton) {
+        if(self.m_bPermission){
+            return
+        }
+        
+        if let settingURL = URL(string: UIApplicationOpenSettingsURLString){
+            UIApplication.shared.open(settingURL, options: [:], completionHandler: nil)
+        }
+        
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         self.fetchAll()
         self.iCloudSubscribe()
@@ -153,16 +177,20 @@ class MapVC: UIViewController,MKMapViewDelegate
 //            print("phone: \(String(describing: lookupInfo.phoneNumber))")
 //        }
         if let nameComponents = userIdentify?.nameComponents{
-            let giveName = nameComponents.givenName ?? ""
-            let familyName = nameComponents.familyName ?? ""
-            self.userBtn.setTitle(giveName + " " + familyName, for: .normal)
-    
+            let giveName = nameComponents.givenName ?? "?"
+            let familyName = nameComponents.familyName ?? "?"
+            DispatchQueue.main.async {
+                self.userBtn.setTitle(giveName + " " + familyName, for: .normal)
+            }
+            
             print("givenName: \(giveName)")
             print("familyName: \(familyName)")
         }
     }
     
     func fetchAll() {
+        self.askLogin()
+        
         let date = NSDate(timeInterval: -86400, since: Date())
         let predicate = NSPredicate(format: "time > %@", date)
 //        let predicate = NSPredicate(value:true)

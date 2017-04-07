@@ -309,9 +309,12 @@
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Gva-9y-8ag">
                                 <rect key="frame" x="314" y="9" width="80" height="26"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="User?">
+                                <state key="normal" title="login">
                                     <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="login:" destination="MEB-7X-3c6" eventType="touchUpInside" id="nqc-iq-zNI"/>
+                                </connections>
                             </button>
                         </barButtonItem>
                     </navigationItem>
