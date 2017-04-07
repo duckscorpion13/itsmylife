@@ -31,7 +31,10 @@ class TabBarVC: UITabBarController, UITabBarControllerDelegate
             print("CameraVC")
         }else if viewController.contentVC is CollectionVC{
             print("CollectionVC")
-        }else{
+        }else if viewController.contentVC is MapVC{
+            if let mvc = viewController.contentVC as? MapVC{
+                mvc.fetchAll()
+            }
             print("MapVC")
         }
     }

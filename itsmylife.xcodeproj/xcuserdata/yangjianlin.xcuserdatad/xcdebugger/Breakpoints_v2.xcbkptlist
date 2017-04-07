@@ -9,13 +9,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "itsmylife/MapVC.swift"
-            timestampString = "513231403.644635"
+            filePath = "itsmylife/AppDelegate.swift"
+            timestampString = "513241007.835201"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "315"
-            endingLineNumber = "315"
-            landmarkName = "mapView(_:didSelect:)"
+            startingLineNumber = "44"
+            endingLineNumber = "44"
+            landmarkName = "userNotificationCenter(_:willPresent:withCompletionHandler:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -25,13 +25,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "itsmylife/MapVC.swift"
-            timestampString = "513235218.315069"
+            filePath = "itsmylife/AppDelegate.swift"
+            timestampString = "513241014.452142"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "345"
-            endingLineNumber = "345"
-            landmarkName = "btnPress(_:)"
+            startingLineNumber = "48"
+            endingLineNumber = "48"
+            landmarkName = "userNotificationCenter(_:didReceive:withCompletionHandler:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -41,13 +41,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "itsmylife/MapVC.swift"
-            timestampString = "513235218.315069"
+            filePath = "itsmylife/AppDelegate.swift"
+            timestampString = "513241323.056876"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "327"
-            endingLineNumber = "327"
-            landmarkName = "btnPress(_:)"
+            startingLineNumber = "200"
+            endingLineNumber = "200"
+            landmarkName = "applicationDidBecomeActive(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

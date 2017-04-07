@@ -319,10 +319,29 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOu
         if let _url = url{
             let asset = CKAsset(fileURL: _url)
             record["media"] = asset
+            do{
+                let data = try Data(contentsOf: _url)
+                record["size"] = data.count as CKRecordValue
+                
+                let fm = FileManager.default
+                // 設定錄影的暫存檔路徑，我們把它放到 tmp 目錄下
+                
+                let path = NSTemporaryDirectory() + record.recordID.recordName + (type == 0 ? ".jpg":".mov")
+                let local = URL(fileURLWithPath: path)
+                
+                // 判斷暫存檔是否已經存在，如果存在就刪掉它
+                if fm.fileExists(atPath: path) {
+                    try! fm.removeItem(at: local)
+                }
+                fm.createFile(atPath: path, contents: data, attributes: nil)
+
+            } catch {
+                print(error)
+            }
         }
-//        if let _size = size{
-//            record["size"] = _size as CKRecordValue
-//        }
+        
+        
+
         
         self.m_database.save(record, completionHandler:{ (record, error) in
             if error == nil {

@@ -60,6 +60,13 @@ class MyAnnotation:NSObject,MKAnnotation
         return 0
     }
     
+    var size: Int{
+        if let value = self.record["size"] as? Int{
+            return value
+        }
+        return 0
+    }
+    
     var imgView: UIImageView?
 }
 
@@ -232,7 +239,7 @@ class MapVC: UIViewController,MKMapViewDelegate
         })
     }
     
-    fileprivate func downloadTask(url: URL,name: String){
+    fileprivate func downloadTask(url: URL, name: String, type: Int){
         // 使用預設的設定建立 session
         let config = URLSessionConfiguration.default
         let session = URLSession(configuration: config)
@@ -244,7 +251,8 @@ class MapVC: UIViewController,MKMapViewDelegate
                 if let data = data {
                     let fm = FileManager.default
                     // 設定錄影的暫存檔路徑，我們把它放到 tmp 目錄下
-                    let path = NSTemporaryDirectory() + name + ".mov"
+                    
+                    let path = NSTemporaryDirectory() + name + (type == 0 ? ".jpg":".mov")
                     let local = URL(fileURLWithPath: path)
                     
                     // 判斷暫存檔是否已經存在，如果存在就刪掉它
@@ -279,8 +287,19 @@ class MapVC: UIViewController,MKMapViewDelegate
                 if let media = anno.media{
                     let imageView = UIImageView(frame: CGRect(x:0,y:0,width:50,height:50))
                     anno.imgView = imageView
-                    if((self.m_urlMap[name]) == nil){
-                        downloadTask(url: media.fileURL,name: name)
+                    do{
+                        let path = NSTemporaryDirectory() + name + (anno.type == 0 ? ".jpg":".mov")
+                        let local = URL(fileURLWithPath: path)
+                        self.m_urlMap[name] = local
+                        let data = try Data(contentsOf: local)
+                        if(data.count == anno.size){
+                            self.m_urlMap[name] = local
+                        } else {
+                            self.downloadTask(url: media.fileURL,name: name, type: anno.type)
+                        }
+                    } catch {
+                        print(error)
+                        self.downloadTask(url: media.fileURL,name: name, type: anno.type)
                     }
                     annView?.leftCalloutAccessoryView = imageView
                 }
