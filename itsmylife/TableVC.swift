@@ -95,11 +95,32 @@ extension TableVC : UITableViewDataSource, UITableViewDelegate
                     avc.player?.play()
                 }
             }
-           
-            
         } catch {
             print(error)
         }
+    }
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        let path = NSTemporaryDirectory() + list[indexPath.row]
+        let local = URL(fileURLWithPath: path)
+        do{
+            let data = try Data(contentsOf: local)
+            if let image = UIImage(data: data){
+                // 圖片存檔
+                UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+            } else {
+                if UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(path) {
+                    UISaveVideoAtPathToSavedPhotosAlbum(path, nil, nil, nil)
+                }
+            }
+            tableView.reloadData()
+        } catch {
+            print(error)
+        }
+        
+    }
+    
+    func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
+        return "↓"
     }
 }
 
