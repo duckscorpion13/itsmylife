@@ -72,7 +72,12 @@ extension TableVC : UITableViewDataSource, UITableViewDelegate
         let local = URL(fileURLWithPath: path)
         do{
             let data = try Data(contentsOf: local)
-            cell.imageView?.image = UIImage(data: data)
+            if let image = UIImage(data: data){
+                cell.imageView?.image = image
+            }
+//            } else {
+//                cell.imageView?.image = UIImage(contentsOfFile: "play")
+//            }
         } catch {
             print(error)
         }

@@ -361,14 +361,14 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="6u4-RW-oGg">
-                                                    <rect key="frame" x="56" y="0.0" width="304" height="51.5"/>
+                                                    <rect key="frame" x="55" y="0.0" width="305" height="51.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="Map" id="TTS-rV-eAF">
-                                                    <rect key="frame" x="15" y="12" width="26" height="26"/>
+                                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="play" id="TTS-rV-eAF">
+                                                    <rect key="frame" x="15" y="13" width="25" height="25"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                 </imageView>
                                             </subviews>
@@ -427,11 +427,11 @@
             </objects>
             <point key="canvasLocation" x="-1761" y="1572"/>
         </scene>
-        <!--Media-->
+        <!--List-->
         <scene sceneID="ofo-2t-c27">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="07w-fj-MPK" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Media" image="notes" id="P5e-gf-1cd"/>
+                    <tabBarItem key="tabBarItem" title="List" image="notes" id="P5e-gf-1cd"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="R0p-XD-Bk9">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -452,6 +452,7 @@
         <image name="Map" width="26" height="26"/>
         <image name="circle" width="75" height="75"/>
         <image name="notes" width="28" height="21"/>
+        <image name="play" width="25" height="25"/>
         <image name="rec" width="25" height="25"/>
         <image name="switch" width="50" height="50"/>
         <image name="take" width="25" height="25"/>
