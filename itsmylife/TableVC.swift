@@ -16,18 +16,17 @@ class TableVC: UIViewController{
     @IBOutlet weak var tableView: UITableView!
     var list = [String]()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+    override func viewWillAppear(_ animated: Bool) {
         let fm = FileManager.default
         do {
+            self.list.removeAll()
             let files = try fm.contentsOfDirectory(atPath: NSTemporaryDirectory())
             for file in files{
                 if(!file.contains("output")){
                     list.append(file)
                 }
             }
+            tableView.reloadData()
         } catch {
             print(error)
         }
@@ -74,10 +73,9 @@ extension TableVC : UITableViewDataSource, UITableViewDelegate
             let data = try Data(contentsOf: local)
             if let image = UIImage(data: data){
                 cell.imageView?.image = image
+            } else {
+                cell.imageView?.image = UIImage(named: "play")
             }
-//            } else {
-//                cell.imageView?.image = UIImage(contentsOfFile: "play")
-//            }
         } catch {
             print(error)
         }

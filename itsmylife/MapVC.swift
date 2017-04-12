@@ -83,6 +83,33 @@ class MapVC: UIViewController,MKMapViewDelegate
                 self.m_allAnnos.append(ann)
             }
             self.mapView.addAnnotations(self.m_allAnnos)
+            
+            // Do any additional setup after loading the view.
+            let fm = FileManager.default
+            do {
+                let files = try fm.contentsOfDirectory(atPath: NSTemporaryDirectory())
+                for file in files{
+                    var bRemove = true
+                    if(!file.contains("output")){
+                        for rec in self.m_allRec{
+                            if(file.contains(rec.recordID.recordName)){
+                                bRemove = false
+                                break
+                            }
+                        }
+                        if(bRemove){
+                            let path = NSTemporaryDirectory() + file
+                            do{
+                                try fm.removeItem(atPath: path)
+                            } catch {
+                                print("delete error!!")
+                            }
+                        }
+                    }
+                }
+            } catch {
+                print(error)
+            }
         }
     }
     let m_database = CKContainer.default().publicCloudDatabase
