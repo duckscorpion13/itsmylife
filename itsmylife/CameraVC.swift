@@ -12,7 +12,7 @@ import ImageIO
 import AssetsLibrary
 import CloudKit
 import MapKit
-
+import Social
 
 
 class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOutputRecordingDelegate,UISearchBarDelegate,
@@ -289,6 +289,9 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOu
         { (action) in
             let comment = alert.textFields?[0].text ?? ""
             self.retCKRecord(location:self.m_location,url: url,remark: comment,type: type)
+            if(0==type){
+                self.retSocialRec(comment:comment,url:url)
+            }
         }
         
         // 產生一個文字輸入框
@@ -301,6 +304,28 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOu
         alert.addAction(cancelAction)
         alert.addAction(loginAction)
         show(alert, sender: self)
+    }
+    
+    fileprivate func retSocialRec(comment:String?,url:URL?){
+        
+        // 先測試行動裝置內的服務設定是否完成
+        if SLComposeViewController.isAvailable(forServiceType: SLServiceTypeFacebook) {
+            
+            let social = SLComposeViewController(forServiceType: SLServiceTypeFacebook)
+            // 預先設定要PO的文字
+            social?.setInitialText(comment)
+            
+            // PO文中加一個網址
+//            social?.add(URL(string: "http://www.apple.com"))
+            
+            // PO文加一張圖片
+            if let path = url?.path{
+                social?.add(UIImage(contentsOfFile: path))
+            }
+            show(social!, sender: self)
+        } else {
+            print("系統不具備此服務或是尚未輸入帳號密碼")
+        }
     }
     
     fileprivate func retCKRecord(location:CLLocation?,url: URL?,remark:String,type: Int){
