@@ -96,7 +96,7 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOu
         if let strUrl = self.m_UserDefault.object(forKey: "URL") as? String{
             self.searchBar.text = strUrl
         } else{
-            self.searchBar.text = "https://www.apple.com.tw"
+            self.searchBar.text = "https://www.facebook.com"
         }
         
         if let url = URL(string:searchBar.text!){
