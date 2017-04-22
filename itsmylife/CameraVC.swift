@@ -29,7 +29,7 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOu
     
     let m_UserDefault = UserDefaults.standard
     
-    var m_alpha: Double = 0.6{
+    var m_alpha: Double = 0.9{
         didSet{
             let alpha = CGFloat(self.m_alpha)
             self.m_cameraView?.alpha = alpha
@@ -191,8 +191,8 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOu
         self.m_cameraView?.layer.addSublayer(self.m_captureVideoPreviewLayer)
         
         self.m_cameraView?.center = self.webView.center
-        self.slider.setValue(0.6, animated: false)
-        self.m_alpha = 0.6
+//        self.slider.setValue(0.6, animated: false)
+//        self.m_alpha = 0.6
         // GPS
         self.m_locationMamager.startUpdatingLocation()
         
