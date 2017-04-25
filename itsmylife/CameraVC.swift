@@ -29,7 +29,7 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOu
     
     let m_UserDefault = UserDefaults.standard
     
-    var m_alpha: Double = 0.9{
+    var m_alpha: Double = 0.8{
         didSet{
             let alpha = CGFloat(self.m_alpha)
             self.m_cameraView?.alpha = alpha
@@ -59,6 +59,9 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOu
     
     var m_backCamOn = true
     var m_cameraView: UIView?
+    let m_imgVideo = UIImage(named: "video")
+    let m_imgStop = UIImage(named: "stop")
+    let m_imgPhoto = UIImage(named: "photo")
     
     override func viewWillDisappear(_ animated: Bool) {
         self.m_session.stopRunning()
@@ -72,7 +75,8 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOu
     
     @IBAction func modeChang(_ sender: UISegmentedControl) {
         if(0==sender.selectedSegmentIndex){
-            self.recBtn.setTitle("TAKE", for: .normal)
+//            self.recBtn.setTitle("TAKE", for: .normal)
+            self.recBtn.setImage(self.m_imgPhoto, for: .normal)
         } else{
             let audioDevice = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeAudio)
             
@@ -84,13 +88,14 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOu
             } catch{
                 print(error)
             }
-            self.recBtn.setTitle("REC", for: .normal)
+//            self.recBtn.setTitle("REC", for: .normal)
+            self.recBtn.setImage(self.m_imgVideo, for: .normal)
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.m_alpha = 0.9
         self.searchBar.delegate=self
 //        if let strUrl = self.m_store.string(forKey: "URL"){
         if let strUrl = self.m_UserDefault.object(forKey: "URL") as? String{
@@ -238,7 +243,8 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOu
                     // 開始錄影
                     avCapOpt.startRecording(toOutputFileURL: url,recordingDelegate: self)
                     
-                    self.recBtn.setTitle("STOP", for: .normal)
+//                    self.recBtn.setTitle("STOP", for: .normal)
+                    self.recBtn.setImage(self.m_imgStop, for: .normal)
                 }
             }
         }
@@ -492,7 +498,8 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOu
         }else{
             print(error)
         }
-        self.recBtn.setTitle("REC", for: .normal)
+//        self.recBtn.setTitle("REC", for: .normal)
+        self.recBtn.setImage(self.m_imgVideo, for: .normal)
     }
     
     @IBAction func pinch(_ sender: UIPinchGestureRecognizer) {

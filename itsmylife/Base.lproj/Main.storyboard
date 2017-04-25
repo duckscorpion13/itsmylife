@@ -232,7 +232,8 @@
                             </slider>
                             <button opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gG7-bc-Zry">
                                 <rect key="frame" x="150" y="542" width="75" height="75"/>
-                                <state key="normal" title="take" backgroundImage="circle">
+                                <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="18"/>
+                                <state key="normal" image="photo" backgroundImage="circle">
                                     <color key="titleColor" red="1" green="0.256678511" blue="0.12507303389999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
@@ -448,10 +449,11 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Camera" width="32" height="32"/>
+        <image name="Camera" width="25" height="25"/>
         <image name="Map" width="26" height="26"/>
         <image name="circle" width="75" height="75"/>
         <image name="notes" width="28" height="21"/>
+        <image name="photo" width="50" height="50"/>
         <image name="play" width="25" height="25"/>
         <image name="rec" width="25" height="25"/>
         <image name="switch" width="50" height="50"/>
