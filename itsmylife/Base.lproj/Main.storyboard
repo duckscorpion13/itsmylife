@@ -23,7 +23,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="eVk-25-PzL">
-                                <rect key="frame" x="16" y="33" width="343" height="600"/>
+                                <rect key="frame" x="16" y="33" width="342.5" height="601"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="i44-tN-YwL">
                                     <size key="itemSize" width="74" height="75"/>
@@ -189,8 +189,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fZ1-Z5-F7y">
+                            <webView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fZ1-Z5-F7y">
                                 <rect key="frame" x="0.0" y="42" width="375" height="583"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <gestureRecognizers/>
                                 <connections>
@@ -202,13 +203,8 @@
                                 <rect key="frame" x="0.0" y="44" width="100" height="75"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="pG3-f2-MpW">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </searchBar>
-                            <button opaque="NO" alpha="0.5" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DhX-4I-cBW">
-                                <rect key="frame" x="331" y="581" width="28" height="25"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                            <button opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DhX-4I-cBW">
+                                <rect key="frame" x="309" y="567" width="50" height="50"/>
                                 <state key="normal" image="switch"/>
                                 <connections>
                                     <action selector="switchClick:" destination="O8K-mP-oig" eventType="touchDown" id="r24-Cq-h04"/>
@@ -226,6 +222,10 @@
                             </segmentedControl>
                             <slider opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.90000000000000002" minValue="0.20000000000000001" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Gtd-gk-P6e">
                                 <rect key="frame" x="44" y="44" width="287" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="ZjI-3L-euF"/>
+                                    <constraint firstAttribute="width" constant="283" id="oHK-XN-vUb"/>
+                                </constraints>
                                 <connections>
                                     <action selector="slideChang:" destination="O8K-mP-oig" eventType="valueChanged" id="Ng5-Bo-92X"/>
                                 </connections>
@@ -240,23 +240,41 @@
                                     <action selector="takeClick:" destination="O8K-mP-oig" eventType="touchUpInside" id="psN-Sd-hZx"/>
                                 </connections>
                             </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AYr-s6-Gm3">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="25"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UsG-zW-vQV">
+                                        <rect key="frame" x="0.0" y="0.0" width="25" height="25"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="25" id="h5C-bm-F9P"/>
+                                            <constraint firstAttribute="height" constant="25" id="kU6-vm-JEm"/>
+                                        </constraints>
+                                        <state key="normal" backgroundImage="set"/>
+                                    </button>
+                                    <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="pG3-f2-MpW">
+                                        <rect key="frame" x="25" y="0.0" width="350" height="25"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </searchBar>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="UsG-zW-vQV" firstAttribute="leading" secondItem="AYr-s6-Gm3" secondAttribute="leading" id="ryb-5G-MVy"/>
+                                    <constraint firstItem="UsG-zW-vQV" firstAttribute="top" secondItem="AYr-s6-Gm3" secondAttribute="top" id="ysF-Tg-RiP"/>
+                                </constraints>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="pG3-f2-MpW" secondAttribute="trailing" id="0ry-XA-9jl"/>
-                            <constraint firstItem="gG7-bc-Zry" firstAttribute="centerX" secondItem="fZ1-Z5-F7y" secondAttribute="centerX" id="3Tb-ch-YMt"/>
-                            <constraint firstItem="hJa-NK-PRh" firstAttribute="top" secondItem="gG7-bc-Zry" secondAttribute="bottom" constant="1" id="LZT-5b-70J"/>
-                            <constraint firstItem="hJa-NK-PRh" firstAttribute="top" secondItem="adH-ns-azZ" secondAttribute="bottom" constant="12" id="Tv1-oj-Lv4"/>
-                            <constraint firstItem="fZ1-Z5-F7y" firstAttribute="top" secondItem="7z7-tL-Hj7" secondAttribute="bottom" constant="22" id="ZcC-Gb-rGL"/>
-                            <constraint firstAttribute="bottom" secondItem="fZ1-Z5-F7y" secondAttribute="bottom" constant="42" id="aWE-Gy-14e"/>
-                            <constraint firstItem="Gtd-gk-P6e" firstAttribute="centerX" secondItem="fZ1-Z5-F7y" secondAttribute="centerX" id="dGs-Rh-SQm"/>
-                            <constraint firstItem="fZ1-Z5-F7y" firstAttribute="leading" secondItem="JwA-uV-jHk" secondAttribute="leading" id="iOV-Od-JIe"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Gtd-gk-P6e" secondAttribute="trailing" constant="30" id="jJM-BH-qdf"/>
-                            <constraint firstItem="pG3-f2-MpW" firstAttribute="top" secondItem="JwA-uV-jHk" secondAttribute="top" id="mFW-x5-OT4"/>
-                            <constraint firstItem="Gtd-gk-P6e" firstAttribute="top" secondItem="pG3-f2-MpW" secondAttribute="bottom" id="qWu-2N-YlW"/>
-                            <constraint firstItem="pG3-f2-MpW" firstAttribute="leading" secondItem="JwA-uV-jHk" secondAttribute="leading" id="tdp-id-tVY"/>
-                            <constraint firstAttribute="trailing" secondItem="fZ1-Z5-F7y" secondAttribute="trailing" id="zHU-u3-db5"/>
-                            <constraint firstItem="adH-ns-azZ" firstAttribute="leading" secondItem="JwA-uV-jHk" secondAttribute="leading" constant="14" id="zOc-Ti-zTc"/>
+                            <constraint firstItem="AYr-s6-Gm3" firstAttribute="top" secondItem="JwA-uV-jHk" secondAttribute="top" id="2Bk-fw-XzR"/>
+                            <constraint firstItem="DhX-4I-cBW" firstAttribute="trailing" secondItem="JwA-uV-jHk" secondAttribute="trailingMargin" id="4VU-S4-P3I"/>
+                            <constraint firstItem="adH-ns-azZ" firstAttribute="leading" secondItem="JwA-uV-jHk" secondAttribute="leading" constant="14" id="5P4-VG-c3a"/>
+                            <constraint firstItem="hJa-NK-PRh" firstAttribute="top" secondItem="gG7-bc-Zry" secondAttribute="bottom" constant="1" id="5Wh-6H-YNP"/>
+                            <constraint firstItem="Gtd-gk-P6e" firstAttribute="centerX" secondItem="JwA-uV-jHk" secondAttribute="centerX" id="5t5-t8-BDP"/>
+                            <constraint firstItem="hJa-NK-PRh" firstAttribute="top" secondItem="DhX-4I-cBW" secondAttribute="bottom" constant="1" id="SWd-rl-imc"/>
+                            <constraint firstAttribute="trailing" secondItem="AYr-s6-Gm3" secondAttribute="trailing" id="aAJ-5m-Ypl"/>
+                            <constraint firstItem="hJa-NK-PRh" firstAttribute="top" secondItem="adH-ns-azZ" secondAttribute="bottom" constant="12" id="cA4-UL-Y8o"/>
+                            <constraint firstItem="gG7-bc-Zry" firstAttribute="centerX" secondItem="JwA-uV-jHk" secondAttribute="centerX" id="h3h-Wa-u8N"/>
+                            <constraint firstItem="AYr-s6-Gm3" firstAttribute="leading" secondItem="JwA-uV-jHk" secondAttribute="leading" id="uG8-po-Co5"/>
+                            <constraint firstItem="Gtd-gk-P6e" firstAttribute="top" secondItem="AYr-s6-Gm3" secondAttribute="bottom" constant="19" id="w1e-v2-EF1"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Camera" image="Camera" id="Zvf-cr-2CB"/>
@@ -317,7 +335,7 @@
                     <navigationItem key="navigationItem" id="g1C-tv-9oa">
                         <barButtonItem key="rightBarButtonItem" id="vVv-EA-kz6">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Gva-9y-8ag">
-                                <rect key="frame" x="314" y="9" width="80" height="26"/>
+                                <rect key="frame" x="279" y="9" width="80" height="26"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="login">
                                     <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -456,6 +474,7 @@
         <image name="photo" width="50" height="50"/>
         <image name="play" width="25" height="25"/>
         <image name="rec" width="25" height="25"/>
+        <image name="set" width="25" height="25"/>
         <image name="switch" width="50" height="50"/>
         <image name="take" width="25" height="25"/>
     </resources>
