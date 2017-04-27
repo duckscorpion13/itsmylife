@@ -18,7 +18,8 @@ import Social
 class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOutputRecordingDelegate,UISearchBarDelegate,
     CLLocationManagerDelegate
 {
-
+    var m_setList = [(title: String, isOn: Bool)]()
+    
     var m_locationMamager:CLLocationManager!
     
     var m_location:CLLocation?
@@ -56,6 +57,7 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOu
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var webView: UIWebView!
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet var tableView: UITableView!
     
     var m_backCamOn = true
     var m_cameraView: UIView?
@@ -64,6 +66,22 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOu
     let m_imgPhoto = UIImage(named: "photo")
     
     let m_lbl = UILabel(frame: CGRect(x: 0, y: 0, width: 50, height: 30))
+    
+    override func viewWillAppear(_ animated: Bool) {
+        // tableView
+        view.addSubview(self.tableView)
+        self.tableView.translatesAutoresizingMaskIntoConstraints = false
+        self.tableView.heightAnchor.constraint(equalToConstant: 256).isActive = true
+        self.tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10).isActive = true
+        self.tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10).isActive = true
+        let c = self.tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 256)
+        c.identifier = "bottom"
+        c.isActive = true
+        
+        self.tableView.layer.cornerRadius = 20
+        
+        super.viewWillAppear(animated)
+    }
     
     override func viewWillDisappear(_ animated: Bool) {
         self.m_session.stopRunning()
@@ -510,6 +528,23 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOu
         self.recBtn.setImage(self.m_imgVideo, for: .normal)
     }
     
+    @IBAction func setting(_ sender: UIButton) {
+        displayPickerView(true)
+    }
+    @IBAction func done(_ sender: UIButton) {
+        displayPickerView(false)
+    }
+    func displayPickerView(_ show: Bool){
+        for c in view.constraints{
+            if c.identifier == "bottom"{
+                c.constant = show ? -10 : 256
+                break
+            }
+        }
+        UIView.animate(withDuration: 0.5){
+            self.view.layoutIfNeeded()
+        }
+    }
     @IBAction func pinch(_ sender: UIPinchGestureRecognizer) {
         if( sender.state == .ended || sender.state == .changed) {
             
@@ -518,6 +553,27 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOu
             
         }
     }
+}
+
+extension CameraVC : UITableViewDataSource, UITableViewDelegate
+{
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "setCell", for: indexPath) as! SettingCell
+        
+        return cell
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    }
+    
 }
 
 
