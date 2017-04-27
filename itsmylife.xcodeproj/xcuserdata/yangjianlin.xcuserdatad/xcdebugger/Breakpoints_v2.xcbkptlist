@@ -218,11 +218,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "itsmylife/CameraVC.swift"
-            timestampString = "514785495.492975"
+            timestampString = "514952939.469573"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "211"
-            endingLineNumber = "211"
+            startingLineNumber = "216"
+            endingLineNumber = "216"
             landmarkName = "locationManager(_:didUpdateLocations:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -234,11 +234,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "itsmylife/CameraVC.swift"
-            timestampString = "514785495.492975"
+            timestampString = "514952939.469573"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "300"
-            endingLineNumber = "300"
+            startingLineNumber = "307"
+            endingLineNumber = "307"
             landmarkName = "alertAction(url:type:)"
             landmarkType = "7">
             <Locations>
@@ -282,11 +282,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "itsmylife/CameraVC.swift"
-            timestampString = "514785495.492975"
+            timestampString = "514952939.469573"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "330"
-            endingLineNumber = "330"
+            startingLineNumber = "337"
+            endingLineNumber = "337"
             landmarkName = "retSocialRec(comment:url:)"
             landmarkType = "7">
          </BreakpointContent>

@@ -63,6 +63,8 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOu
     let m_imgStop = UIImage(named: "stop")
     let m_imgPhoto = UIImage(named: "photo")
     
+    let m_lbl = UILabel(frame: CGRect(x: 0, y: 0, width: 50, height: 30))
+    
     override func viewWillDisappear(_ animated: Bool) {
         self.m_session.stopRunning()
         
@@ -194,8 +196,11 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOu
         self.m_captureVideoPreviewLayer.session = self.m_session
         self.m_captureVideoPreviewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
         self.m_cameraView?.layer.addSublayer(self.m_captureVideoPreviewLayer)
-        
         self.m_cameraView?.center = self.webView.center
+        
+        self.m_lbl.textColor = UIColor.red
+        self.m_cameraView?.addSubview(self.m_lbl)
+        
 //        self.slider.setValue(0.6, animated: false)
 //        self.m_alpha = 0.6
         // GPS
@@ -245,6 +250,8 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOu
                     
 //                    self.recBtn.setTitle("STOP", for: .normal)
                     self.recBtn.setImage(self.m_imgStop, for: .normal)
+                    self.m_lbl.text = "◉REC"
+
                 }
             }
         }
@@ -491,6 +498,7 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOu
     func capture(_ captureOutput: AVCaptureFileOutput!, didFinishRecordingToOutputFileAt outputFileURL: URL!, fromConnections connections: [Any]!, error: Error!) {
         // 停止錄影後，這個method會被呼叫
         if error == nil {
+            self.m_lbl.text = ""
             if UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(outputFileURL.path) {
                 UISaveVideoAtPathToSavedPhotosAlbum(outputFileURL.path, nil, nil, nil)
                 alertAction(url: outputFileURL,type: 1)
