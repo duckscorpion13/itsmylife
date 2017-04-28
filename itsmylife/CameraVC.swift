@@ -201,7 +201,8 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOu
         super.viewDidAppear(animated)
         
         if(self.m_cameraView == nil){
-            self.m_cameraView=UIView(frame:CGRect(x: self.webView.center.x, y: self.webView.center.y, width: 100, height: 100))
+            let screemSize = UIScreen.main.bounds.size
+            self.m_cameraView=UIView(frame:CGRect(x: self.webView.center.x, y: self.webView.center.y, width: screemSize.width/2, height: screemSize.height/2))
             self.m_cameraView?.contentMode = .scaleAspectFill
             self.webView.addSubview(self.m_cameraView!)
         }
