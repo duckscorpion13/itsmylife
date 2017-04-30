@@ -83,6 +83,13 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOu
         super.viewWillAppear(animated)
     }
     
+    fileprivate func initSetList(){
+        self.m_setList.removeAll()
+        self.m_setList.append((title: "Sound", isOn: true))
+        self.m_setList.append((title: "Video", isOn: true))
+        self.m_setList.append((title: "Delegate", isOn: true))
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         self.m_session.stopRunning()
         
@@ -115,6 +122,9 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOu
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.initSetList()
+        
         self.m_alpha = 0.9
         self.searchBar.delegate=self
 //        if let strUrl = self.m_store.string(forKey: "URL"){
@@ -564,12 +574,13 @@ extension CameraVC : UITableViewDataSource, UITableViewDelegate
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return self.m_setList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "setCell", for: indexPath) as! SettingCell
-        
+        cell.m_label?.text = self.m_setList[indexPath.row].title
+        cell.m_switch?.isOn = self.m_setList[indexPath.row].isOn
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

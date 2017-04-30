@@ -303,7 +303,7 @@
                     <button key="tableHeaderView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="FaW-fo-oeq">
                         <rect key="frame" x="0.0" y="0.0" width="240" height="44"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <state key="normal" title="done"/>
+                        <state key="normal" title="Done"/>
                         <connections>
                             <action selector="done:" destination="O8K-mP-oig" eventType="touchUpInside" id="kAg-As-fV9"/>
                         </connections>
@@ -317,7 +317,7 @@
                                 <autoresizingMask key="autoresizingMask"/>
                                 <subviews>
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yWh-dn-fWY">
-                                        <rect key="frame" x="191" y="6" width="51" height="31"/>
+                                        <rect key="frame" x="186" y="6" width="51" height="31"/>
                                     </switch>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="znJ-T5-j5f">
                                         <rect key="frame" x="10" y="11" width="42" height="21"/>
@@ -329,7 +329,7 @@
                                 <constraints>
                                     <constraint firstItem="yWh-dn-fWY" firstAttribute="centerY" secondItem="ak9-8g-Rih" secondAttribute="centerY" id="7VR-NV-DZS"/>
                                     <constraint firstItem="znJ-T5-j5f" firstAttribute="leading" secondItem="ak9-8g-Rih" secondAttribute="leading" constant="10" id="bIP-Cf-Erk"/>
-                                    <constraint firstAttribute="trailing" secondItem="yWh-dn-fWY" secondAttribute="trailing" id="qSn-rh-l00"/>
+                                    <constraint firstAttribute="trailing" secondItem="yWh-dn-fWY" secondAttribute="trailing" constant="5" id="qSn-rh-l00"/>
                                     <constraint firstItem="znJ-T5-j5f" firstAttribute="centerY" secondItem="ak9-8g-Rih" secondAttribute="centerY" id="tCs-7D-JpT"/>
                                 </constraints>
                             </tableViewCellContentView>
