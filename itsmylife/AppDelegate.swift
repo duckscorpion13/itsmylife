@@ -10,6 +10,10 @@ import UIKit
 import CoreLocation
 import UserNotifications
 
+import Fabric
+import Crashlytics
+
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate
 {
@@ -38,6 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 //        self.sendNotification()
         application.applicationIconBadgeNumber=0
         
+        Fabric.with([Crashlytics.self])
         return true
     }
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
