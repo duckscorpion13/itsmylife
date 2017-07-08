@@ -408,7 +408,7 @@
 				CODE_SIGN_ENTITLEMENTS = itsmylife/itsmylife.entitlements;
 				DEVELOPMENT_TEAM = DX2XU755YA;
 				INFOPLIST_FILE = itsmylife/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = dsy13.itsmylife;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -425,7 +425,7 @@
 				CODE_SIGN_ENTITLEMENTS = itsmylife/itsmylife.entitlements;
 				DEVELOPMENT_TEAM = DX2XU755YA;
 				INFOPLIST_FILE = itsmylife/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = dsy13.itsmylife;
 				PRODUCT_NAME = "$(TARGET_NAME)";

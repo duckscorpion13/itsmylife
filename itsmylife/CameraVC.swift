@@ -14,6 +14,7 @@ import CloudKit
 import MapKit
 import Social
 
+import Crashlytics
 
 class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOutputRecordingDelegate,UISearchBarDelegate,
     CLLocationManagerDelegate
@@ -186,6 +187,10 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureFileOu
         // GPS
         self.m_locationMamager = CLLocationManager()
         self.m_locationMamager.delegate = self
+        
+        // TODO: Track the user action that is important for you.
+        Answers.logContentView(withName: "Tweet", contentType: "Video", contentId: "1234", customAttributes: ["Favorites Count":20, "Screen Orientation":"Landscape"])
+
         
     }
     

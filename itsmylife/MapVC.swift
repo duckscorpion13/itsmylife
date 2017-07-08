@@ -12,6 +12,7 @@ import CloudKit
 import AVKit
 import AVFoundation
 
+import Crashlytics
 
 
 class MyAnnotation:NSObject,MKAnnotation
@@ -131,6 +132,10 @@ class MapVC: UIViewController,MKMapViewDelegate
         // Do any additional setup after loading the view.
         mapView.delegate=self
         self.askLogin()
+        
+        // TODO: Track the user action that is important for you.
+        Answers.logContentView(withName: "Tweet", contentType: "Video", contentId: "1234", customAttributes: ["Favorites Count":20, "Screen Orientation":"Landscape"])
+
     }
     
     fileprivate func askLogin(){
