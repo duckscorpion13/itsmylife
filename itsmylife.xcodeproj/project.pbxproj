@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		70BC6C418D5E4F49B760ED81 /* Pods_itsmylife.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED98971D5158D26B842DBA6E /* Pods_itsmylife.framework */; };
+		F90CB36B1F2C2B50001B2390 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F90CB36A1F2C2B50001B2390 /* GoogleService-Info.plist */; };
 		F93772261E3630BB00973764 /* CameraVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93772251E3630BB00973764 /* CameraVC.swift */; };
 		F95348721E4C96E30096CAB1 /* TabBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F95348711E4C96E30096CAB1 /* TabBarVC.swift */; };
 		F9A026451E4C847E00CFBF1C /* MyMedia.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9A026441E4C847E00CFBF1C /* MyMedia.swift */; };
@@ -29,6 +30,7 @@
 		13B028DCC8B08F6B3516E492 /* Pods-itsmylife.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-itsmylife.debug.xcconfig"; path = "Pods/Target Support Files/Pods-itsmylife/Pods-itsmylife.debug.xcconfig"; sourceTree = "<group>"; };
 		84781458AB77DAC6AF906D04 /* Pods-itsmylife.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-itsmylife.release.xcconfig"; path = "Pods/Target Support Files/Pods-itsmylife/Pods-itsmylife.release.xcconfig"; sourceTree = "<group>"; };
 		ED98971D5158D26B842DBA6E /* Pods_itsmylife.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_itsmylife.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F90CB36A1F2C2B50001B2390 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F923FA511E592E7200EC8B99 /* itsmylife.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = itsmylife.entitlements; sourceTree = "<group>"; };
 		F93772251E3630BB00973764 /* CameraVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraVC.swift; sourceTree = "<group>"; };
 		F95348711E4C96E30096CAB1 /* TabBarVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarVC.swift; sourceTree = "<group>"; };
@@ -93,6 +95,7 @@
 		F9AAD9891E2118CD00A54488 /* itsmylife */ = {
 			isa = PBXGroup;
 			children = (
+				F90CB36A1F2C2B50001B2390 /* GoogleService-Info.plist */,
 				F9E633E01EB2326C003F041F /* SettingCell.swift */,
 				F923FA511E592E7200EC8B99 /* itsmylife.entitlements */,
 				F9AAD98A1E2118CD00A54488 /* AppDelegate.swift */,
@@ -198,6 +201,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F9AAD9951E2118CD00A54488 /* LaunchScreen.storyboard in Resources */,
+				F90CB36B1F2C2B50001B2390 /* GoogleService-Info.plist in Resources */,
 				F9AAD9921E2118CD00A54488 /* Assets.xcassets in Resources */,
 				F9AAD9901E2118CD00A54488 /* Main.storyboard in Resources */,
 			);
@@ -406,12 +410,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = itsmylife/itsmylife.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = DX2XU755YA;
 				INFOPLIST_FILE = itsmylife/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = dsy13.itsmylife;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -423,12 +429,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = itsmylife/itsmylife.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = DX2XU755YA;
 				INFOPLIST_FILE = itsmylife/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = dsy13.itsmylife;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
